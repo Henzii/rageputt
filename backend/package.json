@@ -1,0 +1,11 @@
+{
+  "name": "rage-backend",
+  "version": "0.0.1",
+  "description": "RAgeputin backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Henry Karlenius",
+  "license": "ISC"
+}
