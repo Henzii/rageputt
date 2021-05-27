@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.test {
+  border: 1px solid red;
+}
+.rundiValitsin div, .rundiValitsin h2 {
+  margin: auto;
+}
+.rundiValitsin {
+  margin-top: 10px;
+  width: 100%;
+}
+.tulosValitsin {
+  white-space: nowrap;
+  margin: auto;
+  padding: 0px;
+}

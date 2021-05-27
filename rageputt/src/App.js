@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom'
 
+import Peli from './Peli';
+
 import Vetomenu from './components/Vetomenu'
 import LoginForm from './components/LoginForm'
 
@@ -37,6 +39,9 @@ function App() {
       <Switch>
         <Route path="/login" >
           <LoginForm />
+        </Route>
+        <Route path="/peli">
+          <Peli />
         </Route>
         <Route path="/createUser">
           <CreateUserForm />
