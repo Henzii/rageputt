@@ -3,6 +3,7 @@ import { Button, TextField, List, ListItem, Backdrop, CircularProgress } from '@
 import { useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
 import { setUser, clearUser } from '../reducers/userReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch, useSelector } from 'react-redux'
 
 const LoginForm = () => {
@@ -25,7 +26,7 @@ const LoginForm = () => {
             dispatch(sailo);
             setLoginProcess(false);
         }).catch(e => {
-            console.log('Error, ', e.message)
+            dispatch( setNotification('Väärä tunnus tai salasana', 'error'))
             setLoginProcess(false);
         })
         
