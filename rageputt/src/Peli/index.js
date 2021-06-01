@@ -1,13 +1,12 @@
-import { AppBar, Grid, IconButton, Toolbar } from '@material-ui/core'
+import { Grid, IconButton } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Player from './Player'
 
 const Peli = () => {
 
     const dispatch = useDispatch()
-    const rundiData = useSelector(state => state)
+    const rundiData = useSelector(state => state.tulokset)
     return (
         <div>
             <Grid container className="rundiValitsin">

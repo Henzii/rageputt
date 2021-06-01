@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 
-import { createStore } from 'redux';
 import { Provider } from 'react-redux'
 
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -9,16 +8,25 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-import tuloksetReducer from './reducers/tuloksetReducer';
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client'
 
-const store = createStore(tuloksetReducer);
+import store from './store'
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: 'http://localhost:4000',
+  })
+})
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </ApolloProvider>,
   document.getElementById('root')
 );
 

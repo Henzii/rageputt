@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom'
 
 import Peli from './Peli';
+import Notification from './components/Notification'
 
 import Vetomenu from './components/Vetomenu'
 import LoginForm from './components/LoginForm'
@@ -35,6 +36,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <Vetomenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <Notification />
       <Container>
       <Switch>
         <Route path="/login" >

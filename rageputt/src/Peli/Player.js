@@ -1,5 +1,4 @@
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core"
-import { useState } from "react"
 import { useDispatch } from "react-redux"
 
 const Player = ({ player, round }) => {
