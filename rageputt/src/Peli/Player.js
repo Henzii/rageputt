@@ -10,7 +10,7 @@ const Player = ({ player, round }) => {
         dispatch({
             type: 'SET_SCORE',
             data: {
-                name: player.name,
+                name: player.user.name,
                 round: round,
                 score: Number(e.target.value)
             }
@@ -19,7 +19,7 @@ const Player = ({ player, round }) => {
 
     return (
         <div>
-            <h2>{player.name} { (round > 1) ? 5+player.tulokset[round-1] : 10}m</h2>
+            <h2>{player.user.name} { (round > 1) ? 5+player.tulokset[round-1] : 10}m</h2>
             <div className="tulosValitsin">
                 <RadioGroup row style={{ whiteSpace: 'nowrap' }} value={player.tulokset[round]} onChange={handleChange}>
                     <RadioButtons />

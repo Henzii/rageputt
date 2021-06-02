@@ -1,4 +1,4 @@
-const { gql, UserInputError } = require('apollo-server');
+const { gql, UserInputError, SyntaxError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 
@@ -66,6 +66,7 @@ const typeDefs = gql`
     type Mutation {
         login( user: String!, password: String!):Token
         createUser( user: String!, password: String!, name: String, email: String):User
+        setScore( roundId: String!, round: Int!, player: String!, score: Int!): Game
     }
 `
 
@@ -79,6 +80,16 @@ const resolvers = {
         }
     },
     Mutation: {
+        setScore: (root, args) => {
+            const peli = testRound.find(r => r.id === args.roundId)
+            if (!peli) throw new SyntaxError('Epäkelpo ID')
+            console.log(peli);
+            const pelaaja = peli.players.find(p => p.user.name === args.player)
+            if (!pelaaja) throw new SyntaxError('Epäkelpo pelaaja')
+            pelaaja.tulokset[ args.round ] = args.score;
+            return peli;
+
+        },
         login: async (root, args) => {
             const user = users.find(u => u.user === args.user);
             if (!user || await bcrypt.compare(args.password, user.passwordHash) === false) {
