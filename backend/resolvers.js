@@ -45,6 +45,7 @@ const typeDefs = gql`
         id: ID!
     }
     type GameCard {
+        id: ID!
         user: User!
         tulokset: [Int!]
     }
@@ -66,7 +67,7 @@ const typeDefs = gql`
     type Mutation {
         login( user: String!, password: String!):Token
         createUser( user: String!, password: String!, name: String, email: String):User
-        setScore( roundId: String!, round: Int!, player: String!, score: Int!): Game
+        setScore( roundId: String!, round: ID!, player: String!, score: Int!): Game
     }
 `
 
@@ -83,10 +84,10 @@ const resolvers = {
         setScore: (root, args) => {
             const peli = testRound.find(r => r.id === args.roundId)
             if (!peli) throw new SyntaxError('Epäkelpo ID')
-            console.log(peli);
             const pelaaja = peli.players.find(p => p.user.name === args.player)
             if (!pelaaja) throw new SyntaxError('Epäkelpo pelaaja')
-            pelaaja.tulokset[ args.round ] = args.score;
+            pelaaja.tulokset[ ( args.round-1 ) ] = args.score;
+            console.log('Setscore Ok')
             return peli;
 
         },

@@ -9,7 +9,8 @@ const reducer = (state = null, action) => {
             if (state.round > 1)
                 return {...state, round: state.round - 1 } 
             else return state;
-
+        case 'SET_ID':
+            return { ...state, id: action.data.id }
         case 'INIT_ROUND':
             return action.data;
         default:

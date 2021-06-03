@@ -12,7 +12,7 @@ export const LOGIN = gql`
 
 `
 export const SET_SCORE = gql`
-    muation setScore($roundId: String!, $round: Int!, $player: String!, $score: Int!) {
+    mutation setScore($roundId: String!, $round: ID!, $player: String!, $score: Int!) {
         setScore(
             roundId: $roundId
             round: $round

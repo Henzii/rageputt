@@ -1,17 +1,24 @@
+import { useMutation } from "@apollo/client"
 import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core"
-import { useDispatch } from "react-redux"
+import { useSelector } from 'react-redux'
+import { SET_SCORE, GET_ROUND } from "../queries"
 
 const Player = ({ player, round }) => {
 
-    const dispatch = useDispatch()
+    const roundData = useSelector(state => state.tulokset)
 
-    const handleChange = (e) => {    
+    const [setScore] = useMutation(SET_SCORE, {
+        refetchQueries: [{ query: GET_ROUND, variables: { roundId: 'tR1' } }]
+    })
+
+
+    const handleChange = (e) => {
         console.log('Clickkiä arvoon ', e.target.value)
-        dispatch({
-            type: 'SET_SCORE',
-            data: {
-                name: player.user.name,
-                round: round,
+        setScore({
+            variables: {
+                roundId: 'tR1',
+                round: roundData.round,
+                player: player.user.name,
                 score: Number(e.target.value)
             }
         })
@@ -19,7 +26,7 @@ const Player = ({ player, round }) => {
 
     return (
         <div>
-            <h2>{player.user.name} { (round > 1) ? 5+player.tulokset[round-1] : 10}m</h2>
+            <h2>{player.user.name} {(round > 1) ? 5 + player.tulokset[round - 1] : 10}m</h2>
             <div className="tulosValitsin">
                 <RadioGroup row style={{ whiteSpace: 'nowrap' }} value={player.tulokset[round]} onChange={handleChange}>
                     <RadioButtons />
