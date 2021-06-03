@@ -1,4 +1,4 @@
-const { gql, UserInputError, SyntaxError } = require('apollo-server');
+const { gql, UserInputError, SyntaxError, ForbiddenError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 
@@ -67,6 +67,7 @@ const typeDefs = gql`
         login( user: String!, password: String!):Token
         createUser( user: String!, password: String!, name: String, email: String):User
         setScore( roundId: String!, round: ID!, player: String!, score: Int!): Game
+        finishGame( roundId: String! ):Game
     }
 `
 
@@ -75,19 +76,27 @@ const resolvers = {
         usersCount: () => users.length,
         users: () => users,
         getRound: (root, args) => {
+            console.log('Getscore!')
             if (args.rounId === null || args.roundId === '') return null
             const rundi = testRound.find(r => r.id === args.roundId)
             return rundi;
         }
     },
     Mutation: {
+        finishGame: (root, args) => {
+            const peli = testRound.find(r => r.id === args.roundId)
+            peli.finished = true;
+            return peli
+        },
         setScore: (root, args) => {
             const peli = testRound.find(r => r.id === args.roundId)
             if (!peli) throw new SyntaxError('Epäkelpo ID')
+            if (peli.finished) throw new ForbiddenError('Päättynyttä peliä ei voi enää muokata')
+
             const pelaaja = peli.players.find(p => p.user.name === args.player)
             if (!pelaaja) throw new SyntaxError('Epäkelpo pelaaja')
             pelaaja.tulokset[ args.round ] = args.score;
-            console.log('Setscore Ok')
+            console.log('Setscore!')
             return peli;
 
         },

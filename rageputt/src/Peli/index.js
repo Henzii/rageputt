@@ -2,20 +2,23 @@ import { useQuery, useLazyQuery } from '@apollo/client'
 import { Button } from '@material-ui/core'
 import { Grid, IconButton } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { GET_ROUND } from '../queries'
 import Player from './Player'
+import NewGameModal from './NewGameModal'
 
 const Peli = () => {
 
     const dispatch = useDispatch()
+    const [ modalOpen, setModal ] = useState(false)
 
     const tulokset = useSelector(state => state.tulokset)
     
     const kierrosData = useQuery(GET_ROUND, { variables: { roundId: tulokset.roundId } } )
 
     const handleNewGame = () => {
-        
+
     }
 
     if (kierrosData.loading) {
@@ -25,14 +28,17 @@ const Peli = () => {
             </div>
         )
     }
-    if (!tulokset.roundId || kierrosData.data.getRound === null) {
+    if (tulokset.roundId === null || kierrosData.data.getRound === null) {
         return (
             <div>
                 <h2>Pakko puttaa</h2>
                 <p>
                     Ei aktiivista peliä käynnissä.
                 </p>
-                <Button onClick={handleNewGame} color="primary" variant="contained" size="large" fullWidth>Aloita uusi peli</Button>
+                <Button onClick={ () => setModal(true) } color="primary" variant="contained" size="large" fullWidth>Aloita uusi peli</Button>
+
+                <NewGameModal open={modalOpen} setModal={setModal}/>
+
             </div>            
         )
     }

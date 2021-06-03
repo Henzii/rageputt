@@ -15,7 +15,7 @@ import store from './store'
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink({
-    uri: 'http://localhost:4000',
+    uri: 'http://192.168.1.6:4000',
   })
 })
 
