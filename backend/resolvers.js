@@ -22,7 +22,7 @@ const testRound = [{
                 id: 'AA1'
             },
             tulokset: [
-                0,1,2,5,4,3,5,6,4,3,2,4,5,4,3,2,4,5,6,1
+                
             ]
         },
         {
@@ -31,7 +31,7 @@ const testRound = [{
                 id: 'BB2'
             },
             tulokset: [
-                1,2,4,3,0,2,3,0,2,1,2,0,3,5,4,2,3,2,0,1
+                
             ]
         }
     ]
@@ -45,7 +45,6 @@ const typeDefs = gql`
         id: ID!
     }
     type GameCard {
-        id: ID!
         user: User!
         tulokset: [Int!]
     }
@@ -76,6 +75,7 @@ const resolvers = {
         usersCount: () => users.length,
         users: () => users,
         getRound: (root, args) => {
+            if (args.rounId === null || args.roundId === '') return null
             const rundi = testRound.find(r => r.id === args.roundId)
             return rundi;
         }
@@ -86,7 +86,7 @@ const resolvers = {
             if (!peli) throw new SyntaxError('Epäkelpo ID')
             const pelaaja = peli.players.find(p => p.user.name === args.player)
             if (!pelaaja) throw new SyntaxError('Epäkelpo pelaaja')
-            pelaaja.tulokset[ ( args.round-1 ) ] = args.score;
+            pelaaja.tulokset[ args.round ] = args.score;
             console.log('Setscore Ok')
             return peli;
 

@@ -1,12 +1,12 @@
 
-const reducer = (state = null, action) => {
+const reducer = (state = { round: 0, roundId: 'tR11' }, action) => {
     switch(action.type) {
         case 'INC_ROUND':
-            if (state.round < 20)
+            if (state.round < 19)
                 return {...state, round: state.round + 1 }
             else return state;
         case 'DEC_ROUND':
-            if (state.round > 1)
+            if (state.round >= 1)
                 return {...state, round: state.round - 1 } 
             else return state;
         case 'SET_ID':

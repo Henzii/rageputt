@@ -23,12 +23,15 @@ const Player = ({ player, round }) => {
             }
         })
     }
-
+    const distance = (round > 0 ) ? 5 + player.tulokset[ round-1 ] : 10
+    let putteja = player.tulokset[round]
+    if (isNaN(putteja)) putteja = null
+    console.log(putteja)
     return (
         <div>
-            <h2>{player.user.name} {(round > 1) ? 5 + player.tulokset[round - 1] : 10}m</h2>
+            <h2>{player.user.name} { (distance) ? distance : ' xx '}m</h2>
             <div className="tulosValitsin">
-                <RadioGroup row style={{ whiteSpace: 'nowrap' }} value={player.tulokset[round]} onChange={handleChange}>
+                <RadioGroup row style={{ whiteSpace: 'nowrap' }} value={putteja} onChange={handleChange}>
                     <RadioButtons />
                 </RadioGroup>
             </div>
