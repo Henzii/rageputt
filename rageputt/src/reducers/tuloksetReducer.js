@@ -1,5 +1,5 @@
 
-const reducer = (state = { round: 0, roundId: 'tR11' }, action) => {
+const reducer = (state = {round: 0, roundId: null}, action) => {
     switch(action.type) {
         case 'INC_ROUND':
             if (state.round < 19)
@@ -10,7 +10,7 @@ const reducer = (state = { round: 0, roundId: 'tR11' }, action) => {
                 return {...state, round: state.round - 1 } 
             else return state;
         case 'SET_ID':
-            return { ...state, id: action.data.id }
+            return { ...state, roundId: action.data.roundId }
         case 'INIT_ROUND':
             return action.data;
         default:

@@ -11,6 +11,11 @@ export const LOGIN = gql`
 
 
 `
+export const CREATE_GAME = gql`
+    mutation createGame {
+        createGame
+    }
+`
 export const SET_SCORE = gql`
     mutation setScore($roundId: String!, $round: ID!, $player: String!, $score: Int!) {
         setScore(

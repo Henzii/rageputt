@@ -1,14 +1,15 @@
 const { gql, UserInputError, SyntaxError, ForbiddenError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
+const UserModel = require('./models/User')
 
 const users = [
     {
         user: 'henzi',
         name: 'Henkka',
         passwordHash: 'jotain',
-        id: 'A1'
-    }
+        id: 'A1',
+    },
 ]
 const testRound = [{
     finished: false,
@@ -68,6 +69,7 @@ const typeDefs = gql`
         createUser( user: String!, password: String!, name: String, email: String):User
         setScore( roundId: String!, round: ID!, player: String!, score: Int!): Game
         finishGame( roundId: String! ):Game
+        createGame: String
     }
 `
 
@@ -76,13 +78,17 @@ const resolvers = {
         usersCount: () => users.length,
         users: () => users,
         getRound: (root, args) => {
-            console.log('Getscore!')
+            console.log('Hae peli')
             if (args.rounId === null || args.roundId === '') return null
             const rundi = testRound.find(r => r.id === args.roundId)
             return rundi;
         }
     },
     Mutation: {
+        createGame: (root, args) => {
+            console.log('Uusi peli')
+            return 'tR1'
+        },
         finishGame: (root, args) => {
             const peli = testRound.find(r => r.id === args.roundId)
             peli.finished = true;
@@ -101,7 +107,8 @@ const resolvers = {
 
         },
         login: async (root, args) => {
-            const user = users.find(u => u.user === args.user);
+            const user = await UserModel.findOne( { user: args.user })
+            
             if (!user || await bcrypt.compare(args.password, user.passwordHash) === false) {
                 throw new UserInputError("Väärä tunnus tai salasana")
             }
@@ -115,14 +122,15 @@ const resolvers = {
             }
         },
         createUser: async (root, args) => {
-            const newUser = {
+            const newUser = new UserModel({
                 user: args.user,
                 name: args.name,
                 email: args.email,
                 id: 'ASB',
                 passwordHash: await bcrypt.hash(args.password, 10)
-            }
-            users.push(newUser);
+            })
+            await newUser.save();
+
             return newUser;
         }
     }

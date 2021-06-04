@@ -15,7 +15,23 @@ const skeema = new mongoose.Schema({
     passwordHash: {
         type: String,
         required: true,
-    }
+    },
+    games: [
+        {
+            game: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Games'
+            }
+        }
+    ],
+    friends: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        }
+    ]
 })
 
 skeema.plugin(validator);
