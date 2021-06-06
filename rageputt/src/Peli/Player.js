@@ -8,7 +8,7 @@ const Player = ({ player, round }) => {
     const roundData = useSelector(state => state.tulokset)
 
     const [setScore] = useMutation(SET_SCORE, {
-        refetchQueries: [{ query: GET_ROUND, variables: { roundId: 'tR1' } }]
+        refetchQueries: [{ query: GET_ROUND, variables: { roundId: roundData.roundId } }]
     })
 
 
@@ -16,9 +16,9 @@ const Player = ({ player, round }) => {
         console.log('Clickkiä arvoon ', e.target.value)
         setScore({
             variables: {
-                roundId: 'tR1',
+                roundId: roundData.roundId,
                 round: roundData.round,
-                player: player.user.name,
+                player: player.user.user,
                 score: Number(e.target.value)
             }
         })

@@ -32,6 +32,7 @@ const LoginForm = () => {
         
     
     }
+    console.log(user)
     if (user.user) {
         return (
             <div>

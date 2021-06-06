@@ -44,11 +44,11 @@ const typeDefs = gql`
         user: String!
         name: String
         email: String
-        id: ID!
+        id: ID
     }
     type GameCard {
         user: User!
-        tulokset: [Int!]
+        tulokset: [Int]
     }
     type Game {
         finished: Boolean!
@@ -60,6 +60,7 @@ const typeDefs = gql`
         value: String!
     }
     type Query {
+        getMe: User!
         usersCount: Int!
         users: [User]
         getRound( roundId: String! ): Game
@@ -76,6 +77,16 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
+        getMe: async( root, args, context) => {
+            if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
+            const user = await UserModel.findById( context.loggedUser.id )
+            console.log('Getme: ', user)
+            return {
+                user: user.user,
+                name: user.name,
+                email: user.email,
+            }
+        },
         getGames: async (root, args, context) => {
             if (!context.loggedUser) {
                 throw new AuthenticationError('Kirjaudu sisään.')
@@ -87,10 +98,12 @@ const resolvers = {
         usersCount: () => users.length,
         users: () => users,
         getRound: async (root, args) => {
-            console.log('Hae peli')
+            console.log('Hae peli', args.roundId)
             if (args.rounId === null || args.roundId === '') return null
             const rundi = await GameModel.findById( args.roundId ).populate('players.user')
-            console.log(rundi)
+            if (!rundi) {
+                throw new ForbiddenError('Epäkelpo ID')
+            }                    
             return rundi;
         }
     },
@@ -124,16 +137,23 @@ const resolvers = {
             peli.finished = true;
             return peli
         },
-        setScore: (root, args) => {
-            const peli = testRound.find(r => r.id === args.roundId)
+        setScore: async (root, args) => {
+
+            console.log(`Peli ${args.roundId}, pelaaja ${args.player}, rundi: ${args.round}, tulos: ${args.score}`)
+
+            const peli = await GameModel.findById( args.roundId ).populate('players.user')
+
             if (!peli) throw new SyntaxError('Epäkelpo ID')
             if (peli.finished) throw new ForbiddenError('Päättynyttä peliä ei voi enää muokata')
 
-            const pelaaja = peli.players.find(p => p.user.name === args.player)
-            if (!pelaaja) throw new SyntaxError('Epäkelpo pelaaja')
-            pelaaja.tulokset[ args.round ] = args.score;
-            console.log('Setscore!')
-            return peli;
+            const pelaaja = peli.players.find( p => p.user.user === args.player)
+            if (!pelaaja) throw new SyntaxError('Pelaajaa ei löydy')
+
+            pelaaja.tulokset[args.round] = args.score
+            
+            await peli.save()
+            console.log(peli.players)
+            return peli
 
         },
         login: async (root, args) => {

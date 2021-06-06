@@ -11,7 +11,7 @@ const skeema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'User',
             },
-            tulokset: [Number],
+            tulokset: [],
             _id: false
         }
     ]

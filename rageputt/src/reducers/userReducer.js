@@ -4,6 +4,7 @@ const reducer = (state = {}, action ) => {
         case 'SET_USER':
             return {
                 user: action.data.user,
+                name: action.data.name
             }
         case 'CLEAR_USER':
             return {}
@@ -11,11 +12,13 @@ const reducer = (state = {}, action ) => {
             return state
     }
 }
-export const setUser = (name) => {
+export const setUser = (name, user) => {
     return {
         type: 'SET_USER',
         data: {
-            user: name,
+            user,
+            name
+            
         }
     }
 }

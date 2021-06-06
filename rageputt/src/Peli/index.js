@@ -39,9 +39,12 @@ const Peli = () => {
     if (tulokset.roundId === null || !kierrosData.data) {
         return (
             <div>
-                <h2>Pakko puttaa</h2>
+                <h2>Pakko päästä puttaa</h2>
                 <p>
-                    Ei aktiivista peliä käynnissä.
+                    Ei aktiivista peliä käynnissä. Aloita joko uusi peli tai jatkaa vanhaa peliä.
+                </p>
+                <p>
+                    Vanhan pelin jatkaminen onnistuu aktivoimalla se 'Vanhat peli' -osiosta.
                 </p>
                 <Button onClick={() => setModal(true)} color="primary" variant="contained" size="large" fullWidth>Aloita uusi peli</Button>
 

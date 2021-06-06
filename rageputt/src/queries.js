@@ -11,6 +11,14 @@ export const LOGIN = gql`
 
 
 `
+export const GET_ME = gql`
+    query getMe {
+        getMe{
+           name
+           user
+        }
+    }
+`
 export const CREATE_GAME = gql`
     mutation createGame {
         createGame
@@ -30,9 +38,9 @@ export const SET_SCORE = gql`
             score: $score
         ) {
             finished
-            timeStamp
+            timestamp
             players {
-                user { name}
+                user { user }
                 tulokset
             }
         }
@@ -58,7 +66,7 @@ export const GET_ROUND = gql`
             finished
             timestamp
             players {
-                user { name }
+                user { user name }
                 tulokset
             }
         }
