@@ -4,3 +4,4 @@
 1.6.2021    2,5 Apolloa fronttiin, login ja user create toimivaksi frontissa. Notifikaation teko
 2.6.2021    1   GraphQL:n tekemistä.
 3.6.2021    2,5 GraphQL:n kanssa tappelua, Material-UI Modali ja sen tyylittelyä.
+4.6.2021    1   Pelin luonti frontissa "toimivaksi", backendissä käyttäjän luominen ja login siirretty mongoon.

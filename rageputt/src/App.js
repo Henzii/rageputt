@@ -10,6 +10,7 @@ import LoginForm from './components/LoginForm'
 import { AppBar, Toolbar, IconButton, Typography, Button, Container } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import CreateUserForm from './components/CreateUserForm';
+import VanhatPelit from './VanhatPelit';
 
 function App() {
 
@@ -41,6 +42,9 @@ function App() {
       <Switch>
         <Route path="/login" >
           <LoginForm />
+        </Route>
+        <Route path="/vanhat" >
+          <VanhatPelit />
         </Route>
         <Route path="/peli">
           <Peli />

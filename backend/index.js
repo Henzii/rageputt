@@ -1,12 +1,21 @@
 const { ApolloServer } = require('apollo-server')
 const { typeDefs, resolvers } = require('./resolvers')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 require('dotenv').config();
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: async ({ req }) => {
+        const auth = req ? req.headers.authorization : null
+        if (auth && auth.toLowerCase().startsWith('bearer ')) {
+            const loggedUser = jwt.verify( auth.substring(7), process.env.TOKEN_KEY)
+            return { loggedUser };
+        }
+
+    }
 })
 
 const mongoUri = process.env.MONGO_DB

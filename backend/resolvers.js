@@ -1,4 +1,4 @@
-const { gql, UserInputError, SyntaxError, ForbiddenError } = require('apollo-server');
+const { gql, UserInputError, SyntaxError, ForbiddenError, ValidationError, AuthenticationError} = require('apollo-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const UserModel = require('./models/User')
@@ -63,6 +63,7 @@ const typeDefs = gql`
         usersCount: Int!
         users: [User]
         getRound( roundId: String! ): Game
+        getGames: String
     }
     type Mutation {
         login( user: String!, password: String!):Token
@@ -75,6 +76,13 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
+        getGames: (root, args, context) => {
+            if (!context.loggedUser) {
+                throw new AuthenticationError('Kirjaudu sisään.')
+            }
+            console.log('Hae pelit ID: ' + context.loggedUser.id + " / " + context.loggedUser.user)
+            return "OK!"
+        },
         usersCount: () => users.length,
         users: () => users,
         getRound: (root, args) => {
@@ -108,7 +116,7 @@ const resolvers = {
         },
         login: async (root, args) => {
             const user = await UserModel.findOne( { user: args.user })
-            
+
             if (!user || await bcrypt.compare(args.password, user.passwordHash) === false) {
                 throw new UserInputError("Väärä tunnus tai salasana")
             }
@@ -126,10 +134,14 @@ const resolvers = {
                 user: args.user,
                 name: args.name,
                 email: args.email,
-                id: 'ASB',
                 passwordHash: await bcrypt.hash(args.password, 10)
             })
-            await newUser.save();
+            try {
+                await newUser.save();
+            } catch (e) {
+                console.log(e.error)
+                throw new ValidationError(`Virhe käyttäjän luomisessa`)
+            }
 
             return newUser;
         }

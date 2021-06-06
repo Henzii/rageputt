@@ -19,7 +19,7 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) => (
         </List>
         <Divider />
         <List>
-            <ListItem button onClick={() => setMenuOpen(false)}>
+            <ListItem button component={Link} to="/vanhat" onClick={() => setMenuOpen(false)}>
                 Vanhat pelit
             </ListItem>
             <ListItem button onClick={() => setMenuOpen(false)}>
