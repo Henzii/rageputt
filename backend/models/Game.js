@@ -1,18 +1,18 @@
-const mongoose = requirE('mongoose');
+const mongoose = require('mongoose');
 
 const skeema = new mongoose.Schema({
-    
+
     finished: Boolean,
-    timeStamp: String,
-    currentRound: Number,
+    timestamp: Date,
 
     players: [
         {
             user: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
+                ref: 'User',
             },
-            tulokset: [Number]
+            tulokset: [Number],
+            _id: false
         }
     ]
 })

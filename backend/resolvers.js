@@ -2,6 +2,7 @@ const { gql, UserInputError, SyntaxError, ForbiddenError, ValidationError, Authe
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const UserModel = require('./models/User')
+const GameModel = require('./models/Game')
 
 const users = [
     {
@@ -51,8 +52,7 @@ const typeDefs = gql`
     }
     type Game {
         finished: Boolean!
-        timeStamp: String!
-        currentRound: Int!
+        timestamp: String
         players: [GameCard]
         id: ID!
     }
@@ -63,7 +63,7 @@ const typeDefs = gql`
         usersCount: Int!
         users: [User]
         getRound( roundId: String! ): Game
-        getGames: String
+        getGames: [String]
     }
     type Mutation {
         login( user: String!, password: String!):Token
@@ -76,26 +76,48 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        getGames: (root, args, context) => {
+        getGames: async (root, args, context) => {
             if (!context.loggedUser) {
                 throw new AuthenticationError('Kirjaudu sisään.')
             }
-            console.log('Hae pelit ID: ' + context.loggedUser.id + " / " + context.loggedUser.user)
-            return "OK!"
+            const user = await UserModel.findById( context.loggedUser.id )
+            console.log('Getfames: ', user.games)
+            return user.games;
         },
         usersCount: () => users.length,
         users: () => users,
-        getRound: (root, args) => {
+        getRound: async (root, args) => {
             console.log('Hae peli')
             if (args.rounId === null || args.roundId === '') return null
-            const rundi = testRound.find(r => r.id === args.roundId)
+            const rundi = await GameModel.findById( args.roundId ).populate('players.user')
+            console.log(rundi)
             return rundi;
         }
     },
     Mutation: {
-        createGame: (root, args) => {
+        createGame: async (root, args, context) => {
             console.log('Uusi peli')
-            return 'tR1'
+            if (!context.loggedUser.user) {
+                throw new AuthenticationError('Kirjaudu sisään!')
+            }
+            const user = await UserModel.findById( context.loggedUser.id )
+            const newGame = new GameModel({
+                finished: false,
+                timestamp: Date(),
+                players: [
+                    {
+                        user: user.id,
+                        tulokset: []
+                    }
+                ]
+            })
+            
+            console.log('Luodaan: ', newGame)
+            await newGame.save()
+            user.games = user.games.concat( newGame.id )
+            user.save();
+            return newGame.id
+
         },
         finishGame: (root, args) => {
             const peli = testRound.find(r => r.id === args.roundId)

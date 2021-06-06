@@ -56,7 +56,7 @@ export const GET_ROUND = gql`
             roundId: $roundId
         ) {
             finished
-            timeStamp
+            timestamp
             players {
                 user { name }
                 tulokset

@@ -18,18 +18,14 @@ const skeema = new mongoose.Schema({
     },
     games: [
         {
-            game: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Games'
-            }
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Games'
         }
     ],
     friends: [
         {
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-            }
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
         }
     ]
 })
