@@ -5,3 +5,4 @@
 2.6.2021    1   GraphQL:n tekemistä.
 3.6.2021    2,5 GraphQL:n kanssa tappelua, Material-UI Modali ja sen tyylittelyä.
 4.6.2021    1   Pelin luonti frontissa "toimivaksi", backendissä käyttäjän luominen ja login siirretty mongoon.
+6.6.2021    3   Token toimivaksi frontissa ja bäkissä. Datan siirtäminen mongoon. 

@@ -79,6 +79,9 @@ function App() {
           </Route>
           <Route path="/">
             <h1>Etusivu</h1>
+            <p>
+              Rageputt is bäk
+            </p>
           </Route>
         </Switch>
       </Container>

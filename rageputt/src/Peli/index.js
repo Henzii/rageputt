@@ -1,12 +1,13 @@
-import { useQuery, useMutation, useLazyQuery } from '@apollo/client'
+import { useMutation, useLazyQuery } from '@apollo/client'
 import { Button } from '@material-ui/core'
 import { Grid, IconButton } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { CREATE_GAME, GET_ROUND } from '../queries'
 import Player from './Player'
 import NewGameModal from './NewGameModal'
+import { Redirect } from 'react-router'
 
 const Peli = () => {
 
@@ -14,6 +15,7 @@ const Peli = () => {
     const [modalOpen, setModal] = useState(false)
 
     const tulokset = useSelector(state => state.tulokset)
+    const user = useSelector(state => state.user)
 
     const [haeRundi, kierrosData] = useLazyQuery(GET_ROUND)
     const [uusiPeli] = useMutation(CREATE_GAME)
@@ -26,7 +28,11 @@ const Peli = () => {
     }
     console.log(tulokset)
     console.log(kierrosData)
-
+    if (!user.user) {
+        return (
+            <Redirect to="/login" />
+        )
+    }
     if (kierrosData.loading) {
         return (
             <div>

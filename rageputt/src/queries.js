@@ -6,6 +6,7 @@ export const LOGIN = gql`
             password: $password
         ) {
             value
+            user { user name }
         }
     }
 

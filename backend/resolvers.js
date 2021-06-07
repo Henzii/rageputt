@@ -58,6 +58,7 @@ const typeDefs = gql`
     }
     type Token {
         value: String!
+        user: User
     }
     type Query {
         getMe: User!
@@ -149,10 +150,12 @@ const resolvers = {
             const pelaaja = peli.players.find( p => p.user.user === args.player)
             if (!pelaaja) throw new SyntaxError('Pelaajaa ei löydy')
 
-            pelaaja.tulokset[args.round] = args.score
-            
+            pelaaja.tulokset.set(args.round, args.score)
+
             await peli.save()
+
             console.log(peli.players)
+            
             return peli
 
         },
@@ -168,7 +171,7 @@ const resolvers = {
                     id: user.id
                 }
                 const token = jwt.sign(forToken, process.env.TOKEN_KEY)
-                return { value: token }
+                return { value: token, user: { user: user.user, name: user.name } }
             }
         },
         createUser: async (root, args) => {
@@ -178,6 +181,9 @@ const resolvers = {
                 email: args.email,
                 passwordHash: await bcrypt.hash(args.password, 10)
             })
+            
+            if (args.name === '') newUser.name = args.user
+            
             try {
                 await newUser.save();
             } catch (e) {

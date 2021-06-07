@@ -3,6 +3,8 @@ import { FormControlLabel, Radio, RadioGroup } from "@material-ui/core"
 import { useSelector } from 'react-redux'
 import { SET_SCORE, GET_ROUND } from "../queries"
 
+import { laskePisteet } from '../utils/stuff'
+
 const Player = ({ player, round }) => {
 
     const roundData = useSelector(state => state.tulokset)
@@ -24,12 +26,13 @@ const Player = ({ player, round }) => {
         })
     }
     const distance = (round > 0 ) ? 5 + player.tulokset[ round-1 ] : 10
+    const pisteet = laskePisteet(player.tulokset)
     let putteja = player.tulokset[round]
     if (isNaN(putteja)) putteja = null
     console.log(putteja)
     return (
         <div>
-            <h2>{player.user.name} { (distance) ? distance : ' xx '}m</h2>
+            <h2>{player.user.name} { (distance) ? distance : ' xx '}m - {pisteet}</h2>
             <div className="tulosValitsin">
                 <RadioGroup row style={{ whiteSpace: 'nowrap' }} value={putteja} onChange={handleChange}>
                     <RadioButtons />

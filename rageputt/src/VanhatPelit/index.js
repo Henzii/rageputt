@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router"
 import { GET_GAMES } from "../queries"
 import { Button } from '@material-ui/core'
+import Pelikortti from "./Pelikortti"
 
 const VanhatPelit = () => {
 
@@ -29,7 +30,7 @@ const VanhatPelit = () => {
     return (
         <div>
             <h2>Vanhat pelit</h2>
-            {getGames.data.getGames.map(g => <Button variant="outlined" onClick={() => aktivoi(g)}>{g}</Button>)}
+            {getGames.data.getGames.map(g => <Pelikortti aktivoi={aktivoi} peli={g} key={g} />)}
         </div>
     )
 }

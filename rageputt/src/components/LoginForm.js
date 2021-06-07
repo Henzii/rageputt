@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, TextField, List, ListItem, Backdrop, CircularProgress } from '@material-ui/core'
-import { useMutation } from '@apollo/client'
+import { useApolloClient, useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
 import { setUser, clearUser } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer'
@@ -13,24 +13,26 @@ const LoginForm = () => {
 
     const [loginProcess, setLoginProcess] = useState(false)
     const [ login ] = useMutation( LOGIN );
+    const client = useApolloClient()
+
     const handleLogout = async (e) => {
-        dispatch( clearUser() );
+        await client.resetStore()
         window.localStorage.clear()
+        dispatch( clearUser() );
     }
     const handleLogin = async (e) => {
         e.preventDefault()
         setLoginProcess(true);
         login({ variables: { user: e.target.user.value, password: e.target.password.value }}).then(result => {
             window.localStorage.setItem('rageToken', result.data.login.value)
-            const sailo = setUser(e.target.user.value);
+            console.log('Login data: ', result.data.login)
+            const sailo = setUser(result.data.login.user.name, result.data.login.user.user);
             dispatch(sailo);
             setLoginProcess(false);
         }).catch(e => {
             dispatch( setNotification('Väärä tunnus tai salasana', 'error'))
             setLoginProcess(false);
         })
-        
-    
     }
     console.log(user)
     if (user.user) {

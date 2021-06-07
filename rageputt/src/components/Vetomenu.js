@@ -1,8 +1,13 @@
 import { ChevronLeft } from '@material-ui/icons';
 import { Drawer, Divider, List, ListItem, IconButton } from '@material-ui/core'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
-const Vetomenu = ({ menuOpen, setMenuOpen }) => (
+const Vetomenu = ({ menuOpen, setMenuOpen }) =>  {
+    
+    const user = useSelector(state => state.user)
+    const notLogged = (!user.user)
+    return (
     <Drawer
         open={menuOpen}
         variant="persistent"
@@ -13,31 +18,38 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) => (
         </IconButton>
         <Divider />
         <List>
-            <ListItem button component={Link} to="/peli" onClick={() => setMenuOpen(false)}>
+            <ListItem button component={Link} to="/" onClick={() => setMenuOpen(false)}>
+                Etusivu
+            </ListItem>
+        </List>
+        <Divider />
+
+        <List>
+            <ListItem disabled={notLogged} button component={Link} to="/peli" onClick={() => setMenuOpen(false)}>
                 Uusi peli
             </ListItem>
         </List>
         <Divider />
         <List>
-            <ListItem button component={Link} to="/vanhat" onClick={() => setMenuOpen(false)}>
+            <ListItem disabled={notLogged} button component={Link} to="/vanhat" onClick={() => setMenuOpen(false)}>
                 Vanhat pelit
             </ListItem>
-            <ListItem button onClick={() => setMenuOpen(false)}>
+            <ListItem disabled={notLogged} button onClick={() => setMenuOpen(false)}>
                 Statistiikka
             </ListItem>
         </List>
         <Divider />
         <List>
-            <ListItem button onClick={() => setMenuOpen(false)}>
+            <ListItem disabled={notLogged} button onClick={() => setMenuOpen(false)}>
                 Lisää kaveri
             </ListItem>
-            <ListItem button onClick={() => setMenuOpen(false)}>
+            <ListItem disabled={notLogged} button onClick={() => setMenuOpen(false)}>
                 Kaveripyynnöt
             </ListItem>
-
         </List>
+        <Divider />
         <List>
-            <ListItem button onClick={() => setMenuOpen(false)}>
+            <ListItem disabled={notLogged} button onClick={() => setMenuOpen(false)}>
                 Asetukset
             </ListItem>
             <ListItem button component={Link} to="/createUser" onClick={() => setMenuOpen(false)}>
@@ -49,5 +61,5 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) => (
 
         </List>
     </Drawer>
-)
+)}
 export default Vetomenu;
