@@ -4,6 +4,7 @@
   "description": "RagePutt",
   "main": "./backend/index.js",
   "scripts": {
+    "start": "npm start --prefix ./backend/"
   },
   "repository": {
     "type": "git",
