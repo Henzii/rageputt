@@ -1,7 +1,10 @@
-const { ApolloServer } = require('apollo-server')
-const { typeDefs, resolvers } = require('./resolvers')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+
+const { ApolloServer } = require('apollo-server')
+const { typeDefs, resolvers } = require('./resolvers')
+
+
 
 require('dotenv').config();
 
