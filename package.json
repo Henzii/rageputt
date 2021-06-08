@@ -1,0 +1,18 @@
+{
+  "name": "rageputt",
+  "version": "0.7.0",
+  "description": "RagePutt",
+  "main": "./backend/index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Henzii/rageputt.git"
+  },
+  "author": "Henry Karlenius",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Henzii/rageputt/issues"
+  },
+  "homepage": "https://github.com/Henzii/rageputt#readme"
+}
