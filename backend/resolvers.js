@@ -1,49 +1,16 @@
-const { gql, UserInputError, SyntaxError, ForbiddenError, ValidationError, AuthenticationError} = require('apollo-server');
+const { gql, UserInputError, SyntaxError, ForbiddenError, ValidationError, AuthenticationError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const UserModel = require('./models/User')
 const GameModel = require('./models/Game')
-
-const users = [
-    {
-        user: 'henzi',
-        name: 'Henkka',
-        passwordHash: 'jotain',
-        id: 'A1',
-    },
-]
-const testRound = [{
-    finished: false,
-    timeStamp: '1.1.2021 / 09:19',
-    currentRound: 1,
-    id: 'tR1',
-    players: [
-        {
-            user: {
-                name: 'Henkka',
-                id: 'AA1'
-            },
-            tulokset: [
-                
-            ]
-        },
-        {
-            user: {
-                name: 'Uolevi',
-                id: 'BB2'
-            },
-            tulokset: [
-                
-            ]
-        }
-    ]
-}]
 
 const typeDefs = gql`
     type User {
         user: String!
         name: String
         email: String
+        friendRequests: [String]
+        friends: [User]
         id: ID
     }
     type GameCard {
@@ -73,38 +40,42 @@ const typeDefs = gql`
         setScore( roundId: String!, round: ID!, player: String!, score: Int!): Game
         finishGame( roundId: String! ):Game
         createGame: String
+        sendFriendRequest( fName: String!): String
+        handleFriendRequest( friendId: String!, action: Boolean!): String
     }
 `
 
 const resolvers = {
     Query: {
-        getMe: async( root, args, context) => {
+        getMe: async (root, args, context) => {
             if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
-            const user = await UserModel.findById( context.loggedUser.id )
+            const user = await UserModel.findById(context.loggedUser.id).populate('friends', { user: 1, name: 1, id: 1 })
             console.log('Getme: ', user)
             return {
                 user: user.user,
                 name: user.name,
                 email: user.email,
+                friendRequests: user.friendRequests,
+                friends: user.friends
             }
         },
         getGames: async (root, args, context) => {
             if (!context.loggedUser) {
                 throw new AuthenticationError('Kirjaudu sisään.')
             }
-            const user = await UserModel.findById( context.loggedUser.id )
+            const user = await UserModel.findById(context.loggedUser.id)
             console.log('Getfames: ', user.games)
             return user.games;
         },
         usersCount: () => users.length,
-        users: () => users,
+        users: async () => UserModel.find({}).populate('friends', { user: 1 }),
         getRound: async (root, args) => {
             console.log('Hae peli', args.roundId)
             if (args.rounId === null || args.roundId === '') return null
-            const rundi = await GameModel.findById( args.roundId ).populate('players.user')
+            const rundi = await GameModel.findById(args.roundId).populate('players.user')
             if (!rundi) {
                 throw new ForbiddenError('Epäkelpo ID')
-            }                    
+            }
             return rundi;
         }
     },
@@ -114,7 +85,7 @@ const resolvers = {
             if (!context.loggedUser.user) {
                 throw new AuthenticationError('Kirjaudu sisään!')
             }
-            const user = await UserModel.findById( context.loggedUser.id )
+            const user = await UserModel.findById(context.loggedUser.id)
             const newGame = new GameModel({
                 finished: false,
                 timestamp: Date(),
@@ -125,10 +96,9 @@ const resolvers = {
                     }
                 ]
             })
-            
-            console.log('Luodaan: ', newGame)
+
             await newGame.save()
-            user.games = user.games.concat( newGame.id )
+            user.games = user.games.concat(newGame.id)
             user.save();
             return newGame.id
 
@@ -140,14 +110,12 @@ const resolvers = {
         },
         setScore: async (root, args) => {
 
-            console.log(`Peli ${args.roundId}, pelaaja ${args.player}, rundi: ${args.round}, tulos: ${args.score}`)
-
-            const peli = await GameModel.findById( args.roundId ).populate('players.user')
+            const peli = await GameModel.findById(args.roundId).populate('players.user')
 
             if (!peli) throw new SyntaxError('Epäkelpo ID')
             if (peli.finished) throw new ForbiddenError('Päättynyttä peliä ei voi enää muokata')
 
-            const pelaaja = peli.players.find( p => p.user.user === args.player)
+            const pelaaja = peli.players.find(p => p.user.user === args.player)
             if (!pelaaja) throw new SyntaxError('Pelaajaa ei löydy')
 
             pelaaja.tulokset.set(args.round, args.score)
@@ -155,12 +123,12 @@ const resolvers = {
             await peli.save()
 
             console.log(peli.players)
-            
+
             return peli
 
         },
         login: async (root, args) => {
-            const user = await UserModel.findOne( { user: args.user })
+            const user = await UserModel.findOne({ user: args.user })
 
             if (!user || await bcrypt.compare(args.password, user.passwordHash) === false) {
                 throw new UserInputError("Väärä tunnus tai salasana")
@@ -181,9 +149,9 @@ const resolvers = {
                 email: args.email,
                 passwordHash: await bcrypt.hash(args.password, 10)
             })
-            
+
             if (args.name === '') newUser.name = args.user
-            
+
             try {
                 await newUser.save();
             } catch (e) {
@@ -192,6 +160,57 @@ const resolvers = {
             }
 
             return newUser;
+        },
+        sendFriendRequest: async (root, args, context) => {
+            if (!context.loggedUser?.user) {
+                throw new AuthenticationError('Kirjaudu sisään!')
+            }
+            const myId = context.loggedUser.id
+            const kaveri = await UserModel.findOne( { user: args.fName })
+
+            if (!kaveri) {
+                throw new UserInputError('Kaveria ei löydy')
+            }
+            if (kaveri.id == myId ) {
+                throw new UserInputError("Oikeesti?")
+            }
+            if (kaveri.friendRequests.includes(myId)) {
+                throw new UserInputError('Kaveripyyntö on jo lisätty')
+            }
+            kaveri.friendRequests.push(myId)
+            kaveri.save()
+            return "OK"
+        },
+        handleFriendRequest: async (root, args, context) => {
+            if (!context.loggedUser?.user) {
+                throw new AuthenticationError('Kirjaudu sisään!')
+            }
+            const myId = context.loggedUser.id
+            const friendId = args.friendId
+            const user = await UserModel.findById(myId)
+
+            if (!user.friendRequests.includes(friendId)) {
+                throw new UserInputError('Kaveri ei ole lähettänyt pynntöä!?')
+            }
+
+            user.friendRequests = user.friendRequests.filter(u => u != friendId)
+            if (args.action) {
+                const frendi = await UserModel.findById(friendId)
+                if (!frendi) {
+                    throw new UserInputError('Kaveria ei ole olemassa')
+                }
+                if (!user.friends.includes(friendId))
+                    user.friends.push(friendId)
+                if (!frendi.friends.includes(myId))
+                    frendi.friends.push(myId)
+                try {
+                    await frendi.save()
+                } catch (e) {
+                    throw new SyntaxError('Jokin meni vikaan: ' + e.message)
+                }
+            }
+            await user.save()
+            return "OK"
         }
     }
 }
