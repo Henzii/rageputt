@@ -25,6 +25,7 @@ mongoose.connect( mongoUri, { useNewUrlParser: true, useUnifiedTopology: true, u
 }).catch(e => {
     console.log(`Virhe yhdistettäessä mongoon :( (${e.message})`)
 })
-server.listen().then( ({ url }) => {
+
+server.listen({ port: process.env.PORT || 4000 }).then( ({ url }) => {
     console.log(`Server @ ${url}`)
 })
