@@ -16,7 +16,7 @@ const LoginForm = () => {
     const client = useApolloClient()
 
     const handleLogout = async (e) => {
-        await client.resetStore()
+        await client.clearStore()
         window.localStorage.clear()
         dispatch( clearUser() );
     }

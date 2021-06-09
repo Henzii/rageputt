@@ -2,6 +2,11 @@ import { IconButton, Paper } from '@material-ui/core'
 import { Cancel, Check } from '@material-ui/icons/'
 
 const FriendRequests = ({ pyynnot, handleFriendRequest }) => {
+    if (pyynnot.length < 1) {
+        return (
+            <h3>Ei kaveripyyntöjä</h3>
+        )
+    }
     return (
         <>
             <h2>Kaveripyynnöt</h2>

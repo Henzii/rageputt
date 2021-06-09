@@ -56,10 +56,6 @@ function App() {
           <Typography variant="h6" style={{ flexGrow: 1 }}>
             RagePutt
           </Typography>
-          <Button>
-            Login
-          </Button>
-
         </Toolbar>
       </AppBar>
       <Vetomenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />

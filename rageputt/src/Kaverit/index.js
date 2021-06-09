@@ -37,7 +37,7 @@ const Kaverit = () => {
     console.log(mina)
     return (
         <div>
-        <h2>Kaverit</h2>
+        <h2>Kaverisi</h2>
         <KaveriLista kaverit={mina.data.getMe.friends} />
         <FriendRequests pyynnot={mina.data.getMe.friendRequests} handleFriendRequest={handleFriendRequest} />
         <FriendRequestForm handleSendFriendRequest={handleSendFriendRequest} />
@@ -50,7 +50,7 @@ const KaveriLista = ({ kaverit }) => {
         return (<div>Ei kavereita :(</div>)
     }
     return (
-        <div>{kaverit.map(k => k.user)}</div>
+        <div> {kaverit.map(k => <li key={k.id}>{k.user} ({k.name})</li>)}</div>
     )
 }
 export default Kaverit

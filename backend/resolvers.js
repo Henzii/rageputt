@@ -155,8 +155,13 @@ const resolvers = {
             try {
                 await newUser.save();
             } catch (e) {
-                console.log(e.error)
-                throw new ValidationError(`Virhe käyttäjän luomisessa`)
+                console.log(e.errors.type)
+                if (e.errors.user.kind === 'unique') 
+                    throw new ValidationError('Käyttäjä on jo olemassa')
+                else if (e.errors.user.kind === 'minlength')
+                    throw new ValidationError(`Käyttäjätunnus on liian lyhyt`)
+                else
+                    throw new ValidationError('Käyttäjätunnusta ei voitu luoda')
             }
 
             return newUser;
