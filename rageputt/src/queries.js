@@ -75,3 +75,18 @@ export const GET_ROUND = gql`
         }
     }
 `
+export const ANSWER_FRIEND_REQUEST = gql`
+    mutation handleFriendRequest($friendId: String!, $answer: Boolean!) {
+        handleFriendRequest(
+            friendId: $friendId
+            action: $answer
+        )
+    }
+`
+export const SEND_FRIEND_REQUEST = gql`
+    mutation sendFriendRequest($name: String!) {
+        sendFriendRequest(
+            fName: $name
+        )
+    }
+`

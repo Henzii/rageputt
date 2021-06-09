@@ -68,7 +68,7 @@ const resolvers = {
             return user.games;
         },
         usersCount: () => users.length,
-        users: async () => UserModel.find({}).populate('friends', { user: 1 }),
+        users: async () => UserModel.find({}).populate('friends', { user: 1 }).populate('friendRequests', { user: 1, name: 1, id: 1 }),
         getRound: async (root, args) => {
             console.log('Hae peli', args.roundId)
             if (args.rounId === null || args.roundId === '') return null
@@ -166,10 +166,14 @@ const resolvers = {
                 throw new AuthenticationError('Kirjaudu sisään!')
             }
             const myId = context.loggedUser.id
+
             const kaveri = await UserModel.findOne( { user: args.fName })
 
             if (!kaveri) {
-                throw new UserInputError('Kaveria ei löydy')
+                throw new UserInputError(`Henkilöä ${args.fName} ei löydy`)
+            }
+            if (kaveri.friends.includes(myId)) {
+                throw new UserInputError('Olette jo kavereita')
             }
             if (kaveri.id == myId ) {
                 throw new UserInputError("Oikeesti?")
