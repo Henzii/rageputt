@@ -40,11 +40,8 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) =>  {
         </List>
         <Divider />
         <List>
-            <ListItem disabled={notLogged} button onClick={() => setMenuOpen(false)}>
-                Lisää kaveri
-            </ListItem>
-            <ListItem disabled={notLogged} button onClick={() => setMenuOpen(false)}>
-                Kaveripyynnöt
+            <ListItem disabled={notLogged} button component={Link} to="/kaverit" onClick={() => setMenuOpen(false)}>
+                Kaverit
             </ListItem>
         </List>
         <Divider />

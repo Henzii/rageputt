@@ -7,4 +7,6 @@
 4.6.2021    1   Pelin luonti frontissa "toimivaksi", backendissä käyttäjän luominen ja login siirretty mongoon.
 6.6.2021    3   Token toimivaksi frontissa ja bäkissä. Datan siirtäminen mongoon. 
 7.6.2021    1   Frontin siistimistä 
-8.6.2021    1,5 Kaveripyyntöjen lähetys ja niihin vastaaminen backendiin.
+8.6.2021    3   Kaveripyyntöjen lähetys ja niihin vastaaminen backendiin.
+                 Herokun laittoa ja siirtäminen Herokuun. Apollo-server-expressiin pikatutustuminen ja staattisen sivun toimittaminen.
+9.6.2021    1   Kaveri-juttujen teko fronttiin

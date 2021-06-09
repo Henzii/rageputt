@@ -6,6 +6,7 @@ import Notification from './components/Notification'
 
 import Vetomenu from './components/Vetomenu'
 import LoginForm from './components/LoginForm'
+import Kaverit from './Kaverit'
 
 import { AppBar, Toolbar, IconButton, Typography, Button, Container } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -65,6 +66,9 @@ function App() {
       <Notification />
       <Container>
         <Switch>
+          <Route path="/kaverit">
+            <Kaverit />
+          </Route>
           <Route path="/login" >
             <LoginForm />
           </Route>

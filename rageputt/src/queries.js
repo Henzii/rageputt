@@ -17,6 +17,8 @@ export const GET_ME = gql`
         getMe{
            name
            user
+           friends { user name id }
+           friendRequests { user name id }
         }
     }
 `
