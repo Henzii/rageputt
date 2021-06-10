@@ -9,4 +9,4 @@
 7.6.2021    1   Frontin siistimistä 
 8.6.2021    3   Kaveripyyntöjen lähetys ja niihin vastaaminen backendiin.
                  Herokun laittoa ja siirtäminen Herokuun. Apollo-server-expressiin pikatutustuminen ja staattisen sivun toimittaminen.
-9.6.2021    1   Kaveri-juttujen teko fronttiin
+9.6.2021    3  Kaveri-juttujen teko fronttiin, virheviestit näkyväksi, yleistä UI:n siistimistä.

@@ -32,8 +32,6 @@ const kaynnista = async () => {
     server.applyMiddleware({ app })
     await new Promise(resolve => app.listen({ port: process.env.PORT || 4000 }, resolve))
     console.log(`Serveri portissa ${process.env.PORT || 4000}${server.graphqlPath}`)
-
-  
 }
 
 kaynnista()
