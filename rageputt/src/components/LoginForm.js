@@ -19,6 +19,7 @@ const LoginForm = () => {
         await client.clearStore()
         window.localStorage.clear()
         dispatch( clearUser() );
+        dispatch( { type: 'RESET_ROUND' })
     }
     const handleLogin = async (e) => {
         e.preventDefault()

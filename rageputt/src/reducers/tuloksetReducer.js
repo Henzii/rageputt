@@ -13,6 +13,8 @@ const reducer = (state = {round: 0, roundId: null}, action) => {
             return { ...state, roundId: action.data.roundId }
         case 'INIT_ROUND':
             return action.data;
+        case 'RESET_ROUND':
+            return { round: 0, roundId: null }
         default:
             return state;
     }

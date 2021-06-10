@@ -1,4 +1,4 @@
-import { useMutation, useLazyQuery } from '@apollo/client'
+import { useMutation, useLazyQuery, useQuery } from '@apollo/client'
 import { Button } from '@material-ui/core'
 import { Grid, IconButton } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
@@ -20,9 +20,10 @@ const Peli = () => {
     const [haeRundi, kierrosData] = useLazyQuery(GET_ROUND)
     const [uusiPeli] = useMutation(CREATE_GAME)
 
-    const handleNewGame = async (e) => {
-        e.preventDefault()
-        const res = await uusiPeli()
+    const handleNewGame = async ( pelaajat ) => {
+        
+        const res = await uusiPeli({ variables: { pelaajat: pelaajat }}) 
+        
         dispatch({ type: 'SET_ID', data: { roundId: res.data.createGame } })
         setModal(false);
     }
@@ -36,7 +37,7 @@ const Peli = () => {
     if (kierrosData.loading) {
         return (
             <div>
-                <h2>Loading round...</h2>
+                <h2>Loading stuff...</h2>
             </div>
         )
     }

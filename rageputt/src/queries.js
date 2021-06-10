@@ -23,8 +23,10 @@ export const GET_ME = gql`
     }
 `
 export const CREATE_GAME = gql`
-    mutation createGame {
-        createGame
+    mutation createGame ($pelaajat: [String]) {
+        createGame(
+            pelaajat: $pelaajat
+        )
     }
 `
 export const GET_GAMES = gql`
