@@ -22,7 +22,7 @@ const authLink = setContext(( _, { headers }) => {
     }
   }
 })
-let ApolloUri = 'http://rageputt.herokuapp.com/graphql'
+let ApolloUri = 'https://rageputt.herokuapp.com/graphql'
 if (process.env.NODE_ENV !== 'production') {
   console.log('Development mode selected!')
   ApolloUri = 'http://localhost:4000/graphql'
