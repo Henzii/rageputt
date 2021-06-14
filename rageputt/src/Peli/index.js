@@ -1,6 +1,6 @@
-import { useMutation, useLazyQuery, useQuery } from '@apollo/client'
-import { Button } from '@material-ui/core'
-import { Grid, IconButton } from '@material-ui/core'
+import { useMutation, useLazyQuery } from '@apollo/client'
+import { Button, AppBar, Divider } from '@material-ui/core'
+import { Grid, IconButton, Tabs, Tab } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,11 +8,13 @@ import { CREATE_GAME, GET_ROUND } from '../queries'
 import Player from './Player'
 import NewGameModal from './NewGameModal'
 import { Redirect } from 'react-router'
+import TabPanel from './TabPanel'
 
 const Peli = () => {
 
     const dispatch = useDispatch()
     const [modalOpen, setModal] = useState(false)
+    const [tabValue, setTabValue] = useState(0)
 
     const tulokset = useSelector(state => state.tulokset)
     const user = useSelector(state => state.user)
@@ -20,10 +22,10 @@ const Peli = () => {
     const [haeRundi, kierrosData] = useLazyQuery(GET_ROUND)
     const [uusiPeli] = useMutation(CREATE_GAME)
 
-    const handleNewGame = async ( pelaajat ) => {
-        
-        const res = await uusiPeli({ variables: { pelaajat: pelaajat }}) 
-        
+    const handleNewGame = async (pelaajat) => {
+
+        const res = await uusiPeli({ variables: { pelaajat: pelaajat } })
+
         dispatch({ type: 'SET_ID', data: { roundId: res.data.createGame } })
         setModal(false);
     }
@@ -42,7 +44,7 @@ const Peli = () => {
         )
     }
     if (!kierrosData.called && tulokset.roundId)
-        haeRundi({ variables: { roundId: tulokset.roundId }});
+        haeRundi({ variables: { roundId: tulokset.roundId } });
     if (tulokset.roundId === null || !kierrosData.data) {
         return (
             <div>
@@ -63,14 +65,49 @@ const Peli = () => {
     const kierros = tulokset.round
 
     return (
-        <div>
-
-            <Grid container className="rundiValitsin">
-                <Grid item ><IconButton onClick={() => dispatch({ type: 'DEC_ROUND' })}><ChevronLeft /></IconButton></Grid>
-                <Grid item component={'h2'}>Round {kierros + 1}</Grid>
-                <Grid item><IconButton onClick={() => dispatch({ type: 'INC_ROUND' })}><ChevronRight /></IconButton></Grid>
-            </Grid>
-            {kierrosData.data.getRound.players.map(p => <Player key={p.user.name} player={p} round={kierros} />)}
+        <div style={{ margin: '0' }}>
+            <AppBar>
+                <Tabs
+                    value={tabValue}
+                    onChange={(event, uusi) => setTabValue(uusi)}
+                    variant="fullWidth"
+                >
+                    <Tab label="Peli" />
+                    <Tab label="Asetukset" />
+                    <Tab label="Statsit" />
+                </Tabs>
+            </AppBar>
+            <TabPanel value={tabValue} index={0}>
+                <Grid container className="rundiValitsin">
+                    <Grid item ><IconButton onClick={() => dispatch({ type: 'DEC_ROUND' })}><ChevronLeft /></IconButton></Grid>
+                    <Grid item component={'h2'}>Round {kierros + 1}</Grid>
+                    <Grid item><IconButton onClick={() => dispatch({ type: 'INC_ROUND' })}><ChevronRight /></IconButton></Grid>
+                </Grid>
+                {kierrosData.data.getRound.players.map(p => <Player key={p.user.name} player={p} round={kierros} />)}
+            </TabPanel>
+            <TabPanel value={tabValue} index={1}>
+                <h2>Mitä tehdään?</h2>
+                <h3>Poistu pelistä</h3>
+                <p>
+                    Poistu päävalikkoon. Peli on tallennettu ja tulosten merkkaamista voi jatkaa.
+                </p>
+                <Button size="large" onClick={() => dispatch({ type: 'RESET_ROUND' })} variant="contained" color="primary" fullWidth>Poistu pelistä</Button>
+                <Divider  style={{ marginTop: '15px'}}/>
+                <h3>Päätä peli</h3>
+                <p>
+                    Peli päätetään. Tulosten kirjaaminen suljetaan.
+                </p>
+                <Button size="large" variant="contained" color="primary" fullWidth>Päätä peli</Button>
+                <Divider  style={{ marginTop: '15px'}}/>
+                <h3>Hylkää peli</h3>
+                <p>
+                    Kaikki tuhotaan.
+                </p>
+                <Button size="large" variant="contained" color="primary" fullWidth>Tuhoa maailma</Button>
+            </TabPanel>
+            <TabPanel value={tabValue} index={2}>
+                Usuk 100%
+            </TabPanel>
         </div>
     )
 

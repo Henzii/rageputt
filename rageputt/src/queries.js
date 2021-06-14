@@ -31,7 +31,11 @@ export const CREATE_GAME = gql`
 `
 export const GET_GAMES = gql`
     query getGames {
-        getGames
+        getGames {
+            finished
+            timestamp
+            id
+        }
     }
 `
 export const SET_SCORE = gql`

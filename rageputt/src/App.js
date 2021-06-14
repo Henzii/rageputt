@@ -7,8 +7,9 @@ import Notification from './components/Notification'
 import Vetomenu from './components/Vetomenu'
 import LoginForm from './components/LoginForm'
 import Kaverit from './Kaverit'
+import Asetukset from './components/Asetukset'
 
-import { AppBar, Toolbar, IconButton, Typography, Button, Container } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Typography, Container } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import CreateUserForm from './components/CreateUserForm';
 import VanhatPelit from './VanhatPelit';
@@ -76,6 +77,9 @@ function App() {
           </Route>
           <Route path="/createUser">
             <CreateUserForm />
+          </Route>
+          <Route path="/asetukset">
+            <Asetukset />
           </Route>
           <Route path="/">
             <h1>Etusivu</h1>

@@ -32,7 +32,7 @@ const typeDefs = gql`
         usersCount: Int!
         users: [User]
         getRound( roundId: String! ): Game
-        getGames: [String]
+        getGames: [Game]
     }
     type Mutation {
         login( user: String!, password: String!):Token
@@ -42,6 +42,7 @@ const typeDefs = gql`
         createGame( pelaajat: [String]): String
         sendFriendRequest( fName: String!): String
         handleFriendRequest( friendId: String!, action: Boolean!): String
+        changeSettings( name: String, email: String ): String
     }
 `
 
@@ -49,7 +50,7 @@ const resolvers = {
     Query: {
         getMe: async (root, args, context) => {
             if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
-            const user = await UserModel.findById(context.loggedUser.id).populate('friends', { user: 1, name: 1, id: 1 }).populate('friendRequests', { user: 1, name: 1, id: 1 })
+            const user = await UserModel.findById(context.loggedUser.id).populate('friends', { user: 1, name: 1, id: 1, email: 1 }).populate('friendRequests', { user: 1, name: 1, id: 1 })
             return {
                 user: user.user,
                 name: user.name,
@@ -62,7 +63,7 @@ const resolvers = {
             if (!context.loggedUser) {
                 throw new AuthenticationError('Kirjaudu sisään.')
             }
-            const user = await UserModel.findById(context.loggedUser.id)
+            const user = await UserModel.findById(context.loggedUser.id).populate('games')
             return user.games;
         },
         usersCount: () => users.length,
@@ -77,6 +78,9 @@ const resolvers = {
         }
     },
     Mutation: {
+        changeSettings: async( root, args, context) => {
+            return "TODO"
+        },
         createGame: async (root, args, context) => {
             console.log('Uusi peli. Pelaajat: ', args.pelaajat)
 

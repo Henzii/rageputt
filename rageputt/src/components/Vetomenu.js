@@ -46,7 +46,7 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) =>  {
         </List>
         <Divider />
         <List>
-            <ListItem disabled={notLogged} button onClick={() => setMenuOpen(false)}>
+            <ListItem component={Link} to="/asetukset" disabled={notLogged} button onClick={() => setMenuOpen(false)}>
                 Asetukset
             </ListItem>
             <ListItem button component={Link} to="/createUser" onClick={() => setMenuOpen(false)}>
