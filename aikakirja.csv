@@ -10,4 +10,5 @@
 8.6.2021    3   Kaveripyyntöjen lähetys ja niihin vastaaminen backendiin.
                  Herokun laittoa ja siirtäminen Herokuun. Apollo-server-expressiin pikatutustuminen ja staattisen sivun toimittaminen.
 9.6.2021    3  Kaveri-juttujen teko fronttiin, virheviestit näkyväksi, yleistä UI:n siistimistä.
-10.6.2021   2,5   Sivuston tekeminen toimivaksi Herokussa. Mahdollisuus lisätä kavereita peliin. 
+10.6.2021   2,5   Sivuston tekeminen toimivaksi Herokussa. Mahdollisuus lisätä kavereita peliin.
+14.6.2021   2   Asetukset sivu, Tab-sivuja Peli-sivulle, Vanhat Pelit -säätöä, 

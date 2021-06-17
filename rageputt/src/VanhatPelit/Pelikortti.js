@@ -1,5 +1,5 @@
 import { Button, Paper } from '@material-ui/core'
-import { timestamp2String } from '../utils/stuff'
+import { statistiikat, timestamp2String } from '../utils/stuff'
 
 const Pelikortti = ({ peli, aktivoi }) => {
     console.log(peli)

@@ -12,6 +12,13 @@ export const LOGIN = gql`
 
 
 `
+export const END_GAME = gql`
+    mutation endGame ($id: String!) {
+        finishGame(
+            roundId: $id
+        )
+    }
+`
 export const GET_ME = gql`
     query getMe {
         getMe{

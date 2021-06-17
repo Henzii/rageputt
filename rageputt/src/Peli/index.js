@@ -4,9 +4,10 @@ import { Grid, IconButton, Tabs, Tab } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { CREATE_GAME, GET_ROUND } from '../queries'
+import { CREATE_GAME, GET_ROUND, END_GAME} from '../queries'
 import Player from './Player'
 import NewGameModal from './NewGameModal'
+import PlayerStats from './PlayerStats'
 import { Redirect } from 'react-router'
 import TabPanel from './TabPanel'
 
@@ -20,7 +21,9 @@ const Peli = () => {
     const user = useSelector(state => state.user)
 
     const [haeRundi, kierrosData] = useLazyQuery(GET_ROUND)
+
     const [uusiPeli] = useMutation(CREATE_GAME)
+    const [paataPeli] = useMutation(END_GAME)
 
     const handleNewGame = async (pelaajat) => {
 
@@ -29,8 +32,18 @@ const Peli = () => {
         dispatch({ type: 'SET_ID', data: { roundId: res.data.createGame } })
         setModal(false);
     }
-    console.log(tulokset)
-    console.log(kierrosData)
+    const handleEndGame = async () => {
+
+        try {
+            await paataPeli( { variables: { id: tulokset.roundId }})
+        } catch (e) {
+            console.log('Virhe pelin päättämisessä. ' + e.message)
+        }
+        return (
+            <Redirect to="/pelit" />
+        )
+
+    }
     if (!user.user) {
         return (
             <Redirect to="/login" />
@@ -97,7 +110,7 @@ const Peli = () => {
                 <p>
                     Peli päätetään. Tulosten kirjaaminen suljetaan.
                 </p>
-                <Button size="large" variant="contained" color="primary" fullWidth>Päätä peli</Button>
+                <Button onClick={handleEndGame} size="large" variant="contained" color="primary" fullWidth>Päätä peli</Button>
                 <Divider  style={{ marginTop: '15px'}}/>
                 <h3>Hylkää peli</h3>
                 <p>
@@ -106,7 +119,7 @@ const Peli = () => {
                 <Button size="large" variant="contained" color="primary" fullWidth>Tuhoa maailma</Button>
             </TabPanel>
             <TabPanel value={tabValue} index={2}>
-                Usuk 100%
+                {kierrosData.data.getRound.players.map(p => <PlayerStats player={p} key={p.user.id} />)}
             </TabPanel>
         </div>
     )

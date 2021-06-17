@@ -38,7 +38,7 @@ const typeDefs = gql`
         login( user: String!, password: String!):Token
         createUser( user: String!, password: String!, name: String, email: String):User
         setScore( roundId: String!, round: ID!, player: String!, score: Int!): Game
-        finishGame( roundId: String! ):Game
+        finishGame( roundId: String! ): String
         createGame( pelaajat: [String]): String
         sendFriendRequest( fName: String!): String
         handleFriendRequest( friendId: String!, action: Boolean!): String
@@ -112,10 +112,13 @@ const resolvers = {
             return newGame.id
 
         },
-        finishGame: (root, args) => {
-            const peli = testRound.find(r => r.id === args.roundId)
+        finishGame: async (root, args) => {
+            console.log('Päätetään peli ' + args.roundId)
+            const peli = await GameModel.findById(args.roundId)
+            if (!peli) throw new SyntaxError('Epäkelpo ID')
             peli.finished = true;
-            return peli
+            await peli.save()
+            return "OK"
         },
         setScore: async (root, args) => {
 
