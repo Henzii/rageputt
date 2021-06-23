@@ -42,6 +42,7 @@ export const GET_GAMES = gql`
             finished
             timestamp
             id
+            players{ tulokset user{user name}}
         }
     }
 `

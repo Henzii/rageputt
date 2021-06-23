@@ -5,6 +5,7 @@ import Peli from './Peli';
 import Notification from './components/Notification'
 
 import Vetomenu from './components/Vetomenu'
+import Statsit from './components/Statsit'
 import LoginForm from './components/LoginForm'
 import Kaverit from './Kaverit'
 import Asetukset from './components/Asetukset'
@@ -74,6 +75,9 @@ function App() {
           </Route>
           <Route path="/peli">
             <Peli />
+          </Route>
+          <Route path="/stats">
+            <Statsit />
           </Route>
           <Route path="/createUser">
             <CreateUserForm />

@@ -34,7 +34,7 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) =>  {
             <ListItem disabled={notLogged} button component={Link} to="/vanhat" onClick={() => setMenuOpen(false)}>
                 Vanhat pelit
             </ListItem>
-            <ListItem disabled={notLogged} button onClick={() => setMenuOpen(false)}>
+            <ListItem disabled={notLogged} button component={Link} to="/stats" onClick={() => setMenuOpen(false)}>
                 Statistiikka
             </ListItem>
         </List>

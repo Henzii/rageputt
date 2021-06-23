@@ -18,6 +18,7 @@ export const statistiikat = (tulokset) => {
     }
     let etaisyys = 5
     for (var i=0; i< tulokset.length; i++) {
+        if (tulokset[i] === null) continue
         statsit.putteja[etaisyys] += 5
         statsit.puttejaTotal += 5
 
@@ -25,10 +26,25 @@ export const statistiikat = (tulokset) => {
         statsit.puttejaTotalSisaan += tulokset[i]
         etaisyys = tulokset[i]
     }
-    console.log(statsit)
     return statsit
 }
+export const mergeStatsit = (eka, toka) => {
+    let palautus = {
+        putteja: [0,0,0,0,0,0],
+        puttejaSisaan: [0,0,0,0,0,0],
+        puttejaTotal: 0,
+        puttejaTotalSisaan: 0
+    }
+    if (toka === null) toka = palautus
+    for( var i=0;i<6; i++) {
+        palautus.putteja[i] = eka.putteja[i] + toka.putteja[i]
+        palautus.puttejaSisaan[i] = eka.puttejaSisaan[i] + toka.puttejaSisaan[i]
+    }
+    palautus.puttejaTotal = eka.puttejaTotal + toka.puttejaTotal
+    palautus.puttejaTotalSisaan = eka.puttejaTotalSisaan + toka.puttejaTotalSisaan
 
+    return palautus
+}
 export const timestamp2String = (ts) => {
     console.log('Aika: ', ts)
     let aika = new Date(0)

@@ -63,7 +63,14 @@ const resolvers = {
             if (!context.loggedUser) {
                 throw new AuthenticationError('Kirjaudu sisään.')
             }
-            const user = await UserModel.findById(context.loggedUser.id).populate('games')
+            const user = await UserModel.findById(context.loggedUser.id).populate(
+                { 
+                    path: 'games', 
+                    populate: { 
+                        path: 'players.user',
+                        select: { user: 1, name: 1}
+                    }
+                })
             return user.games;
         },
         usersCount: () => users.length,
