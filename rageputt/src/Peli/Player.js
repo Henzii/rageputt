@@ -46,7 +46,7 @@ const Player = ({ player, round }) => {
             <h2>{player.user.name} {(distance) ? distance : ' xx '}m - {pisteet}</h2>
             <div className="tulosValitsin">
                 <RadioGroup row style={{ whiteSpace: 'nowrap' }} value={putteja} onChange={handleChange}>
-                    <RadioButtons loading={loading} />
+                    <RadioButtons loading={loading} key={'rb'+player.user.id}/>
                 </RadioGroup>
             </div>
         </div>

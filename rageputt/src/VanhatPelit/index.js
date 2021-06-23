@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router"
 import { GET_GAMES } from "../queries"
-import { Button } from '@material-ui/core'
+import { Backdrop, CircularProgress } from '@material-ui/core'
 import Pelikortti from "./Pelikortti"
 
 const VanhatPelit = () => {
@@ -23,7 +23,9 @@ const VanhatPelit = () => {
 
     if (getGames.loading) {
         return (
-            <h2>Loading rounds...</h2>
+            <Backdrop open={true}>
+                <CircularProgress />
+            </Backdrop>
         )
     }
     console.log(getGames)

@@ -25,7 +25,13 @@ const Statsit = () => {
     console.log(allStats)
     return (
         <div>
-            <h2>Statsit</h2>
+            Puttiprossa: {allStats.puttejaTotalSisaan/allStats.puttejaTotal*100}<br/><br/>
+            5m: {allStats.puttejaSisaan[0]/allStats.putteja[0]*100}<br/>
+            6m: {allStats.puttejaSisaan[1]/allStats.putteja[1]*100}<br/>
+            7m: {allStats.puttejaSisaan[2]/allStats.putteja[2]*100}<br/>
+            8m: {allStats.puttejaSisaan[3]/allStats.putteja[3]*100}<br/>
+            9m: {allStats.puttejaSisaan[4]/allStats.putteja[4]*100}<br/>
+            10m: {allStats.puttejaSisaan[5]/allStats.putteja[5]*100}<br/>
         </div>
     )
 }

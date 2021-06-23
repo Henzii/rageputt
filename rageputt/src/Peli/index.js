@@ -1,6 +1,6 @@
 import { useMutation, useLazyQuery } from '@apollo/client'
-import { Button, AppBar, Divider } from '@material-ui/core'
-import { Grid, IconButton, Tabs, Tab } from '@material-ui/core'
+import { Button, AppBar, Divider, CircularProgress } from '@material-ui/core'
+import { Grid, IconButton, Tabs, Tab, Backdrop } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -51,9 +51,10 @@ const Peli = () => {
     }
     if (kierrosData.loading) {
         return (
-            <div>
-                <h2>Loading stuff...</h2>
-            </div>
+            <Backdrop open={true}>
+                <CircularProgress />
+            </Backdrop>
+            
         )
     }
     if (!kierrosData.called && tulokset.roundId)
@@ -119,7 +120,7 @@ const Peli = () => {
                 <Button size="large" variant="contained" color="primary" fullWidth>Tuhoa maailma</Button>
             </TabPanel>
             <TabPanel value={tabValue} index={2}>
-                {kierrosData.data.getRound.players.map(p => <PlayerStats player={p} key={p.user.id} />)}
+                {kierrosData.data.getRound.players.map(p => <PlayerStats player={p} key={'ps'+p.user.id} />)}
             </TabPanel>
         </div>
     )
