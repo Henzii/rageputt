@@ -1,8 +1,10 @@
-const { gql, UserInputError, SyntaxError, ForbiddenError, ValidationError, AuthenticationError } = require('apollo-server');
+const { gql, UserInputError, SyntaxError, ForbiddenError, ValidationError, AuthenticationError, PubSub } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const UserModel = require('./models/User')
 const GameModel = require('./models/Game')
+
+const pubsub = new PubSub()
 
 const typeDefs = gql`
     type User {
@@ -44,9 +46,18 @@ const typeDefs = gql`
         handleFriendRequest( friendId: String!, action: Boolean!): String
         changeSettings( name: String, email: String ): String
     }
+    type Subscription {
+        changedCard: GameCard
+    }
 `
 
 const resolvers = {
+
+    Subscription: {
+        changedCard: {
+            subscribe: () => pubsub.asyncIterator(['TESTI'])
+        }
+    },
     Query: {
         getMe: async (root, args, context) => {
             if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
@@ -140,8 +151,9 @@ const resolvers = {
             pelaaja.tulokset.set(args.round, args.score)
 
             await peli.save()
+            console.log(`Julkaisu ${peli.id}, Kortti: `, pelaaja)
 
-            console.log(peli.players)
+            pubsub.publish( "TESTI", { changedCard: pelaaja })
 
             return peli
 

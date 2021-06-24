@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken')
 const { ApolloServer } = require('apollo-server-express')
 const { typeDefs, resolvers } = require('./resolvers')
 
+const { SubscriptionServer } = require('subscriptions-transport-ws')
+const http = require('http')
+
 const express = require('express')
 const cors = require('cors')
 
@@ -20,18 +23,26 @@ const server = new ApolloServer({
             return { loggedUser };
         }
 
-    }
+    },
 })
 
 const app = express()
 
 const kaynnista = async () => {
+    const PORTTI = process.env.PORT || 4000
+    
     await server.start()
+    
     app.use('/', express.static('../rageputt/build'))
     app.use(cors())
     server.applyMiddleware({ app })
-    await new Promise(resolve => app.listen({ port: process.env.PORT || 4000 }, resolve))
-    console.log(`Serveri portissa ${process.env.PORT || 4000}${server.graphqlPath}`)
+
+    const httpServer = http.createServer(app)
+    server.installSubscriptionHandlers(httpServer)
+
+    await new Promise(resolve => httpServer.listen( PORTTI, resolve))
+    console.log(`Serveri portissa ${PORTTI}/${server.graphqlPath}`)
+    console.log(`Subscriptionit ${server.subscriptionsPath}`)
 }
 
 kaynnista()
