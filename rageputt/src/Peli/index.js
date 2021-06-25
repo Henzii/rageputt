@@ -1,11 +1,10 @@
 import { useMutation, useLazyQuery } from '@apollo/client'
 import { Button, AppBar, Divider, CircularProgress } from '@material-ui/core'
-import { Grid, IconButton, Tabs, Tab, Backdrop } from '@material-ui/core'
-import { ChevronLeft, ChevronRight } from '@material-ui/icons'
+import { Tabs, Tab, Backdrop } from '@material-ui/core'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { CREATE_GAME, GET_ROUND, END_GAME} from '../queries'
-import Player from './Player'
+import { CREATE_GAME, GET_ROUND, END_GAME } from '../queries'
+import Tulosruutu from './Tulosruutu'
 import NewGameModal from './NewGameModal'
 import PlayerStats from './PlayerStats'
 import { Redirect } from 'react-router'
@@ -76,7 +75,6 @@ const Peli = () => {
             </div>
         )
     }
-    const kierros = tulokset.round
 
     return (
         <div style={{ margin: '0' }}>
@@ -92,12 +90,7 @@ const Peli = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={tabValue} index={0}>
-                <Grid container className="rundiValitsin">
-                    <Grid item ><IconButton onClick={() => dispatch({ type: 'DEC_ROUND' })}><ChevronLeft /></IconButton></Grid>
-                    <Grid item component={'h2'}>Round {kierros + 1}</Grid>
-                    <Grid item><IconButton onClick={() => dispatch({ type: 'INC_ROUND' })}><ChevronRight /></IconButton></Grid>
-                </Grid>
-                {kierrosData.data.getRound.players.map(p => <Player key={p.user.name} player={p} round={kierros} />)}
+                <Tulosruutu kierrosData={kierrosData} tulokset={tulokset}/>
             </TabPanel>
             <TabPanel value={tabValue} index={1}>
                 <h2>Mitä tehdään?</h2>

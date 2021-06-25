@@ -14,10 +14,7 @@ const Player = ({ player, round }) => {
 
     const [loading, setLoading] = useState(null)
 
-    const [setScore] = useMutation(SET_SCORE, {
-        refetchQueries: [{ query: GET_ROUND, variables: { roundId: roundData.roundId } }]
-    })
-
+    const [setScore] = useMutation(SET_SCORE, { variables: { roundId: roundData.roundId } })
 
     const handleChange = (e) => {
         console.log('Clickkiä arvoon ', e.target.value)
@@ -46,7 +43,7 @@ const Player = ({ player, round }) => {
             <h2>{player.user.name} {(distance) ? distance : ' xx '}m - {pisteet}</h2>
             <div className="tulosValitsin">
                 <RadioGroup row style={{ whiteSpace: 'nowrap' }} value={putteja} onChange={handleChange}>
-                    <RadioButtons loading={loading} key={'rb'+player.user.id}/>
+                    <RadioButtons loading={loading} />
                 </RadioGroup>
             </div>
         </div>

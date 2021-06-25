@@ -1,4 +1,15 @@
 import { gql } from '@apollo/client'
+
+export const CARD_CHANGED = gql`
+    subscription changedCard( $roundId: String!) {
+        changedCard( roundId: $roundId) {
+            data {
+                tulokset
+                user { user name }
+            }
+        }
+    }
+`
 export const LOGIN = gql`
     mutation login($user: String!, $password: String!) {
         login(
@@ -82,6 +93,7 @@ export const GET_ROUND = gql`
         ) {
             finished
             timestamp
+            id
             players {
                 user { user name }
                 tulokset
