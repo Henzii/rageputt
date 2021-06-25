@@ -35,7 +35,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const socketLink = new WebSocketLink({
-  uri: (process.env.NODE_ENV !== 'production') ? 'ws://localhost:4000/graphql' : 'ws://rageputt.herokuapp.com/graphql',
+  uri: (process.env.NODE_ENV !== 'production') ? 'ws://localhost:4000/graphql' : 'wss://rageputt.herokuapp.com/graphql',
   options: {
     reconnect: true
   }
