@@ -50,16 +50,9 @@ function App() {
   }, [gotme])
   return (
     <div>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" onClick={openMenu}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
-            RagePutt
-          </Typography>
-        </Toolbar>
-      </AppBar>
+
+      <YlaMenu openMenu={openMenu} />
+
       <Vetomenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Notification />
       <Container>
@@ -95,6 +88,21 @@ function App() {
       </Container>
     </div>
   );
+}
+
+const YlaMenu = ({ openMenu }) => {
+  return (
+    <AppBar position="static">
+    <Toolbar>
+      <IconButton edge="start" onClick={openMenu}>
+        <MenuIcon />
+      </IconButton>
+      <Typography variant="h6" style={{ flexGrow: 1 }}>
+        RagePutt
+      </Typography>
+    </Toolbar>
+  </AppBar>
+  )
 }
 
 export default App;

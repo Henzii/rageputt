@@ -32,7 +32,7 @@ const VanhatPelit = () => {
     return (
         <div>
             <h2>Vanhat pelit</h2>
-            {getGames.data.getGames.map(g => <Pelikortti aktivoi={aktivoi} peli={g} key={g.id} />)}
+            {getGames.data.getGames.map(g => <Pelikortti user={user.user} aktivoi={aktivoi} peli={g} key={g.id} />)}
         </div>
     )
 }

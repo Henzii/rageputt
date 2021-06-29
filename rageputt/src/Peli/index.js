@@ -77,18 +77,17 @@ const Peli = () => {
     }
 
     return (
-        <div style={{ margin: '0' }}>
-            <AppBar>
+        <>
                 <Tabs
                     value={tabValue}
                     onChange={(event, uusi) => setTabValue(uusi)}
                     variant="fullWidth"
-                >
+                >   
+
                     <Tab label="Peli" />
                     <Tab label="Asetukset" />
                     <Tab label="Statsit" />
                 </Tabs>
-            </AppBar>
             <TabPanel value={tabValue} index={0}>
                 <Tulosruutu kierrosData={kierrosData} tulokset={tulokset}/>
             </TabPanel>
@@ -115,7 +114,7 @@ const Peli = () => {
             <TabPanel value={tabValue} index={2}>
                 {kierrosData.data.getRound.players.map(p => <PlayerStats player={p} key={'ps'+p.user.id} />)}
             </TabPanel>
-        </div>
+        </>
     )
 
 }

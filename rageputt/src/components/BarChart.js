@@ -2,18 +2,13 @@ import { Paper } from '@material-ui/core'
 import { ValueAxis, Chart, Title, BarSeries, ArgumentAxis } from '@devexpress/dx-react-chart-material-ui'
 import { Animation } from '@devexpress/dx-react-chart'
 
-const BarChart = ({ data }) => {
-    console.log(data)
+const BarChart = ({ data, otsikko=''}) => {
     return (
         <Paper>
-            <h2>Chart!!!</h2>
-            <Chart data={data} height='300'>
-                <Title text="BaariDataa" />
+            <Chart data={data} height='250'>
+                <Title text={otsikko} />
                 <ArgumentAxis />
-                <ValueAxis 
-                    min={100}
-                    showGrid={true}
-                />
+                <ValueAxis min={0} max={100} />
                 <BarSeries
                     argumentField="dist"
                     valueField="prossa"
@@ -24,6 +19,4 @@ const BarChart = ({ data }) => {
     )
 
 }
-
-
 export default BarChart
