@@ -10,7 +10,6 @@ export const laskePisteet = (tulokset) => {
     }
     return pisteet
 }
-
 export const tulokset2ChartData = (tulokset = [], palautus = [
         { dist: '5m', putteja: 0, puttejaSisaan: 0, prossa: 0 },
         { dist: '6m', putteja: 0, puttejaSisaan: 0, prossa: 0 },
@@ -18,13 +17,14 @@ export const tulokset2ChartData = (tulokset = [], palautus = [
         { dist: '8m', putteja: 0, puttejaSisaan: 0, prossa: 0},
         { dist: '9m', putteja: 0, puttejaSisaan: 0, prossa: 0},
         { dist: '10m', putteja: 0, puttejaSisaan: 0, prossa: 0 } ]) => {
-
+    
     for (let i=0; i < tulokset.length; i++) {
-        if (tulokset[i] === null) return
+        if (tulokset[i] === null) return palautus
         const etaisyys = (i !== 0) ? tulokset[i-1] : 5
 
         palautus[etaisyys].putteja += 5
         palautus[etaisyys].puttejaSisaan += tulokset[i]
+
         palautus[etaisyys].prossa = palautus[etaisyys].puttejaSisaan / palautus[etaisyys].putteja * 100
     }
     return palautus
