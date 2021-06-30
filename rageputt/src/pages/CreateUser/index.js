@@ -3,8 +3,8 @@ import { ListItem, List, Button, TextField, Divider, Container } from "@material
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Redirect } from "react-router"
-import { CREATE_USER } from '../queries'
-import { setNotification } from "../reducers/notificationReducer"
+import { CREATE_USER } from '../../queries'
+import { setNotification } from "../../reducers/notificationReducer"
 
 const CreateUserForm = () => {
 

@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom'
+import { Container } from '@material-ui/core'
 
-import Peli from './Peli';
 import Notification from './components/Notification'
-
 import Vetomenu from './components/Vetomenu'
-import Statsit from './components/Statsit'
-import LoginForm from './components/LoginForm'
-import Kaverit from './Kaverit'
-import Asetukset from './components/Asetukset'
+import YlaPalkki from './components/YlaPalkki';
 
-import { AppBar, Toolbar, IconButton, Typography, Container } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
-import CreateUserForm from './components/CreateUserForm';
-import VanhatPelit from './VanhatPelit';
+import Peli from './pages/Peli';
+import Statsit from './pages/Statsit'
+import LoginForm from './components/LoginForm'
+import Kaverit from './pages/Kaverit'
+import Asetukset from './pages/Asetukset'
+import CreateUserForm from './pages/CreateUser';
+import VanhatPelit from './pages/VanhatPelit';
+import Etusivu from './pages/Etusivu'
+
+
+
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_ME } from './queries';
 import { useLazyQuery } from '@apollo/client';
@@ -51,9 +54,9 @@ function App() {
   return (
     <div>
 
-      <YlaMenu openMenu={openMenu} />
-
+      <YlaPalkki openMenu={openMenu} />
       <Vetomenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+
       <Notification />
       <Container>
         <Switch>
@@ -79,30 +82,12 @@ function App() {
             <Asetukset />
           </Route>
           <Route path="/">
-            <h1>Etusivu</h1>
-            <p>
-              Rageputt is bäk
-            </p>
+           <Etusivu />
           </Route>
         </Switch>
       </Container>
     </div>
   );
-}
-
-const YlaMenu = ({ openMenu }) => {
-  return (
-    <AppBar position="static">
-    <Toolbar>
-      <IconButton edge="start" onClick={openMenu}>
-        <MenuIcon />
-      </IconButton>
-      <Typography variant="h6" style={{ flexGrow: 1 }}>
-        RagePutt
-      </Typography>
-    </Toolbar>
-  </AppBar>
-  )
 }
 
 export default App;

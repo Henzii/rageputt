@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client"
 import { Backdrop, CircularProgress, Grid, TextField, } from "@material-ui/core"
-import { GET_ME } from "../queries"
+import { GET_ME } from "../../queries"
 
 const Asetukset = () => {
 

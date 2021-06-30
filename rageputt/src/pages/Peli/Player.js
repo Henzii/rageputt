@@ -2,10 +2,10 @@ import { useMutation } from "@apollo/client"
 import { CircularProgress, FormControlLabel, Radio, RadioGroup } from "@material-ui/core"
 import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { SET_SCORE, GET_ROUND } from "../queries"
-import { setNotification } from "../reducers/notificationReducer"
+import { SET_SCORE, GET_ROUND } from "../../queries"
+import { setNotification } from "../../reducers/notificationReducer"
 
-import { laskePisteet } from '../utils/stuff'
+import { laskePisteet } from '../../utils/stuff'
 
 const Player = ({ player, round }) => {
 

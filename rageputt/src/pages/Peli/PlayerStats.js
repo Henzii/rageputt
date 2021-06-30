@@ -1,6 +1,6 @@
-import { statistiikat, tulokset2ChartData } from "../utils/stuff"
+import { statistiikat, tulokset2ChartData } from "../../utils/stuff"
 
-import BarChart from '../components/BarChart'
+import BarChart from '../../components/BarChart'
 
 const PlayerStats = ({ player }) => {
 

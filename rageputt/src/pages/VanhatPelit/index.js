@@ -1,9 +1,11 @@
 import { useQuery } from "@apollo/client"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router"
-import { GET_GAMES } from "../queries"
+import { GET_GAMES } from "../../queries"
 import { Backdrop, CircularProgress } from '@material-ui/core'
 import Pelikortti from "./Pelikortti"
+
+import { setNotification } from '../../reducers/notificationReducer'
 
 const VanhatPelit = () => {
 
@@ -13,6 +15,7 @@ const VanhatPelit = () => {
 
     const aktivoi = (g) => {
         dispatch({ type: 'SET_ID', data: { roundId: g }})
+        dispatch( setNotification('Peli akitoivu, valitse \'Uusi peli\'', 'info') )
     }
 
     if (!user.user) {

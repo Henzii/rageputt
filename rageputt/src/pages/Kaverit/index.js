@@ -1,9 +1,9 @@
 import { useMutation, useQuery } from "@apollo/client"
-import { ANSWER_FRIEND_REQUEST, GET_ME, SEND_FRIEND_REQUEST } from "../queries"
+import { ANSWER_FRIEND_REQUEST, GET_ME, SEND_FRIEND_REQUEST } from "../../queries"
 import FriendRequestForm from "./FriendRequestForm"
 import FriendRequests from "./FriendRequests"
 import { useDispatch } from 'react-redux'
-import { setNotification } from '../reducers/notificationReducer'
+import { setNotification } from '../../reducers/notificationReducer'
 
 const Kaverit = () => {
 

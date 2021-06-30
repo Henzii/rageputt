@@ -2,9 +2,9 @@ import { useQuery } from '@apollo/client'
 import { ArgumentAxis, ValueAxis, LineSeries, Chart, Title } from '@devexpress/dx-react-chart-material-ui'
 import { Backdrop, CircularProgress, Paper, Grid } from '@material-ui/core'
 import { useSelector } from 'react-redux'
-import { GET_GAMES } from '../queries'
-import { laskePisteet, tulokset2ChartData } from '../utils/stuff'
-import BarChart from './BarChart'
+import { GET_GAMES } from '../../queries'
+import { laskePisteet, tulokset2ChartData } from '../../utils/stuff'
+import BarChart from '../../components/BarChart'
 import { Animation } from '@devexpress/dx-react-chart'
 
 
