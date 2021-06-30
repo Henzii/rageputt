@@ -58,7 +58,6 @@ function App() {
       <Vetomenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
       <Notification />
-      <Container>
         <Switch>
           <Route path="/kaverit">
             <Kaverit />
@@ -85,7 +84,6 @@ function App() {
            <Etusivu />
           </Route>
         </Switch>
-      </Container>
     </div>
   );
 }

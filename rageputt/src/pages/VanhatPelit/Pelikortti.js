@@ -1,4 +1,4 @@
-import { Button, Paper, Card, CardHeader, CardContent, Collapse } from '@material-ui/core'
+import { Button, Card, CardHeader, CardContent, Collapse } from '@material-ui/core'
 import { laskePisteet, statistiikat, timestamp2String, tulokset2ChartData } from '../../utils/stuff'
 import { useState } from 'react'
 import { IconButton, Typography } from '@material-ui/core'
@@ -10,11 +10,14 @@ import BarChart from '../../components/BarChart'
 
 const Pelikortti = ({ peli, aktivoi, user }) => {
 
-    const { tulokset } = peli.players.find(p => p.user.user === user)
+    let { tulokset } = peli.players.find(p => p.user.user === user)
     const pisteet = laskePisteet(tulokset)
 
     const [showStats, setShotStats] = useState(false)
-    console.log(tulokset, tulokset2ChartData(tulokset))
+
+    if (tulokset.length === 0) {
+        tulokset = [0]
+    }
     return (
         <Card style={{ marginBottom: '5px' }} variant="outlined">
             <CardHeader

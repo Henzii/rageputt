@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router"
 import { GET_GAMES } from "../../queries"
-import { Backdrop, CircularProgress } from '@material-ui/core'
+import { Backdrop, CircularProgress, Container } from '@material-ui/core'
 import Pelikortti from "./Pelikortti"
 
 import { setNotification } from '../../reducers/notificationReducer'
@@ -33,10 +33,10 @@ const VanhatPelit = () => {
     }
     console.log(getGames)
     return (
-        <div>
+        <Container>
             <h2>Vanhat pelit</h2>
             {getGames.data.getGames.map(g => <Pelikortti user={user.user} aktivoi={aktivoi} peli={g} key={g.id} />)}
-        </div>
+        </Container>
     )
 }
 export default VanhatPelit

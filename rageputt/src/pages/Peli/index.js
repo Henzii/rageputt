@@ -1,14 +1,16 @@
 import { useMutation, useLazyQuery } from '@apollo/client'
-import { Button, AppBar, Divider, CircularProgress } from '@material-ui/core'
+import { Button, Divider, CircularProgress } from '@material-ui/core'
 import { Tabs, Tab, Backdrop } from '@material-ui/core'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { CREATE_GAME, GET_ROUND, END_GAME } from '../../queries'
+import { CREATE_GAME, GET_ROUND, END_GAME, GET_GAMES } from '../../queries'
 import Tulosruutu from './Tulosruutu'
 import NewGameModal from './NewGameModal'
 import PlayerStats from './PlayerStats'
 import { Redirect } from 'react-router'
 import TabPanel from './TabPanel'
+
+import { Container } from '@material-ui/core'
 
 const Peli = () => {
 
@@ -26,7 +28,7 @@ const Peli = () => {
 
     const handleNewGame = async (pelaajat) => {
 
-        const res = await uusiPeli({ variables: { pelaajat: pelaajat } })
+        const res = await uusiPeli({ variables: { pelaajat: pelaajat }, refetchQueries: [{ query: GET_GAMES }] })
 
         dispatch({ type: 'SET_ID', data: { roundId: res.data.createGame } })
         setModal(false);
@@ -34,7 +36,7 @@ const Peli = () => {
     const handleEndGame = async () => {
 
         try {
-            await paataPeli( { variables: { id: tulokset.roundId }})
+            await paataPeli({ variables: { id: tulokset.roundId }, refetchQueries: [ { query: GET_GAMES }] })
         } catch (e) {
             console.log('Virhe pelin päättämisessä. ' + e.message)
         }
@@ -53,7 +55,7 @@ const Peli = () => {
             <Backdrop open={true}>
                 <CircularProgress />
             </Backdrop>
-            
+
         )
     }
     if (!kierrosData.called && tulokset.roundId)
@@ -78,42 +80,45 @@ const Peli = () => {
 
     return (
         <>
-                <Tabs
-                    value={tabValue}
-                    onChange={(event, uusi) => setTabValue(uusi)}
-                    variant="fullWidth"
-                >   
+            <Tabs
+                value={tabValue}
+                onChange={(event, uusi) => setTabValue(uusi)}
+                variant="fullWidth"
+                style={{ backgroundColor: '#3f51b5', color: 'white' }}
+            >
+                <Tab label="Peli" />
+                <Tab label="Asetukset" />
+                <Tab label="Statsit" />
+            </Tabs>
 
-                    <Tab label="Peli" />
-                    <Tab label="Asetukset" />
-                    <Tab label="Statsit" />
-                </Tabs>
-            <TabPanel value={tabValue} index={0}>
-                <Tulosruutu kierrosData={kierrosData} tulokset={tulokset}/>
-            </TabPanel>
-            <TabPanel value={tabValue} index={1}>
-                <h2>Mitä tehdään?</h2>
-                <h3>Poistu pelistä</h3>
-                <p>
-                    Poistu päävalikkoon. Peli on tallennettu ja tulosten merkkaamista voi jatkaa.
-                </p>
-                <Button size="large" onClick={() => dispatch({ type: 'RESET_ROUND' })} variant="contained" color="primary" fullWidth>Poistu pelistä</Button>
-                <Divider  style={{ marginTop: '15px'}}/>
-                <h3>Päätä peli</h3>
-                <p>
-                    Peli päätetään. Tulosten kirjaaminen suljetaan.
-                </p>
-                <Button onClick={handleEndGame} size="large" variant="contained" color="primary" fullWidth>Päätä peli</Button>
-                <Divider  style={{ marginTop: '15px'}}/>
-                <h3>Hylkää peli</h3>
-                <p>
-                    Kaikki tuhotaan.
-                </p>
-                <Button size="large" variant="contained" color="primary" fullWidth>Tuhoa maailma</Button>
-            </TabPanel>
-            <TabPanel value={tabValue} index={2}>
-                {kierrosData.data.getRound.players.map(p => <PlayerStats player={p} key={'ps'+p.user.id} />)}
-            </TabPanel>
+            <Container>
+                <TabPanel value={tabValue} index={0}>
+                    <Tulosruutu kierrosData={kierrosData} tulokset={tulokset} />
+                </TabPanel>
+                <TabPanel value={tabValue} index={1}>
+                    <h2>Mitä tehdään?</h2>
+                    <h3>Poistu pelistä</h3>
+                    <p>
+                        Poistu päävalikkoon. Peli on tallennettu ja tulosten merkkaamista voi jatkaa.
+                    </p>
+                    <Button size="large" onClick={() => dispatch({ type: 'RESET_ROUND' })} variant="contained" color="primary" fullWidth>Poistu pelistä</Button>
+                    <Divider style={{ marginTop: '15px' }} />
+                    <h3>Päätä peli</h3>
+                    <p>
+                        Peli päätetään. Tulosten kirjaaminen suljetaan.
+                    </p>
+                    <Button onClick={handleEndGame} size="large" variant="contained" color="primary" fullWidth>Päätä peli</Button>
+                    <Divider style={{ marginTop: '15px' }} />
+                    <h3>Hylkää peli</h3>
+                    <p>
+                        Kaikki tuhotaan.
+                    </p>
+                    <Button size="large" variant="contained" color="primary" fullWidth>Tuhoa maailma</Button>
+                </TabPanel>
+                <TabPanel value={tabValue} index={2}>
+                    {kierrosData.data.getRound.players.map(p => <PlayerStats player={p} key={'ps' + p.user.id} />)}
+                </TabPanel>
+            </Container>
         </>
     )
 

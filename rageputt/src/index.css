@@ -27,7 +27,16 @@ code {
   margin: auto;
   padding: 0px;
 }
-
+.MuiContainer-root {
+  margin-top: 15px;
+}
+.paperi {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.paperi p {
+  margin-top: 5px;
+}
 .newGameModal {
   width: 80%;
   margin: auto;
