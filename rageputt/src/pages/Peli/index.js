@@ -1,5 +1,5 @@
 import { useMutation, useLazyQuery } from '@apollo/client'
-import { Button, Divider, CircularProgress } from '@material-ui/core'
+import { Button, Divider, CircularProgress, Typography } from '@material-ui/core'
 import { Tabs, Tab, Backdrop } from '@material-ui/core'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +8,8 @@ import Tulosruutu from './Tulosruutu'
 import NewGameModal from './NewGameModal'
 import PlayerStats from './PlayerStats'
 import { Redirect } from 'react-router'
-import TabPanel from './TabPanel'
+
+import TabPanel from '../../components/TabPanel'
 
 import { Container } from '@material-ui/core'
 
@@ -36,7 +37,7 @@ const Peli = () => {
     const handleEndGame = async () => {
 
         try {
-            await paataPeli({ variables: { id: tulokset.roundId }, refetchQueries: [ { query: GET_GAMES }] })
+            await paataPeli({ variables: { id: tulokset.roundId }, refetchQueries: [{ query: GET_GAMES }] })
         } catch (e) {
             console.log('Virhe pelin päättämisessä. ' + e.message)
         }
@@ -62,19 +63,19 @@ const Peli = () => {
         haeRundi({ variables: { roundId: tulokset.roundId } });
     if (tulokset.roundId === null || !kierrosData.data) {
         return (
-            <div>
-                <h2>Pakko päästä puttaa</h2>
-                <p>
-                    Ei aktiivista peliä käynnissä. Aloita joko uusi peli tai jatkaa vanhaa peliä.
-                </p>
-                <p>
-                    Vanhan pelin jatkaminen onnistuu aktivoimalla se 'Vanhat peli' -osiosta.
-                </p>
+            <Container>
+                <Typography variant="h4" >Pakko päästä puttaa</Typography>
+                <Typography paragraph>
+                    <p>
+                        Ei aktiivista peliä käynnissä. Aloita joko uusi peli tai jatkaa vanhaa peliä.
+                    </p>
+                    <p>
+                        Vanhan pelin jatkaminen onnistuu aktivoimalla se 'Vanhat peli' -osiosta.
+                    </p>
+                </Typography>
                 <Button onClick={() => setModal(true)} color="primary" variant="contained" size="large" fullWidth>Aloita uusi peli</Button>
-
                 <NewGameModal open={modalOpen} setModal={setModal} handleNewGame={handleNewGame} />
-
-            </div>
+            </Container>
         )
     }
 
@@ -96,24 +97,24 @@ const Peli = () => {
                     <Tulosruutu kierrosData={kierrosData} tulokset={tulokset} />
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                    <h2>Mitä tehdään?</h2>
-                    <h3>Poistu pelistä</h3>
-                    <p>
+
+                    <Typography variant="h5" gutterBottom>Poistu pelistä</Typography>
+                    <Typography paragraph>
                         Poistu päävalikkoon. Peli on tallennettu ja tulosten merkkaamista voi jatkaa.
-                    </p>
+                    </Typography>
                     <Button size="large" onClick={() => dispatch({ type: 'RESET_ROUND' })} variant="contained" color="primary" fullWidth>Poistu pelistä</Button>
-                    <Divider style={{ marginTop: '15px' }} />
-                    <h3>Päätä peli</h3>
-                    <p>
-                        Peli päätetään. Tulosten kirjaaminen suljetaan.
-                    </p>
+                    
+                    <Divider style={{ margin: '15px 0px' }} />
+                    
+                    <Typography variant="h5" gutterBottom>Päätä peli</Typography>
+                    <Typography paragraph>Peli päätetään. Tulosten kirjaaminen suljetaan. Tulokset lasketaan mukaan statistiikkoihin.</Typography>
                     <Button onClick={handleEndGame} size="large" variant="contained" color="primary" fullWidth>Päätä peli</Button>
-                    <Divider style={{ marginTop: '15px' }} />
-                    <h3>Hylkää peli</h3>
-                    <p>
-                        Kaikki tuhotaan.
-                    </p>
-                    <Button size="large" variant="contained" color="primary" fullWidth>Tuhoa maailma</Button>
+                    
+                    <Divider  style={{ margin: '15px 0px' }} />
+                   
+                    <Typography variant="h5" gutterBottom>Poista peli</Typography>
+                    <Typography paragraph>Peli poistetaan</Typography>
+                    <Button size="large" variant="contained" color="primary" fullWidth>Poista peli</Button>
                 </TabPanel>
                 <TabPanel value={tabValue} index={2}>
                     {kierrosData.data.getRound.players.map(p => <PlayerStats player={p} key={'ps' + p.user.id} />)}

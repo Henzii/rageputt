@@ -1,8 +1,9 @@
 import { useMutation } from "@apollo/client"
-import { CircularProgress, FormControlLabel, Radio, RadioGroup } from "@material-ui/core"
+import { CircularProgress, FormControlLabel, Radio, RadioGroup, Grid } from "@material-ui/core"
+import { Card, CardHeader, CardContent } from '@material-ui/core'
 import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { SET_SCORE, GET_ROUND } from "../../queries"
+import { SET_SCORE } from "../../queries"
 import { setNotification } from "../../reducers/notificationReducer"
 
 import { laskePisteet } from '../../utils/stuff'
@@ -17,7 +18,6 @@ const Player = ({ player, round }) => {
     const [setScore] = useMutation(SET_SCORE, { variables: { roundId: roundData.roundId } })
 
     const handleChange = (e) => {
-        console.log('Clickkiä arvoon ', e.target.value)
         setLoading(e.target.value)
         setScore({
             variables: {
@@ -30,8 +30,8 @@ const Player = ({ player, round }) => {
             dispatch(setNotification(e.message, 'error'))
         }).finally(() => {
             setLoading(null)
-            if (round > 0 && !player.tulokset[round-1] )
-                dispatch( setNotification('Kierroksen ' + round + ' tulos puuttuu', 'warning'))
+            if (round > 0 && !player.tulokset[round - 1])
+                dispatch(setNotification('Kierroksen ' + round + ' tulos puuttuu', 'warning'))
         })
     }
     const distance = (round > 0) ? 5 + player.tulokset[round - 1] : 10
@@ -39,14 +39,20 @@ const Player = ({ player, round }) => {
     let putteja = player.tulokset[round]
     if (isNaN(putteja)) putteja = null
     return (
-        <div>
-            <h2>{player.user.name} {(distance) ? distance : ' xx '}m - {pisteet}</h2>
-            <div className="tulosValitsin">
+        <Card className="tulos-kortti" elevation={3}>
+            <CardHeader
+                title={player.user.name}
+                action={distance + 'm'}
+                subheader={pisteet + ' points'}
+            />
+            <CardContent style={{padding: '15px 0px'}}>
                 <RadioGroup row style={{ whiteSpace: 'nowrap' }} value={putteja} onChange={handleChange}>
-                    <RadioButtons loading={loading} />
+                    <Grid container>
+                        <RadioButtons loading={loading} />
+                    </Grid>
                 </RadioGroup>
-            </div>
-        </div>
+            </CardContent>
+        </Card>
     )
 }
 const RadioButtons = ({ loading }) => {
@@ -54,20 +60,25 @@ const RadioButtons = ({ loading }) => {
     var i
     for (i = 0; i < 6; i++) {
         if (loading && i === Number(loading)) {
-            palautus.push(<CircularProgress />)
+            palautus.push(
+                <CircularProgress />
+            )
         }
         else {
             palautus.push(
-                <FormControlLabel
-                    labelPlacement="top"
-                    key={i}
-                    value={i}
-                    label={i}
-                    control={
-                        <Radio color="primary" size="small"
-                            style={{ padding: '0px' }}
-                        />}
-                />)
+                <Grid item xs>
+                    <FormControlLabel
+                        labelPlacement="top"
+                        key={i}
+                        value={i}
+                        label={i}
+                        control={
+                            <Radio color="primary" size="small"
+                                style={{ padding: '0px' }}
+                            />}
+                    />
+                </Grid>
+            )
         }
     }
     return palautus;

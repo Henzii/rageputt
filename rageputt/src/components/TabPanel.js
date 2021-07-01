@@ -1,5 +1,6 @@
 
-function TabPanel(props) {
+const TabPanel = (props) => {
+  
     const { children, value, index, ...other } = props;
   
     return (

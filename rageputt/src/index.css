@@ -37,6 +37,9 @@ code {
 .paperi p {
   margin-top: 5px;
 }
+.tulos-kortti {
+  margin-bottom: 10px;
+}
 .newGameModal {
   width: 80%;
   margin: auto;

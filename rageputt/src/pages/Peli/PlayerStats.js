@@ -1,4 +1,5 @@
-import { statistiikat, tulokset2ChartData } from "../../utils/stuff"
+import { tulokset2ChartData } from "../../utils/stuff"
+import { Paper } from '@material-ui/core'
 
 import BarChart from '../../components/BarChart'
 
@@ -6,9 +7,10 @@ const PlayerStats = ({ player }) => {
 
     const statsit = tulokset2ChartData(player.tulokset)
     return (
-        <div>
-            <BarChart data={statsit} />
-        </div>
+            <BarChart data={statsit} otsikko={player.user.name} paperProps={ {
+                elevation: 3,
+                style: { marginBottom: '5px' }
+            }} />
     )
 }
 export default PlayerStats
