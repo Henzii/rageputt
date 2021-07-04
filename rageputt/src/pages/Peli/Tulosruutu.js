@@ -60,7 +60,7 @@ const Tulosruutu = ({ kierrosData, tulokset }) => {
                 <Grid item component={'h2'}>Round {kierros + 1}</Grid>
                 <Grid item><IconButton onClick={() => dispatch({ type: 'INC_ROUND' })}><ChevronRight /></IconButton></Grid>
             </Grid>
-            {kierrosData.data.getRound.players.map(p => <Player key={p.user.id + 'ppp'} player={p} round={kierros} />)}
+            {kierrosData.data.getRound.players.map(p => <Player key={p.user.user + 'ppp'} player={p} round={kierros} />)}
         </div>
     )
 }

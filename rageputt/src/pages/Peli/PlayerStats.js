@@ -1,5 +1,4 @@
 import { tulokset2ChartData } from "../../utils/stuff"
-import { Paper } from '@material-ui/core'
 
 import BarChart from '../../components/BarChart'
 

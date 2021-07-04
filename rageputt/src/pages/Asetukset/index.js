@@ -1,10 +1,21 @@
 import { useQuery } from "@apollo/client"
-import { Backdrop, CircularProgress, Grid, TextField, Container, Typography, Paper } from "@material-ui/core"
+import { Backdrop, CircularProgress, Grid, TextField, Button, Container, Typography, Paper, Divider } from "@material-ui/core"
 import { GET_ME } from "../../queries"
+
+import SalasananVaihto from './SalasananVaihto'
 
 const Asetukset = () => {
 
     const user = useQuery(GET_ME)
+
+    const vaihdaSalasana = (e) => {
+        e.preventDefault()
+        console.log('Vaihdetaan salasana')
+        e.target.uusiPw.value = ''
+        e.target.uusiPw2.value = ''
+
+    }
+
     if (user.loading) {
         return (
             <Backdrop open={true}>
@@ -24,9 +35,15 @@ const Asetukset = () => {
                     <Grid item xs={6}>Sähköposti</Grid>
                     <Grid item xs={6}>{user.data.getMe.email}</Grid>
                 </Grid>
-                <Typography variant="h5" gutterBottom>Vaihda salasana</Typography>
-                <TextField type="password" variant="outlined" label="Uusi salasana" fullWidth size="small" />
-                <TextField type="password" variant="outlined" label="Salasana uudestaan" fullWidth size="small" />
+                
+                <SalasananVaihto vaihdaSalasana={vaihdaSalasana} />
+
+                <Divider style={{ margin: "10px 0px"}} />
+
+                <Typography variant="h5" gutterBottom>Vaihda näyttönimi</Typography>
+
+                <TextField name="uusiNimi" variant="outlined" label="Uusi nimi" size="small" />
+                <Button variant="contained" color="primary">Ok</Button>
             </Typography>
         </Container>
     )

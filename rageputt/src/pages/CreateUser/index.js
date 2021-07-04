@@ -42,7 +42,7 @@ const CreateUserForm = () => {
         return (<Redirect to="/login" /> )
     }
     return (
-        <div>
+        <Container>
             <h1>Luo tunnus</h1>
             <h2>Perustiedot</h2>
             <form onSubmit={handleSubmit}>
@@ -60,7 +60,7 @@ const CreateUserForm = () => {
                     <ListItem><Button type="submit" size="large" variant="contained" fullWidth color="primary">Luo tunnus</Button></ListItem>
                 </List>
             </form>
-        </div>
+        </Container>
     )
 }
 

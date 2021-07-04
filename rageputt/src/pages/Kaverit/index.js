@@ -5,6 +5,8 @@ import FriendRequests from "./FriendRequests"
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../../reducers/notificationReducer'
 
+import { Container } from '@material-ui/core'
+
 const Kaverit = () => {
 
     const mina = useQuery(GET_ME)
@@ -36,12 +38,12 @@ const Kaverit = () => {
     }
     console.log(mina)
     return (
-        <div>
+        <Container>
         <h2>Kaverisi</h2>
         <KaveriLista kaverit={mina.data.getMe.friends} />
         <FriendRequests pyynnot={mina.data.getMe.friendRequests} handleFriendRequest={handleFriendRequest} />
         <FriendRequestForm handleSendFriendRequest={handleSendFriendRequest} />
-        </div>
+        </Container>
     )
 
 }

@@ -66,10 +66,11 @@ const RadioButtons = ({ loading }) => {
         }
         else {
             palautus.push(
-                <Grid item xs>
+                <Grid item xs
+                    key={i}
+                >
                     <FormControlLabel
                         labelPlacement="top"
-                        key={i}
                         value={i}
                         label={i}
                         control={

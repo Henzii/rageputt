@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, TextField, List, ListItem, Backdrop, CircularProgress } from '@material-ui/core'
+import { Button, TextField, List, ListItem, Backdrop, CircularProgress, Container } from '@material-ui/core'
 import { useApolloClient, useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
 import { setUser, clearUser } from '../reducers/userReducer'
@@ -38,15 +38,15 @@ const LoginForm = () => {
     console.log(user)
     if (user.user) {
         return (
-            <div>
+            <Container>
                 <h1>Kirjautunut</h1>
                 <p>Olet kirjautunut {user.user}:na</p>
                 <Button onClick={handleLogout} variant="contained" color="primary">Kirjaudu ulos</Button>
-            </div>
+            </Container>
         )
     }
     return (
-        <div>
+        <Container>
             <Backdrop open={loginProcess}>
                 <CircularProgress />
             </Backdrop>
@@ -59,7 +59,7 @@ const LoginForm = () => {
                     <ListItem><Button type="submit" variant="contained" color="primary" size="large">Kirjaudu</Button></ListItem>
                 </List>
             </form>
-        </div>
+        </Container>
     )
 }
 

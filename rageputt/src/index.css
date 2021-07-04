@@ -53,3 +53,13 @@ code {
 .buttMar {
   margin-top: 5px;
 }
+
+#iso-naytto {
+  display: none;
+  
+}
+@media screen and (min-width: 800px) {
+  #iso-naytto {
+    display: block;
+  }
+}

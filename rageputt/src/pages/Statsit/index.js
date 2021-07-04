@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { ArgumentAxis, ValueAxis, LineSeries, Chart, Title } from '@devexpress/dx-react-chart-material-ui'
-import { Backdrop, CircularProgress, Paper, Grid } from '@material-ui/core'
+import { Backdrop, CircularProgress, Paper, Grid, Container } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { GET_GAMES } from '../../queries'
 import { laskePisteet, tulokset2ChartData } from '../../utils/stuff'
@@ -34,7 +34,7 @@ const Statsit = () => {
     console.log(kaikkiPisteet)
 
     return (
-        <div>
+        <Container>
             <Paper>
                 <Grid>
                     <Grid>
@@ -58,7 +58,7 @@ const Statsit = () => {
                 <Animation />
             </Chart>
 
-        </div>
+        </Container>
     )
 }
 
