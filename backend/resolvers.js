@@ -45,7 +45,7 @@ const typeDefs = gql`
         createGame( pelaajat: [String]): String
         sendFriendRequest( fName: String!): String
         handleFriendRequest( friendId: String!, action: Boolean!): String
-        changeSettings( name: String, password1: String, password2: String ): String
+        changeSettings( name: String, password: String, email: String ): String
     }
     type Subscription {
         changedCard( roundId: String!): SubPushData

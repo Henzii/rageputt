@@ -15,7 +15,6 @@ const useGetMe = () => {
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, loading])
-
     return { me, loading, refetch };
 }
 

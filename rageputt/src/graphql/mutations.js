@@ -13,6 +13,15 @@ export const LOGIN = gql`
 
 
 `
+export const CHANGE_SETTINGS = gql`
+    mutation changeSettings($name: String, $password: String, $email: String) {
+        changeSettings(
+            name: $name,
+            password: $password,
+            email: $email
+        )
+    }
+`
 export const END_GAME = gql`
     mutation endGame ($id: String!) {
         finishGame(

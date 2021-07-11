@@ -7,12 +7,12 @@ const SalasananVaihto = ({ vaihdaSalasana }) => {
             <form onSubmit={vaihdaSalasana}>
                 <Typography variant="h5" gutterBottom>Vaihda salasana</Typography>
 
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                     <Grid item xs={12}>
-                        <TextField variant="outlined" name="uusiPw" label="Uusi salasana" size="small" fullWidth />
+                        <TextField variant="outlined" name="uusiPw" label="Uusi salasana" size="small" />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField variant="outlined" name="uusiPw2" label="Uusi uudestaan" size="small" fullWidth />
+                        <TextField variant="outlined" name="uusiPw2" label="Uusi uudestaan" size="small" />
                     </Grid>
                     <Grid item>
                         <Button variant="contained" color="primary" type="submit">Vaihda</Button>
