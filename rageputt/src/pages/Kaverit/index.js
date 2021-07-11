@@ -1,5 +1,4 @@
 import { useMutation, useQuery } from "@apollo/client"
-import { ANSWER_FRIEND_REQUEST, GET_ME, SEND_FRIEND_REQUEST } from "../../queries"
 import FriendRequestForm from "./FriendRequestForm"
 import FriendRequests from "./FriendRequests"
 import { useDispatch } from 'react-redux'
@@ -7,9 +6,14 @@ import { setNotification } from '../../reducers/notificationReducer'
 
 import { Container } from '@material-ui/core'
 
+import { ANSWER_FRIEND_REQUEST, SEND_FRIEND_REQUEST } from "../../graphql/mutations"
+import { GET_ME } from '../../graphql/queries';
+
+import useGetMe from "../../hooks/useGetMe"
+
 const Kaverit = () => {
 
-    const mina = useQuery(GET_ME)
+    const { me, loading, refetch } = useGetMe();
 
     const dispatch = useDispatch()
 
@@ -33,15 +37,18 @@ const Kaverit = () => {
             dispatch( setNotification('Tapahtui virhe: ' + e.message, 'error' ))
         })
     }
-    if (mina.loading) {
+    const refetchMe = () => {
+        refetch();
+    }
+    if (loading || !me) {
         return ( <h2>Loading friends...</h2>)
     }
-    console.log(mina)
+    console.log(me)
     return (
         <Container>
         <h2>Kaverisi</h2>
-        <KaveriLista kaverit={mina.data.getMe.friends} />
-        <FriendRequests pyynnot={mina.data.getMe.friendRequests} handleFriendRequest={handleFriendRequest} />
+        <KaveriLista kaverit={me.friends} />
+        <FriendRequests pyynnot={me.friendRequests} handleFriendRequest={handleFriendRequest} refetchMe={refetchMe} />
         <FriendRequestForm handleSendFriendRequest={handleSendFriendRequest} />
         </Container>
     )

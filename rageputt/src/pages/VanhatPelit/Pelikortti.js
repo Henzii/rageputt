@@ -1,5 +1,5 @@
 import { Button, Card, CardHeader, CardContent, Collapse } from '@material-ui/core'
-import { laskePisteet, statistiikat, timestamp2String, tulokset2ChartData } from '../../utils/stuff'
+import { laskePisteet, timestamp2String, tulokset2ChartData } from '../../utils/stuff'
 import { useState } from 'react'
 import { IconButton, Typography } from '@material-ui/core'
 

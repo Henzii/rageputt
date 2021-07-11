@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux'
 import Player from './Player'
 
 import { useSubscription, useApolloClient } from '@apollo/client'
-import { CARD_CHANGED, GET_ROUND } from '../../queries'
+
+import { GET_ROUND } from '../../graphql/queries'
+import { CARD_CHANGED } from '../../graphql/subscriptions'
 
 import { useEffect } from 'react'
 

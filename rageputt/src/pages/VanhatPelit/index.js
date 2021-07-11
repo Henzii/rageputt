@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router"
-import { GET_GAMES } from "../../queries"
+import { GET_GAMES } from "../../graphql/queries"
 import { Backdrop, CircularProgress, Container } from '@material-ui/core'
 import Pelikortti from "./Pelikortti"
 

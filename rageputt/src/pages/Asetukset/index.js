@@ -1,12 +1,12 @@
-import { useQuery } from "@apollo/client"
 import { Backdrop, CircularProgress, Grid, TextField, Button, Container, Typography, Paper, Divider } from "@material-ui/core"
-import { GET_ME } from "../../queries"
+
+import useGetMe from "../../hooks/useGetMe";
 
 import SalasananVaihto from './SalasananVaihto'
 
 const Asetukset = () => {
 
-    const user = useQuery(GET_ME)
+    const { me, loading } = useGetMe();
 
     const vaihdaSalasana = (e) => {
         e.preventDefault()
@@ -16,7 +16,7 @@ const Asetukset = () => {
 
     }
 
-    if (user.loading) {
+    if (loading || !me) {
         return (
             <Backdrop open={true}>
                 <CircularProgress />
@@ -29,11 +29,11 @@ const Asetukset = () => {
             <Typography>
                 <Grid container component={Paper} className="paperi">
                     <Grid item xs={6}>Tunnus</Grid>
-                    <Grid item xs={6}>{user.data.getMe.user}</Grid>
+                    <Grid item xs={6}>{me.user}</Grid>
                     <Grid item xs={6}>Nimi</Grid>
-                    <Grid item xs={6}>{user.data.getMe.name}</Grid>
+                    <Grid item xs={6}>{me.name}</Grid>
                     <Grid item xs={6}>Sähköposti</Grid>
-                    <Grid item xs={6}>{user.data.getMe.email}</Grid>
+                    <Grid item xs={6}>{me.email}</Grid>
                 </Grid>
                 
                 <SalasananVaihto vaihdaSalasana={vaihdaSalasana} />

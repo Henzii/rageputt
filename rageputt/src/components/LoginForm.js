@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, TextField, List, ListItem, Backdrop, CircularProgress, Container } from '@material-ui/core'
 import { useApolloClient, useMutation } from '@apollo/client'
-import { LOGIN } from '../queries'
+import { LOGIN } from '../graphql/mutations'
 import { setUser, clearUser } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch, useSelector } from 'react-redux'

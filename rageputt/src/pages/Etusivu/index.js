@@ -1,4 +1,4 @@
-import { Container, Typography, Divider, Paper } from '@material-ui/core'
+import { Container, Typography, Paper } from '@material-ui/core'
 
 const Etusivu = () => {
     return (

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom'
-import { Container } from '@material-ui/core'
 
 import Notification from './components/Notification'
 import Vetomenu from './components/Vetomenu'
@@ -15,12 +14,13 @@ import CreateUserForm from './pages/CreateUser';
 import VanhatPelit from './pages/VanhatPelit';
 import Etusivu from './pages/Etusivu'
 
-
-
-import { useDispatch, useSelector } from 'react-redux';
-import { GET_ME } from './queries';
-import { useLazyQuery } from '@apollo/client';
 import { setUser } from './reducers/userReducer';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { GET_ME } from './graphql/queries';
+import { useLazyQuery } from '@apollo/client';
+
+import useGetMe from './hooks/useGetMe';
 
 
 function App() {
@@ -29,28 +29,18 @@ function App() {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
-  const [getMe, gotme] = useLazyQuery(GET_ME)
+  const { me, loading } = useGetMe();
 
   const openMenu = () => {
     setMenuOpen(true)
   }
   useEffect(() => {
-    const otaToken = () => {
-      const token = localStorage.getItem('rageToken')
-      console.log(token)
-      console.log(user)
-      if (token && !user.user) {
-        if (!gotme.loading && gotme.data) {
-          console.log(gotme)
-          dispatch( setUser(gotme.data.getMe.name, gotme.data.getMe.user))
-        }
-        else if (gotme.called === false) {
-          getMe()
-        }
+      if (!loading && me != null && !user.user) {
+        dispatch( setUser( me.name, me.user ))
       }
-    }
-    otaToken()
-  }, [gotme])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [me] )
+
   return (
     <div>
 

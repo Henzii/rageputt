@@ -3,7 +3,9 @@ import { CircularProgress, FormControlLabel, Radio, RadioGroup, Grid } from "@ma
 import { Card, CardHeader, CardContent } from '@material-ui/core'
 import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { SET_SCORE } from "../../queries"
+
+import { SET_SCORE } from "../../graphql/mutations"
+
 import { setNotification } from "../../reducers/notificationReducer"
 
 import { laskePisteet } from '../../utils/stuff'

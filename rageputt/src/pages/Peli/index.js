@@ -3,13 +3,15 @@ import { Button, Divider, CircularProgress, Typography } from '@material-ui/core
 import { Tabs, Tab, Backdrop } from '@material-ui/core'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { CREATE_GAME, GET_ROUND, END_GAME, GET_GAMES } from '../../queries'
 import Tulosruutu from './Tulosruutu'
 import NewGameModal from './NewGameModal'
 import PlayerStats from './PlayerStats'
 import { Redirect } from 'react-router'
 
 import TabPanel from '../../components/TabPanel'
+
+import { GET_ROUND, GET_GAMES } from '../../graphql/queries'
+import { CREATE_GAME, END_GAME } from '../../graphql/mutations'
 
 import { Container } from '@material-ui/core'
 

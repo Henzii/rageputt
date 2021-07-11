@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/client"
 import { Button, Checkbox, Divider, FormControlLabel, InputLabel, List, ListItem, Modal, Select } from "@material-ui/core"
 import { useState } from "react"
-import { GET_ME } from "../../queries"
+
+import { GET_ME } from "../../graphql/queries"
 
 const NewGameModal = ({ open, setModal, handleNewGame }) => {
 

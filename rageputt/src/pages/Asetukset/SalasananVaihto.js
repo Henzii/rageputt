@@ -1,4 +1,4 @@
-import { Grid, Typography, TextField, Button, Paper} from '@material-ui/core'
+import { Grid, Typography, TextField, Button } from '@material-ui/core'
 
 
 const SalasananVaihto = ({ vaihdaSalasana }) => {
