@@ -33,7 +33,8 @@ const skeema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         }
-    ]
+    ],
+    email: String
 })
 
 skeema.plugin(validator);

@@ -17,9 +17,6 @@ import Etusivu from './pages/Etusivu'
 import { setUser } from './reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GET_ME } from './graphql/queries';
-import { useLazyQuery } from '@apollo/client';
-
 import useGetMe from './hooks/useGetMe';
 
 
