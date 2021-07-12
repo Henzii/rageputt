@@ -17,7 +17,6 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: async ({ req }) => {
-        console.log('Headers: ', req)
         const auth = req ? req.headers.authorization : null
         if (auth && auth.toLowerCase().startsWith('bearer ')) {
             const loggedUser = jwt.verify(auth.substring(7), process.env.TOKEN_KEY)

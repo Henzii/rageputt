@@ -24,8 +24,8 @@ describe('Peleihin liittyvät testit', () => {
         token = jwt.sign(tokenille, process.env.TOKEN_KEY)
     })
     test('Token on validi', async () => {
-        const resutl = App.server.executeOperation({
-            query: `query getMe() { user id }`,
+        const result = await App.server.executeOperation({
+            query: `query getMe { getMe { user name id } }`,
         }, {
             req: {
                 headers: {
@@ -34,5 +34,10 @@ describe('Peleihin liittyvät testit', () => {
             },
         
         })
+        expect(result.data.getMe).not.toBeNull()
+        expect(result.errors).toBeUndefined()
+    })
+    afterAll(() => {
+        mongoose.connection.close()
     })
 })
