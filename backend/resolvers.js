@@ -45,7 +45,7 @@ const typeDefs = gql`
         createGame( pelaajat: [String]): String
         sendFriendRequest( fName: String!): String
         handleFriendRequest( friendId: String!, action: Boolean!): String
-        changeSettings( name: String, password: String, email: String ): String
+        changeSettings( name: String, password: String, email: String ): User
     }
     type Subscription {
         changedCard( roundId: String!): SubPushData
@@ -78,6 +78,7 @@ const resolvers = {
             return {
                 user: user.user,
                 name: user.name,
+                id: user.id,
                 email: user.email,
                 friendRequests: user.friendRequests,
                 friends: user.friends
@@ -110,7 +111,11 @@ const resolvers = {
     },
     Mutation: {
         changeSettings: async( root, args, context) => {
-            return "TODO"
+            if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
+            const user = await UserModel.findById(context.loggedUser.id)
+            
+            // Palauta uusi, päivitetty käyttäjä
+            return user;
         },
         createGame: async (root, args, context) => {
             console.log('Uusi peli. Pelaajat: ', args.pelaajat)
