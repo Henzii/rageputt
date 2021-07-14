@@ -5,6 +5,9 @@ const bcrypt = require('bcrypt')
 const UserModel = require('./models/User')
 const GameModel = require('./models/Game')
 
+const emailValidator = require('email-validator')
+const sendEmail = require('./utils/sendEmail')
+
 const pubsub = new PubSub()
 
 const typeDefs = gql`
@@ -204,6 +207,9 @@ const resolvers = {
             })
 
             if (args.name === '') newUser.name = args.user
+            if (!emailValidator.validate(newUser.email)) {
+                newUser.email = ''
+            }
 
             try {
                 await newUser.save();
@@ -216,7 +222,20 @@ const resolvers = {
                 else
                     throw new ValidationError('Käyttäjätunnusta ei voitu luoda')
             }
+            if (newUser.email != '') {
+                const maili = sendEmail(newUser.email, 'Tervetuloa Rageputtiin',`
+                Hei ${newUser.name},
 
+                Tervetuloa käyttämään Rageputtia! Toivottavasti frisbeejumalat ovat puolellasi
+                ja puttailu on kuin linnunmaitoja joisi!
+
+                Terveisin,
+                Rage Putt
+                http://rageputt.herokuapp.com
+                rageputt@gmail.com
+                `)
+                console.log(maili)
+            }
             return newUser;
         },
         sendFriendRequest: async (root, args, context) => {

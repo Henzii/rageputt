@@ -18,6 +18,7 @@ import { setUser } from './reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useGetMe from './hooks/useGetMe';
+import RestoreAccount from './components/RestoreAccount';
 
 
 function App() {
@@ -66,6 +67,9 @@ function App() {
           </Route>
           <Route path="/asetukset">
             <Asetukset />
+          </Route>
+          <Route path="/palautus">
+            <RestoreAccount />
           </Route>
           <Route path="/">
            <Etusivu />
