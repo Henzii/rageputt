@@ -46,6 +46,7 @@ const typeDefs = gql`
         sendFriendRequest( fName: String!): String
         handleFriendRequest( friendId: String!, action: Boolean!): String
         changeSettings( name: String, password: String, email: String ): User
+        deleteGame( roundId: String! ): String
     }
     type Subscription {
         changedCard( roundId: String!): SubPushData
@@ -116,6 +117,11 @@ const resolvers = {
             
             // Palauta uusi, päivitetty käyttäjä
             return user;
+        },
+        deleteGame: async( root, args, context) => {
+            if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
+
+            return "Have a nice day"
         },
         createGame: async (root, args, context) => {
             console.log('Uusi peli. Pelaajat: ', args.pelaajat)
