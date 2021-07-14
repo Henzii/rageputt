@@ -124,7 +124,6 @@ const resolvers = {
             return "Have a nice day"
         },
         createGame: async (root, args, context) => {
-            console.log('Uusi peli. Pelaajat: ', args.pelaajat)
 
             if (!context.loggedUser.user) {
                 throw new AuthenticationError('Kirjaudu sisään!')
