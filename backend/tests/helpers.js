@@ -5,7 +5,7 @@ const User = require('../models/User')
 const testUser1 = new User({
     user: 'tester1',
     name: 'Test User 1',
-    email: 'tester1@rageputt.com',
+    email: 'henry.karlenius@gmail.com',
     passwordHash: 'Hash'
 })
 const testUser2 = new User({

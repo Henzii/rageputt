@@ -48,4 +48,7 @@ describe('Asetukset-sivun testit', () => {
         const updatedUser = await User.findById( result.data.changeSettings.id )
         expect(updatedUser.passwordHash).not.toBe('Hash')
     })
+    afterAll(() => {
+        mongoose.connection.close()
+    })
 })

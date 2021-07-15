@@ -16,7 +16,24 @@ const Mutation = {
     changeSettings: async( root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
         const user = await UserModel.findById(context.loggedUser.id)
-        
+        if (!emailValidator.validate(args.email) && args.name === '' && args.password === '') {
+            throw new UserInputError('Ei tarpeeksi parametrejä!')
+        }
+
+        if ( args.email && args.email != '' && emailValidator.validate(args.email)) {
+            user.email = args.email;
+        }
+        if (args.name && args.name != '') {
+            user.name = args.name;
+        }
+        if (args.password && args.password != '') {
+            user.passwordHash = await bcrypt.hash( args.password, 10)
+        }
+        try {
+          await user.save();
+        } catch(e) {
+            throw new UserInputError(e.message)
+        }
         // Palauta uusi, päivitetty käyttäjä
         return user;
     },
