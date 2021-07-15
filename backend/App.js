@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 require('dotenv').config();
 
 const { ApolloServer } = require('apollo-server-express')
-const { typeDefs, resolvers } = require('./resolvers')
+const { typeDefs, resolvers } = require('./graphql')
 
 const { SubscriptionServer } = require('subscriptions-transport-ws')
 const http = require('http')
