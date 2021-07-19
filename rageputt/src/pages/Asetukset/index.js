@@ -1,10 +1,14 @@
 import { Backdrop, CircularProgress, TextField, Button, Container, Typography, Divider } from "@material-ui/core"
+import { useState } from "react";
 
 import useGetMe from "../../hooks/useGetMe";
 import OmatTiedot from "./OmatTiedot";
 
 import SalasananVaihto from './SalasananVaihto'
 import VaihdaEmail from './VaihdaEmail';
+
+import { CHANGE_SETTINGS } from "../../graphql/mutations";
+import { useMutation } from "@apollo/client";
 
 const Asetukset = () => {
 
@@ -41,7 +45,6 @@ const VaihdaNayttonimi = () => {
     return (
         <div>
             <Typography variant="h5" gutterBottom>Vaihda näyttönimi</Typography>
-
             <TextField name="uusiNimi" variant="outlined" label="Uusi nimi" size="small" />
             <Button variant="contained" color="primary">Ok</Button>
         </div>
