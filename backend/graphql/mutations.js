@@ -1,5 +1,5 @@
 const { UserInputError, SyntaxError, ForbiddenError, 
-    ValidationError, AuthenticationError } = require('apollo-server');
+    ValidationError, AuthenticationError, PubSub } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const UserModel = require('../models/User')
@@ -7,6 +7,8 @@ const GameModel = require('../models/Game')
 
 const emailValidator = require('email-validator')
 const sendEmail = require('../utils/sendEmail')
+
+const pubsub = new PubSub()
 
 const Mutation = {
     restoreAccount: async( root, args, context) => {

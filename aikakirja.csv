@@ -26,4 +26,4 @@
 12.7.2021   2,5 Backendin testejä
 13.7.2021   3   Testausta, Käyttäjätietojen mukkauksen testit.
 14.7.2021   2   Backendiin pelin poiston testit, sähköpostin lähetys, fronttiin alustava sivu tunnusten palautuksesta.
-15.7.2021   2   Backendin refaktorointia, asetukset-sivun toiminnallisuus backendiin.
+15.7.2021   2   Backendin refaktorointia, asetukset-sivun toiminnallisuus, testit tunnuksen palauttamiseen

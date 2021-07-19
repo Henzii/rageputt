@@ -12,7 +12,7 @@ describe('Tunnuksen palauttamisen testit', () => {
     beforeAll(async () => {
         await initDatabase();
     })
-    test('Paluttaminen luo kertakäyttöiusen salasanan', async () => {
+    test('Paluttaminen luo kertakäyttöisen salasanan', async () => {
         await App.server.executeOperation({
             query: `mutation restoreAccount($email: String!) {
                 restoreAccount(email: $email)
