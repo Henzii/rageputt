@@ -1,5 +1,5 @@
 const { UserInputError, SyntaxError, ForbiddenError, 
-    ValidationError, AuthenticationError, PubSub } = require('apollo-server');
+    ValidationError, AuthenticationError, PubSub, withFilter } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const UserModel = require('../models/User')
@@ -212,4 +212,17 @@ const Mutation = {
         return "OK"
     }
 }
-module.exports = Mutation;
+const Subscription = {
+    changedCard: {
+        subscribe: withFilter(
+            () => pubsub.asyncIterator(['SCORE_SET']),
+            (payload, variables) => {
+                console.log('SUB! Payload: ', payload, 'Variables: ', variables)
+
+                return (payload.changedCard.roundId === variables.roundId)
+            }
+        )
+    }
+}
+
+module.exports = { Mutation, Subscription };
