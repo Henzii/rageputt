@@ -4,14 +4,14 @@ const OmatTiedot = ({ me }) => {
     return (
         <div>
             <Typography variant="h4" gutterBottom>Tiedot</Typography>
-            <Grid container component={Paper} className="paperi">
-                <Grid item xs={6}>Tunnus</Grid>
-                <Grid item xs={6}>{me.user}</Grid>
-                <Grid item xs={6}>Nimi</Grid>
-                <Grid item xs={6}>{me.name}</Grid>
-                <Grid item xs={6}>Sähköposti</Grid>
-                <Grid item xs={6}>{me.email}</Grid>
-            </Grid>
+            <Typography variant="h6">Tunnus</Typography>
+            <Typography>{me.user}</Typography>
+
+            <Typography variant="h6">Näyttönimi</Typography>
+            <Typography>{me.name}</Typography>
+
+            <Typography variant="h6">Sähköposti</Typography>
+            <Typography>{me.email}</Typography>
         </div>
     )
 }

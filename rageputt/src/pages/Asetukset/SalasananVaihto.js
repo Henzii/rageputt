@@ -9,7 +9,11 @@ const SalasananVaihto = ({ vaihdaSalasana }) => {
         uusiPw2: '',
         ok: false
     })
-
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        vaihdaSalasana( { password: pwHandler.uusiPw } )
+        setPwHandler( { uusiPw: '', uusiPw2: '', ok: false })
+    }
     const handleChange = (e) => {
         const updatedPwHandler = {...pwHandler}
         updatedPwHandler[e.target.name] = e.target.value
@@ -20,7 +24,7 @@ const SalasananVaihto = ({ vaihdaSalasana }) => {
     }
 
     return (
-        <form onSubmit={vaihdaSalasana}>
+        <form onSubmit={handleSubmit}>
             <Typography variant="h5" gutterBottom>Vaihda salasana</Typography>
 
             <Grid container spacing={1}>

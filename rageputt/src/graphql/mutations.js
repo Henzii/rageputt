@@ -19,7 +19,10 @@ export const CHANGE_SETTINGS = gql`
             name: $name,
             password: $password,
             email: $email
-        )
+        ) {
+            name
+            email
+        }
     }
 `
 export const END_GAME = gql`
