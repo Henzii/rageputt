@@ -1,4 +1,4 @@
-const { UserInputError, SyntaxError, ForbiddenError, 
+const { UserInputError, SyntaxError, ForbiddenError,
     ValidationError, AuthenticationError, PubSub, withFilter } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
@@ -11,35 +11,60 @@ const sendEmail = require('../utils/sendEmail')
 const pubsub = new PubSub()
 
 const Mutation = {
-    restoreAccount: async( root, args, context) => {
-        const user = await UserModel.find( { email: args.email })
-        return "TODO";
+    restoreAccount: async (root, args, context) => {
+        if (args.email === '' || !args.email) {
+            throw new UserInputError('Anna sähköpostiosoite')
+        }
+        const user = await UserModel.findOne({ email: args.email })
+        if (user !== null) {
+            const randomPassword = Math.random().toString(36).slice(-8);
+            user.tempPasswordHash = await bcrypt.hash(randomPassword, 10)
+            try {
+                await user.save()
+            } catch (e) {
+                console.log('ERROR', e)
+            }
+            const mailia = sendEmail(user.email, 'Kertakäyttöinen salasana', `
+            Hei ${user.name},
+
+            Kertakäyttöinen salasanasi Rageputtiin on ${randomPassword}
+
+            Salasana toimii sisäänkirjautumisessa vain yhden kerran joten nyt pikapikaa
+            vaihtamaan salasanasi!
+
+            Terveisin,
+            Rage Putt
+            http://rageputt.herokuapp.com
+            rageputt@gmail.com
+            `)
+        }
+        return "Done";
     },
-    changeSettings: async( root, args, context) => {
+    changeSettings: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
         const user = await UserModel.findById(context.loggedUser.id)
         if (!emailValidator.validate(args.email) && args.name === '' && args.password === '') {
             throw new UserInputError('Ei tarpeeksi parametrejä!')
         }
 
-        if ( args.email && args.email != '' && emailValidator.validate(args.email)) {
+        if (args.email && args.email != '' && emailValidator.validate(args.email)) {
             user.email = args.email;
         }
         if (args.name && args.name != '') {
             user.name = args.name;
         }
         if (args.password && args.password != '') {
-            user.passwordHash = await bcrypt.hash( args.password, 10)
+            user.passwordHash = await bcrypt.hash(args.password, 10)
         }
         try {
-          await user.save();
-        } catch(e) {
+            await user.save();
+        } catch (e) {
             throw new UserInputError(e.message)
         }
         // Palauta uusi, päivitetty käyttäjä
         return user;
     },
-    deleteGame: async( root, args, context) => {
+    deleteGame: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
 
         return "Have a nice day"
@@ -96,25 +121,29 @@ const Mutation = {
 
         await peli.save()
 
-        pubsub.publish( "SCORE_SET", { changedCard: { data: pelaaja, roundId: peli.id }})
+        pubsub.publish("SCORE_SET", { changedCard: { data: pelaaja, roundId: peli.id } })
 
         return peli
 
     },
     login: async (root, args) => {
         const user = await UserModel.findOne({ user: args.user })
-
-        if (!user || await bcrypt.compare(args.password, user.passwordHash) === false) {
-            throw new UserInputError("Väärä tunnus tai salasana")
-        }
-        else {
+        if (user && (await bcrypt.compare(args.password, user.passwordHash) || await bcrypt.compare(args.password, user.tempPasswordHash))) {
             const forToken = {
                 user: user.user,
                 id: user.id
             }
             const token = jwt.sign(forToken, process.env.TOKEN_KEY)
+
+            if (user.tempPasswordHash) {
+                user.tempPasswordHash = undefined;
+                await user.save()
+            }
             return { value: token, user: { user: user.user, name: user.name } }
+        } else {
+            throw new UserInputError('Väärä tunnus tai salasana!')
         }
+
     },
     createUser: async (root, args) => {
         const newUser = new UserModel({
@@ -141,7 +170,7 @@ const Mutation = {
                 throw new ValidationError('Käyttäjätunnusta ei voitu luoda')
         }
         if (newUser.email != '') {
-            const maili = sendEmail(newUser.email, 'Tervetuloa Rageputtiin',`
+            const maili = sendEmail(newUser.email, 'Tervetuloa Rageputtiin', `
             Hei ${newUser.name},
 
             Tervetuloa käyttämään Rageputtia! Toivottavasti frisbeejumalat ovat puolellasi

@@ -34,6 +34,7 @@ const skeema = new mongoose.Schema({
             ref: 'User'
         }
     ],
+    tempPasswordHash: String,
     email: String
 })
 

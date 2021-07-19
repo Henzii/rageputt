@@ -19,7 +19,6 @@ const Asetukset = () => {
     const [changeSettings] = useMutation(CHANGE_SETTINGS)
 
     const handleChangeSettings = (newSettings) => {
-        console.log('NEW SET: ', newSettings)
         const oldSettings = {
             name: '',
             email: '',
