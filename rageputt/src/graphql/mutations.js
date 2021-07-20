@@ -44,6 +44,13 @@ export const CREATE_GAME = gql`
         )
     }
 `
+export const DELETE_GAME = gql`
+    mutation deleteGame ( $roundId: String!) {
+        deleteGame(
+            roundId: $roundId
+        )
+    }
+`
 export const SET_SCORE = gql`
     mutation setScore($roundId: String!, $round: ID!, $player: String!, $score: Int!) {
         setScore(

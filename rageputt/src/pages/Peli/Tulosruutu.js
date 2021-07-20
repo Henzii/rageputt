@@ -20,21 +20,10 @@ const Tulosruutu = ({ kierrosData, tulokset }) => {
 
     useEffect(() => {
         if (!pushed.loading) {
-            console.log(pushed)
             const dataMuistissa = client.readQuery({ query: GET_ROUND, variables: { roundId: kierrosData.data.getRound.id } })
-            console.log('MUISTI: ', dataMuistissa)
 
             if (dataMuistissa !== null) {
 
-                const updatedGetRound = {
-                    ...dataMuistissa.getRound,
-                    players: dataMuistissa.getRound.players.map(p =>
-                        (p.user.user === pushed.data.changedCard.data.user.user)
-                            ? pushed.data.changedCard.data
-                            : p
-                    )
-                }
-                console.log('PÄIVITETTY: ', updatedGetRound)
                 client.writeQuery({
                     query: GET_ROUND,
                     variables: { roundId: kierrosData.data.getRound.id },

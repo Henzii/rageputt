@@ -8,7 +8,7 @@ import WarningIcon from '@material-ui/icons/Warning'
 
 import BarChart from '../../components/BarChart'
 
-const Pelikortti = ({ peli, aktivoi, user }) => {
+const Pelikortti = ({ peli, aktivoi, poista, user }) => {
 
     let { tulokset } = peli.players.find(p => p.user.user === user)
     const pisteet = laskePisteet(tulokset)
@@ -35,7 +35,8 @@ const Pelikortti = ({ peli, aktivoi, user }) => {
             />
             <Collapse in={showStats} unmountOnExit timeout="auto">
                 <CardContent style={{paddingTop: '0px'}}>
-                    { (!peli.finished && <Button size="small" variant="outlined" color="primary" onClick={() => aktivoi(peli.id)}>Jatka peliä</Button>)}
+                    <Button size="small" variant="outlined" color="primary" onClick={() => aktivoi(peli.id)}>Aktivoi</Button>&nbsp;                                 
+                    <Button size="small" variant="outlined" color="secondary" onClick={() => poista(peli.id)}>Poista</Button>
                     <Typography>
                         Puttiprossa: { (tulokset.reduce((total, cur) => total+cur) / (tulokset.length*5) * 100).toFixed()}
                     </Typography>

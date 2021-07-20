@@ -1,7 +1,7 @@
 import { useMutation, useLazyQuery } from '@apollo/client'
 import { Button, Divider, CircularProgress, Typography } from '@material-ui/core'
 import { Tabs, Tab, Backdrop } from '@material-ui/core'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Tulosruutu from './Tulosruutu'
 import NewGameModal from './NewGameModal'
@@ -11,9 +11,10 @@ import { Redirect } from 'react-router'
 import TabPanel from '../../components/TabPanel'
 
 import { GET_ROUND, GET_GAMES } from '../../graphql/queries'
-import { CREATE_GAME, END_GAME } from '../../graphql/mutations'
+import { CREATE_GAME, DELETE_GAME, END_GAME } from '../../graphql/mutations'
 
 import { Container } from '@material-ui/core'
+import { setNotification } from '../../reducers/notificationReducer'
 
 const Peli = () => {
 
@@ -28,18 +29,45 @@ const Peli = () => {
 
     const [uusiPeli] = useMutation(CREATE_GAME)
     const [paataPeli] = useMutation(END_GAME)
-
+    const [poistaPeli] = useMutation(DELETE_GAME)
+    
+    useEffect( () => {
+        console.log('UseFfect')
+        if (tulokset.roundId && kierrosData.roundId !== tulokset.roundId) {
+            console.log('Use in effect', tulokset.roundId, kierrosData)
+            try {
+                haeRundi({ variables: { roundId: tulokset.roundId } });
+            } catch (e) {
+                console.log('Virhe peliä hakiessa', e.message)
+            }
+        }
+    }, [tulokset.roundId])
     const handleNewGame = async (pelaajat) => {
-
-        const res = await uusiPeli({ variables: { pelaajat: pelaajat }, refetchQueries: [{ query: GET_GAMES }] })
-
-        dispatch({ type: 'SET_ID', data: { roundId: res.data.createGame } })
+        try {
+            const res = await uusiPeli({ variables: { pelaajat: pelaajat }, refetchQueries: [{ query: GET_GAMES }] })
+            dispatch({ type: 'SET_ID', data: { roundId: res.data.createGame } })
+            dispatch(setNotification('Uusi peli luotu', 'info'))
+        } catch (e) {
+            dispatch(setNotification('Virhe uuden pelin luonnissa', 'error'))
+            console.log(e.message)
+        }
         setModal(false);
+    }
+    const handleDeleteGame = async () => {
+        try {
+            await poistaPeli({ variables: { roundId: tulokset.roundId }, refetchQueries: [{ query: GET_GAMES }] })
+            dispatch({ type: 'RESET_ROUND' })
+            dispatch(setNotification('Peli poistettu', 'success'))
+        } catch (e) {
+            dispatch(setNotification(`Virhe pelin poistamisessa`, 'error'))
+            console.log(e.message)
+        }
     }
     const handleEndGame = async () => {
 
         try {
             await paataPeli({ variables: { id: tulokset.roundId }, refetchQueries: [{ query: GET_GAMES }] })
+            dispatch(setNotification('Peli päätetty', 'warning'))
         } catch (e) {
             console.log('Virhe pelin päättämisessä. ' + e.message)
         }
@@ -60,9 +88,7 @@ const Peli = () => {
             </Backdrop>
 
         )
-    }
-    if (!kierrosData.called && tulokset.roundId)
-        haeRundi({ variables: { roundId: tulokset.roundId } });
+    } 
     if (tulokset.roundId === null || !kierrosData.data) {
         return (
             <Container>
@@ -74,7 +100,9 @@ const Peli = () => {
                     Vanhan pelin jatkaminen onnistuu aktivoimalla se 'Vanhat peli' -osiosta.
                 </Typography>
                 <Button onClick={() => setModal(true)} color="primary" variant="contained" size="large" fullWidth>Aloita uusi peli</Button>
+
                 <NewGameModal open={modalOpen} setModal={setModal} handleNewGame={handleNewGame} />
+
             </Container>
         )
     }
@@ -114,7 +142,7 @@ const Peli = () => {
 
                     <Typography variant="h5" gutterBottom>Poista peli</Typography>
                     <Typography paragraph>Peli poistetaan</Typography>
-                    <Button size="large" variant="contained" color="primary" fullWidth>Poista peli</Button>
+                    <Button size="large" onClick={handleDeleteGame} variant="contained" color="primary" fullWidth>Poista peli</Button>
                 </TabPanel>
                 <TabPanel value={tabValue} index={2}>
                     {kierrosData.data.getRound.players.map(p => <PlayerStats player={p} key={'ps' + p.user.user} />)}
