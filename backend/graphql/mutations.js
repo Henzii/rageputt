@@ -66,6 +66,19 @@ const Mutation = {
     },
     deleteGame: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
+        
+        const game = await GameModel.findById( args.roundId )
+        const user = await UserModel.findById( context.loggedUser.id )
+
+        user.games = user.games.filter( g => g.toString() !== args.roundId )
+        await user.save()
+
+        if ( game.players.length <= 1) {
+            await GameModel.findByIdAndDelete( args.roundId )
+        } else {
+            game.players = game.players.filter( p => p.user.toString() !== context.loggedUser.id )
+            await game.save()
+        }
 
         return "Have a nice day"
     },

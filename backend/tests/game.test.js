@@ -7,12 +7,12 @@ const mongoose = require('mongoose')
 let token = '';
 
 const User1 = new User( {
-    user: 'tester1',
+    user: 'testeri1',
     name: 'Mr. Tester 1',
     passwordHash: 'Hash'    
 })
 const User2 = new User( {
-    user: 'tester2',
+    user: 'testeri2',
     name: 'Mr Tester 2',
     passwordHash: 'Hash'
 })

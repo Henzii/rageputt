@@ -8,9 +8,9 @@
 6.6.2021    3   Token toimivaksi frontissa ja bäkissä. Datan siirtäminen mongoon. 
 7.6.2021    1   Frontin siistimistä 
 8.6.2021    3   Kaveripyyntöjen lähetys ja niihin vastaaminen backendiin.
-                 Herokun laittoa ja siirtäminen Herokuun. Apollo-server-expressiin pikatutustuminen ja staattisen sivun toimittaminen.
-9.6.2021    3  Kaveri-juttujen teko fronttiin, virheviestit näkyväksi, yleistä UI:n siistimistä.
-10.6.2021   2,5   Sivuston tekeminen toimivaksi Herokussa. Mahdollisuus lisätä kavereita peliin.
+                Herokun laittoa ja siirtäminen Herokuun. Apollo-server-expressiin pikatutustuminen ja staattisen sivun toimittaminen.
+9.6.2021    3   Kaveri-juttujen teko fronttiin, virheviestit näkyväksi, yleistä UI:n siistimistä.
+10.6.2021   2,5 Sivuston tekeminen toimivaksi Herokussa. Mahdollisuus lisätä kavereita peliin.
 14.6.2021   2   Asetukset sivu, Tab-sivuja Peli-sivulle, Vanhat Pelit -säätöä,
 17.6.2021   1   Pelin päättäminen, lisää notifikaatioita, latausrinkula pisteiden laittamisen yhteydessä, statistiikkafunktio + alkeellinen statsisivu
 23.6.2021   2   Statistiikka-sivun tekoa.
@@ -27,5 +27,6 @@
 13.7.2021   3   Testausta, Käyttäjätietojen mukkauksen testit.
 14.7.2021   2   Backendiin pelin poiston testit, sähköpostin lähetys, fronttiin alustava sivu tunnusten palautuksesta.
 15.7.2021   2   Backendin refaktorointia, asetukset-sivun toiminnallisuus, testit tunnuksen palauttamiseen
-19.7.2021   2   Bugikorjausta (subscriptioni), frontin asetukset-sivu toimivaksi.
-            1   Tunnuksen palautuksen toiminnallisuus backendiin
+19.7.2021   3   Bugikorjausta (subscriptioni), frontin asetukset-sivu toimivaksi.
+                Tunnuksen palautuksen toiminnallisuus backendiin
+20.7.2021   1   Pelin poistamisen toiminnallisuus backendiin
