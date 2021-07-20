@@ -32,19 +32,18 @@ const Peli = () => {
     const [poistaPeli] = useMutation(DELETE_GAME)
     
     useEffect( () => {
-        console.log('UseFfect')
         if (tulokset.roundId && kierrosData.roundId !== tulokset.roundId) {
-            console.log('Use in effect', tulokset.roundId, kierrosData)
             try {
                 haeRundi({ variables: { roundId: tulokset.roundId } });
             } catch (e) {
                 console.log('Virhe peliä hakiessa', e.message)
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tulokset.roundId])
     const handleNewGame = async (pelaajat) => {
         try {
-            const res = await uusiPeli({ variables: { pelaajat: pelaajat }, refetchQueries: [{ query: GET_GAMES }] })
+            const res = await uusiPeli({ variables: { pelaajat: pelaajat }, refetchQueries: [{ query: GET_GAMES } ] })
             dispatch({ type: 'SET_ID', data: { roundId: res.data.createGame } })
             dispatch(setNotification('Uusi peli luotu', 'info'))
         } catch (e) {

@@ -29,4 +29,4 @@
 15.7.2021   2   Backendin refaktorointia, asetukset-sivun toiminnallisuus, testit tunnuksen palauttamiseen
 19.7.2021   3   Bugikorjausta (subscriptioni), frontin asetukset-sivu toimivaksi.
                 Tunnuksen palautuksen toiminnallisuus backendiin
-20.7.2021   3,5 Pelin poistamisen toiminnallisuus backkiin ja fronttiin
+20.7.2021   3,5 Pelin poistamisen toiminnallisuus backkiin ja fronttiin, YesNo dialogikomponentin teko, välimuistin kanssa sekoilua.
