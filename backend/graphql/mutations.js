@@ -29,8 +29,8 @@ const Mutation = {
 
             Kertakäyttöinen salasanasi Rageputtiin on ${randomPassword}
 
-            Salasana toimii sisäänkirjautumisessa vain yhden kerran.
-            vaihtamaan salasanasi!
+            Salasana toimii sisäänkirjautumisessa vain yhden kerran,
+            joten muista vaihtaa salasanasi!
 
             Terveisin,
             Rage Putt
