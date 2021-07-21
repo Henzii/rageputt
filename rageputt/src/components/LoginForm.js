@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Button, TextField, Grid, Backdrop, CircularProgress, Container, Typography } from '@material-ui/core'
+import { Button, TextField, Grid, Backdrop, CircularProgress, Container, Typography, Divider } from '@material-ui/core'
 import { useApolloClient, useMutation } from '@apollo/client'
 import { LOGIN } from '../graphql/mutations'
 import { setUser, clearUser } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const LoginForm = () => {
 
@@ -35,7 +36,6 @@ const LoginForm = () => {
             setLoginProcess(false);
         })
     }
-    console.log(user)
     if (user.user) {
         return (
             <Container>
@@ -64,6 +64,11 @@ const LoginForm = () => {
                     </Grid>
                 </Grid>
             </form>
+            <Divider />
+            <Typography variant="h6">Unohtuiko salasana</Typography>
+            <Typography paragraph>
+                <Link to="/palautus">Voi ei, unohdin salasanani</Link>
+            </Typography>
         </Container>
     )
 }

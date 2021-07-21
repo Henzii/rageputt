@@ -1,16 +1,25 @@
+import { useMutation } from "@apollo/client"
 import { Container, Typography, TextField } from "@material-ui/core"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { RESTORE_ACCOUNT } from "../graphql/mutations"
 import Button from './Button'
 
 const RestoreAccount = () => {
     const [mailSent, setMailSent ] = useState(false)
-    const handleResetAccount = (e) => {
+    const [ restoreAccount ] = useMutation( RESTORE_ACCOUNT )
+
+    const handleResetAccount = async (e) => {
         e.preventDefault()
-        console.log(e.target.email.value)
+        try {
+            await restoreAccount( { variables: { email: e.target.email.value }} )
+            setMailSent(true)
+        } catch (e) {
+            console.log(e)
+        }
         e.target.email.value = ''
-        setMailSent(true)
     }
+
     if (mailSent) {
         return (
             <Container>

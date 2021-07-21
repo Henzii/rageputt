@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const RESTORE_ACCOUNT = gql`
-    mutation restoreAccount( $email: String) {
+    mutation restoreAccount( $email: String!) {
         restoreAccount( email: $email )
     }
 `

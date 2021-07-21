@@ -57,7 +57,7 @@ const VanhatPelit = () => {
                     />)}
             </Container>
             <YesNoModal open={(poistaPeliId)}
-                title="Oletko vamra?"
+                title="Oletko varma?"
                 text="Haluatko varmasti poistaa pelin?"
                 close={() => setPoistaPeliId(false)}
                 onYesClick={handlePoistaPeli}

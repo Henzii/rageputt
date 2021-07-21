@@ -29,7 +29,7 @@ const Mutation = {
 
             Kertakäyttöinen salasanasi Rageputtiin on ${randomPassword}
 
-            Salasana toimii sisäänkirjautumisessa vain yhden kerran joten nyt pikapikaa
+            Salasana toimii sisäänkirjautumisessa vain yhden kerran.
             vaihtamaan salasanasi!
 
             Terveisin,
@@ -140,7 +140,7 @@ const Mutation = {
 
     },
     login: async (root, args) => {
-        const user = await UserModel.findOne({ user: args.user })
+        const user = await UserModel.findOne({ user: args.user.toLowerCase() })
         if (user && (await bcrypt.compare(args.password, user.passwordHash) || await bcrypt.compare(args.password, user.tempPasswordHash))) {
             const forToken = {
                 user: user.user,
@@ -160,7 +160,7 @@ const Mutation = {
     },
     createUser: async (root, args) => {
         const newUser = new UserModel({
-            user: args.user,
+            user: args.user.toLowerCase(),
             name: args.name,
             email: args.email,
             passwordHash: await bcrypt.hash(args.password, 10)
@@ -186,8 +186,8 @@ const Mutation = {
             const maili = sendEmail(newUser.email, 'Tervetuloa Rageputtiin', `
             Hei ${newUser.name},
 
-            Tervetuloa käyttämään Rageputtia! Toivottavasti frisbeejumalat ovat puolellasi
-            ja puttailu on kuin linnunmaitoa joisi!
+            Tervetuloa käyttämään Rageputtia! Toivottavasti frisbeejumalat
+            ovat puolellasi ja puttailu sujuu kuin linnunmaitoa joisi!
 
             Terveisin,
             Rage Putt
@@ -204,7 +204,7 @@ const Mutation = {
         }
         const myId = context.loggedUser.id
 
-        const kaveri = await UserModel.findOne({ user: args.fName })
+        const kaveri = await UserModel.findOne({ user: args.fName.toLowerCase() })
 
         if (!kaveri) {
             throw new UserInputError(`Henkilöä ${args.fName} ei löydy`)
