@@ -25,13 +25,15 @@ const Statsit = () => {
     let kaikkiPisteet = []
     let maxPisteet = 0
     for (let i = 0; i < statsData.length; i++) {
+        
+        if (!statsData[i].finished) continue    // Ei lasketa keskeneräisiä pelejä mukaan
+
         const player = statsData[i].players.find(p => p.user.user === user.user)
         kaikkiPuttiProssat = tulokset2ChartData(player.tulokset, kaikkiPuttiProssat)
         const pisteet = laskePisteet(player.tulokset)
         if (pisteet > maxPisteet) maxPisteet = pisteet
         kaikkiPisteet.push({ game: i, score: pisteet })
     }
-    console.log(kaikkiPisteet)
 
     return (
         <Container>

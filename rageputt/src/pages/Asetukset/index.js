@@ -48,12 +48,15 @@ const Asetukset = () => {
         <Container>
             <OmatTiedot me={me} />
             <Divider />
-            <FormControlLabel
-                value="Salli kavereiden"
-                control={<Switch color="primary" />}
-                labelPlacement="start"
-                label="Salli kavereiden katsoa tilastojani"
-            />
+            <Grid container justifycontent="space-between" direction="row" alignItems="center">
+                <Grid item xs={8} component={Typography}>
+                    Salli kavereiden nähdä tilastoni
+                </Grid>
+                <Grid item>
+                    <Switch color="primary" checked={(me?.shareStatics)} />
+                </Grid>
+            </Grid>
+            
             <Divider />
             <SalasananVaihto vaihdaSalasana={handleChangeSettings} />
             <Divider />
@@ -79,9 +82,9 @@ const VaihdaNayttonimi = ({ handleChangeName }) => {
     }
     return (
         <form onSubmit={handleSubmit}>
-            <Typography variant="h5" gutterBottom>Vaihda näyttönimi</Typography>
+            <Typography variant="h5">Vaihda näyttönimi</Typography>
             <TextField value={newName} variant="outlined" label="Uusi nimi" size="small" onChange={(e) => setNewName(e.target.value)} />
-            <Button variant="contained" type="submit" disabled={(newName.length < 3)} color="primary">Ok</Button>
+            &nbsp;<Button variant="contained" type="submit" disabled={(newName.length < 3)} color="primary">Ok</Button>
         </form>
 
     )

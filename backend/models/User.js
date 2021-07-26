@@ -35,7 +35,8 @@ const skeema = new mongoose.Schema({
         }
     ],
     tempPasswordHash: String,
-    email: String
+    email: String,
+    shareStatics: Boolean
 })
 
 skeema.plugin(validator);

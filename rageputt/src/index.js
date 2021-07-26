@@ -9,15 +9,20 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import { ApolloProvider } from '@apollo/client'
+import { ThemeProvider } from '@material-ui/styles';
 
 import client from './utils/apolloClient';
 import store from './utils/store'
+
+import theme from './utils/theme';
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>
       <Router>
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </Router>
     </Provider>
   </ApolloProvider>,

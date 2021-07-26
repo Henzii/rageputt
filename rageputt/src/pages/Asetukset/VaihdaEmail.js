@@ -1,6 +1,6 @@
 import { Typography, TextField } from "@material-ui/core";
 import { useState } from "react";
-import Button from '../../components/Button'
+import Button from '@material-ui/core/Button'
 
 const VaihdaEmail = ({ handleChangeEmail }) => {
 
@@ -26,7 +26,7 @@ const VaihdaEmail = ({ handleChangeEmail }) => {
                 size="small" 
                 onChange={(e) => setNewEmail(e.target.value)}
             />
-            <Button type="submit" disabled={!(validateEmail(newEmail))}>Vaihda</Button>
+            &nbsp;<Button variant="contained" color="primary" type="submit" disabled={!(validateEmail(newEmail))}>Vaihda</Button>
         </form>
     )
 

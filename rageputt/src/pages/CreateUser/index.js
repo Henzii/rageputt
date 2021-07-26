@@ -1,11 +1,13 @@
 import { useMutation } from "@apollo/client"
-import { ListItem, List, Button, TextField, Divider, Container, Typography } from "@material-ui/core"
+import { TextField, Divider, Container, Typography, Grid } from "@material-ui/core"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Redirect } from "react-router"
 import { setNotification } from "../../reducers/notificationReducer"
 
 import { CREATE_USER } from '../../graphql/mutations'
+
+import Button from '../../components/Button'
 
 const CreateUserForm = () => {
 
@@ -44,20 +46,38 @@ const CreateUserForm = () => {
     }
     return (
         <Container>
-            <Typography variant="h4" gutterBottom>Luo tunnus</Typography>
+            <Typography variant="h4">Luo tunnus</Typography>
             <Typography variant="h5">Perustiedot</Typography>
             <form onSubmit={handleSubmit}>
-                <List>
-                    <ListItem><TextField error={errors.tunnus} name="user" label="Tunnus" variant="outlined" fullWidth></TextField></ListItem>
-                    <ListItem><TextField error={errors.password} name="password" type="password" label="Salasana" variant="outlined" fullWidth></TextField></ListItem>
-                    <ListItem><TextField error={errors.password} name="password2" label="Salasana uudestaan" type="password" variant="outlined" fullWidth></TextField></ListItem>
-                    <Divider style={{ margin: '15px 0px' }} />
-                    <Typography variant="h5" gutterBottom>Lisätiedot</Typography>
-                    <Typography paragraph>Ei pakollisia. Sähköpostiosoitteen antaminen mahdollistaa tunnusten palauttamisen.</Typography>
-                    <ListItem><TextField name="name" label="Nimi" variant="outlined" fullWidth></TextField></ListItem>
-                    <ListItem><TextField name="email" label="Sähköposti" variant="outlined" fullWidth></TextField></ListItem>
-                    <ListItem><Button type="submit" size="large" variant="contained" fullWidth color="primary">Luo tunnus</Button></ListItem>
-                </List>
+                <Grid container direction="column" spacing={1}>
+                    <Grid item>
+                        <TextField error={errors.tunnus} name="user" label="Tunnus" variant="outlined" required />
+                    </Grid>
+                    <Grid item>
+                        <TextField error={errors.password} name="password" type="password" label="Salasana" variant="outlined" required  />
+                    </Grid>
+                    <Grid item>
+                        <TextField error={errors.password} name="password2" label="Salasana uudestaan" type="password" variant="outlined" required />
+                    </Grid>
+                </Grid>
+
+                <Divider />
+                <Typography variant="h5" gutterBottom>Lisätiedot</Typography>
+                <Typography paragraph>Ei pakollisia. Sähköpostiosoitteen antaminen mahdollistaa tunnusten palauttamisen.</Typography>
+
+                <Grid container direction="column" spacing={1}>
+                    <Grid item>
+                    <TextField name="name" label="Nimi" variant="outlined" />
+
+                    </Grid>
+                    <Grid item>
+                    <TextField name="email" label="Sähköposti" variant="outlined" fullWidth />
+
+                    </Grid>
+                    <Grid item>
+                    <Button type="submit" size="large" variant="contained"color="primary">Luo tunnus</Button>
+                    </Grid>
+                </Grid>
             </form>
         </Container>
     )

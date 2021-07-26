@@ -1,9 +1,21 @@
-import { Container, Typography, Paper } from '@material-ui/core'
+import { Container, Typography, Paper, Link } from '@material-ui/core'
+import useStyles from '../../hooks/useStyles'
+
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 const Etusivu = () => {
+
+    const tyylit = useStyles()
+
+    useEffect(() => {
+        Aos.init({ duration: 2000 })
+    }, [])
+
     return (
         <Container>
-            <Paper elevation={3} className="paperi" id="iso-naytto">
+            <Paper className={tyylit.paper} id="iso-naytto">
                 <Typography variant="h4">
                     Onpas iso näyttö
                 </Typography>
@@ -11,18 +23,33 @@ const Etusivu = () => {
                     Tämä sovellus on suunniteltu käytettäväksi kännykän pikkuruiselta näytöltä.
                 </Typography>
             </Paper>
-            <Paper elevation={3} className="paperi">
+            <Paper className={tyylit.paper}>
                 <Typography variant="h4">
                     Mitä tämä on?
                 </Typography>
                 <Typography paragraph>
-                    Rageputt on Fullstackopen 2021:n harjoitustyön tulos. Sovelluksen tarkoitus
-                    on pitää kirjaa JYLY-pelien tuloksista.
+                    Rageputt on Fullstackopen 2021 -kurssin harjoitustyön tulos. Fullstackopen on Helsingin yliopiston
+                    järjestämä kurssi jossa tutustutaan JavaScriptilla tapahtuvaan moderniin websovelluskehitykseen. Pääpaino on
+                    React-kirjaston avulla toteutettavissa single page -sovelluksissa, ja niitä tukevissa Node.js:llä toteutetuissa
+                    REST-rajapinnoissa.
+                </Typography>
+                <Typography paragraph>
+                    <Link>fullstackopen.com</Link>
                 </Typography>
             </Paper>
-            <Paper elevation={2} className="paperi">
+            <Paper className={tyylit.paper} data-aos="fade-up">
                 <Typography variant="h4">
-                    No mikä se JYLY sitten on?
+                    Rageputt
+                </Typography>
+                <Typography paragraph>
+                    Sovelluksen idea on pitää kirjaa frisbeegolffin JYLY-puttipelin tuloksista. Tulokset tallentuvat palvelimelle
+                    reaaliaikaisesti.
+                </Typography>
+
+            </Paper>
+            <Paper className={tyylit.paper} data-aos="fade-up">
+                <Typography variant="h4">
+                    JYLY?!?
                 </Typography>
                 <Typography paragraph>
                     JYLY Putting game is a putt practice drill/game created by Markus Lindqvist
@@ -31,7 +58,7 @@ const Etusivu = () => {
                     you do it, more points you get. (copypaste)
                 </Typography>
             </Paper>
-            <Paper elevation={2} className="paperi">
+            <Paper className={tyylit.paper} data-aos="fade-up">
                 <Typography variant="h4">
                     Kerro lisää
                 </Typography>
@@ -45,6 +72,30 @@ const Etusivu = () => {
                     Tämän jälkeen voitte yhdessä tuumin puttailla toisianne.
                 </Typography>
             </Paper>
+            <Paper className={tyylit.paper} data-aos="fade-up">
+                <Typography variant="h4">
+                    Vanhan pelin jatkaminen
+                </Typography>
+                <Typography paragraph>
+                    Jos haluat jatkaa vanhaa peliä, valitse 'vanhat pelit' -osiosta kyseinen peli ja paina aktivointinappia. Tämän
+                    jälkeen voit jatkaa tulosten kirjaamista 'uusi peli' -sivulla.
+                </Typography>
+                <Typography paragraph>
+                    Avoimen pelin tunnistaa oranssista kolmiosta.
+                </Typography>
+
+            </Paper>
+            <Paper className={tyylit.paper} data-aos="fade-up">
+                <Typography variant="h4">
+                    Pelin päättäminen
+                </Typography>
+                <Typography paragraph>
+                    Kun peli on päätetty peliasetukse sivulta, tulosten kirjaaminen estetään ja tulokset otetaan huomioon statistiikka-sivulla.
+                </Typography>
+
+            </Paper>
+            
+
         </Container>
 
     )

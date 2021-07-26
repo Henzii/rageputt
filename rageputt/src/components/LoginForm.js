@@ -11,7 +11,6 @@ const LoginForm = () => {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.user);
-
     const [loginProcess, setLoginProcess] = useState(false)
     const [login] = useMutation(LOGIN);
     const client = useApolloClient()
