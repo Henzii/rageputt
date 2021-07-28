@@ -82,7 +82,7 @@ const CreateUserForm = () => {
 
                     </Grid>
                     <Grid item>
-                    <Button type="submit" size="large" variant="contained"color="primary">Luo tunnus</Button>
+                    <Button disabled={(available === false)} type="submit" size="large" variant="contained"color="primary">Luo tunnus</Button>
                     </Grid>
                 </Grid>
             </form>

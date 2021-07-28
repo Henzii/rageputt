@@ -10,7 +10,7 @@ const Etusivu = () => {
     const tyylit = useStyles()
 
     useEffect(() => {
-        Aos.init({ duration: 2000 })
+        Aos.init({ duration: 3000 })
     }, [])
 
     return (
@@ -27,7 +27,7 @@ const Etusivu = () => {
                 <Typography variant="h4">
                     Mitä tämä on?
                 </Typography>
-                <Typography paragraph>
+                <Typography paragraph data-aos="fade-up">
                     Rageputt on Fullstackopen 2021 -kurssin harjoitustyön tulos. Fullstackopen on Helsingin yliopiston
                     järjestämä kurssi jossa tutustutaan JavaScriptilla tapahtuvaan moderniin websovelluskehitykseen. Pääpaino on
                     React-kirjaston avulla toteutettavissa single page -sovelluksissa, ja niitä tukevissa Node.js:llä toteutetuissa
@@ -43,7 +43,9 @@ const Etusivu = () => {
                 </Typography>
                 <Typography paragraph>
                     Sovelluksen idea on pitää kirjaa frisbeegolffin JYLY-puttipelin tuloksista. Tulokset tallentuvat palvelimelle
-                    reaaliaikaisesti.
+                    reaaliaikaisesti. Pelejä voi pelata yksin tai yhdessä kaverin kanssa. Jokaisella peliin osallistuvalla tulee
+                    olla oma tunnus. Pelatessa porukalla tarvitsee vain yhden henkilön kirjata tuloksia sillä tulokset päivittyvät
+                    automaattisesti kaikille pelaajille.
                 </Typography>
 
             </Paper>
@@ -63,8 +65,12 @@ const Etusivu = () => {
                     Kerro lisää
                 </Typography>
                 <Typography paragraph>
-                    Jotta voit käyttää sovellusta, tulee sinun luoda oma tunnus. Tämän jälkeen voit aloittaa
-                    armottoman puttaamisen. Myöhemmin kun on liian pimeää puttaamiselle, voit ihailla ihanaa
+                    Jotta voit käyttää sovellusta, tulee sinun luoda oma tunnus. Tunnuksen luomiseen riittää vain että keksit itsellesi
+                    tunnuksen ja salasanan. Voit myös antaa sähköpostiosoitteesi siltä varalta että unohdat
+                    salasanasi.
+                </Typography>
+                <Typography paragraph>
+                    Tunnuksen luotuasi voit aloittaa armottoman puttaamisen. Myöhemmin kun on liian pimeää puttaamiselle, voit ihailla ihanaa
                     diagrammidataa!
                 </Typography>
                 <Typography paragraph>
@@ -92,9 +98,8 @@ const Etusivu = () => {
                 <Typography paragraph>
                     Kun peli on päätetty peliasetukse sivulta, tulosten kirjaaminen estetään ja tulokset otetaan huomioon statistiikka-sivulla.
                 </Typography>
-
             </Paper>
-            
+
 
         </Container>
 

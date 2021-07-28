@@ -17,7 +17,7 @@ const FriendRequestForm = ({ handleSendFriendRequest }) => {
                     helperText={(available === true) ? 'Nimeä ei löydy' : ''}
                 />
                 {(available === 'loading' && <span style={{ marginLeft: 10 }}><CircularProgress /></span>)}
-                <br /><Button disabled={available !== false} type="submit" variant="contained" size="large" color="primary" style={{ marginTop: '5px' }}>Lähetä</Button>
+                <br /><Button disabled={(available !== false)} type="submit" variant="contained" size="large" color="primary" style={{ marginTop: '5px' }}>Lähetä</Button>
             </form>
         </>
     )

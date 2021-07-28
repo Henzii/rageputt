@@ -29,7 +29,6 @@ const useIsUsernameAvailable = () => {
         }, 1000)
         setTimerId(tid)
     }
-
     return { username, setName, available }
 }
 export default useIsUsernameAvailable
