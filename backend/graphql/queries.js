@@ -38,6 +38,11 @@ const Query = {
             throw new ForbiddenError('Epäkelpo ID')
         }
         return rundi;
+    },
+    isUsernameAvailable: async (root, args, context) => {
+        const user = await UserModel.findOne({ user: args.user.toLowerCase() })
+        if (user === null) return true;
+        return false;
     }
 }
 module.exports = Query

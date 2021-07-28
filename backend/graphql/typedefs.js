@@ -24,6 +24,7 @@ const typeDefs = gql`
         user: User
     }
     type Query {
+        isUsernameAvailable ( user: String!): Boolean
         getMe: User!
         usersCount: Int!
         users: [User]

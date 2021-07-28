@@ -36,3 +36,8 @@ export const GET_ROUND = gql`
         }
     }
 `
+export const IS_USERNAME_AVAILABLE = gql`
+    query isUsernameAvailable( $user: String! ) {
+        isUsernameAvailable( user: $user)
+    }
+`
