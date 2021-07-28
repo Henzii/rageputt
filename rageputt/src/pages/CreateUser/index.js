@@ -8,11 +8,14 @@ import { setNotification } from "../../reducers/notificationReducer"
 import { CREATE_USER } from '../../graphql/mutations'
 
 import Button from '../../components/Button'
+import useIsUsernameAvailable from "../../hooks/useIsUsernameAvailable"
 
 const CreateUserForm = () => {
 
     const [createUser, cuData] = useMutation(CREATE_USER)
     const dispatch = useDispatch()
+
+    const { username, setName, available } = useIsUsernameAvailable()
 
     const [errors, setErrors] = useState({ tunnus: false, password: false })
 
@@ -51,7 +54,11 @@ const CreateUserForm = () => {
             <form onSubmit={handleSubmit}>
                 <Grid container direction="column" spacing={1}>
                     <Grid item>
-                        <TextField error={errors.tunnus} name="user" label="Tunnus" variant="outlined" required />
+                        <TextField error={errors.tunnus || available === false } name="user" label="Tunnus" variant="outlined" required 
+                            value={username}
+                            onChange={(e) => setName(e.target.value)}
+                            helperText={ (available === false) ? 'Tunnus on jo käytössä' : ''}
+                        />
                     </Grid>
                     <Grid item>
                         <TextField error={errors.password} name="password" type="password" label="Salasana" variant="outlined" required  />
