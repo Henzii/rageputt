@@ -33,3 +33,5 @@
                 Tyyliä yhtenäisemmäksi
 21.7.2021   1   Tunnuksen palautuksen viimeistely, asetukset-sivulle välimuistin tyhjennys.
 26.7.2021   3   Material-Ui:n teemoihin ja tyyleihin tutustumista & laittelua, animaatioita (aos) etusivulle... ulkoasun parantamista.
+28.7.2021   2   Uusi query joka katsoo onko käyttäjätunnus vapaa, sen toteuttaminen fronttiin Kaverit ja Tunnuksen luonti -sivuilla niin
+                ettei palvelin tukkeudu + pikku pilkun viilausta
