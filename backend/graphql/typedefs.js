@@ -29,7 +29,7 @@ const typeDefs = gql`
         usersCount: Int!
         users: [User]
         getRound( roundId: String! ): Game
-        getGames: [Game]
+        getGames( userId: ID ): [Game]
     }
     type Mutation {
         restoreAccount( email: String! ): String

@@ -19,7 +19,12 @@ const Query = {
         if (!context.loggedUser) {
             throw new AuthenticationError('Kirjaudu sisään.')
         }
-        const user = await UserModel.findById(context.loggedUser.id).populate(
+        let userId = context.loggedUser.id
+        console.log('UID:', args.userId)
+        if (args.userId !== null && args.userId) {
+           userId = args.userId
+        }
+        const user = await UserModel.findById(userId).populate(
             {
                 path: 'games',
                 populate: {
@@ -27,6 +32,9 @@ const Query = {
                     select: { user: 1, name: 1 }
                 }
             })
+        if (userId !== context.loggedUser.id && (user.shareStats !== true || !user.friends.includes(context.loggedUser.id)) ) {
+            throw new ForbiddenError('Tilastojen katseleminen ei sallittu')
+        }
         return user.games;
     },
     usersCount: () => users.length,
