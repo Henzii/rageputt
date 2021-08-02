@@ -39,7 +39,11 @@ const Statsit = () => {
     return (
         <Container>
                 <Typography variant="h5">
-                    Pelaaja: <DropDown options={new Map().set('Eka', 1).set('Toka', 2) } mappedOptions={true} />
+                    Pelaaja: <DropDown 
+                                options={new Map().set('Eka', 1).set('Toka', 2) } 
+                                mappedOptions={true} 
+                                onChange={(v) => console.log(v)}
+                            />
                 </Typography>
                 <Grid container direction="column">
                     <Grid item component={Typography}>

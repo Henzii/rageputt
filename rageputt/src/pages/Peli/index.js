@@ -112,7 +112,6 @@ const Peli = () => {
                 value={tabValue}
                 onChange={(event, uusi) => setTabValue(uusi)}
                 variant="fullWidth"
-                style={{ backgroundColor: '#3f51b5', color: 'white' }}
             >
                 <Tab label="Peli" />
                 <Tab label="Asetukset" />

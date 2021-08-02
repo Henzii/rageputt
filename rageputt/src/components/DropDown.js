@@ -1,13 +1,13 @@
 import { Select } from "@material-ui/core"
 
-const DropDown = ( { options, variant="outlined", mappedOptions=false }) => {
+const DropDown = ( { options, variant="outlined", mappedOptions=false, onChange }) => {
 
     return (
         <Select
             native
             defaultValue={0}
             variant={variant}
-            onChange={ (e) => console.log('Vaihto', e.target.value)}
+            onChange={ (e) => onChange(e.target.value) }
         >   
             <ParseOptions options={options} mappedOptions={mappedOptions} />
         </Select>
