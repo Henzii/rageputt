@@ -17,18 +17,18 @@ const NewGameModal = ({ open, setModal, handleNewGame }) => {
     )
     console.log(kaverit)
     return (
-        <Dialog open={open}>
+        <Dialog open={open} fullWidth maxWidth="xs" PaperProps={ { style: { borderRadius: 20 }} } >
             <Container>
                     <Typography variant="h4">Uusi peli</Typography>
                     <Typography variant="h5">Pelimoodi: <DropDown options={['Normaali']}></DropDown></Typography>
-                    <Typography variant="h5">Pelaajat</Typography>
+                    <Typography variant="h5">Valitse pelaajat</Typography>
                     <FormGroup>
                         <FormControlLabel control={<Checkbox checkedIcon={<Person fontSize="large" />} checked={true} />} label="Minä" />
                         {me.friends.map(f => <KaveriCheckBox kaverit={kaverit} setKaverit={setKaverit} key={f.user} kaveri={f} />)}
                     </FormGroup>
                     <Grid container justify="space-around" style={{ marginTop: 20 }}>
-                        <Grid item><Button color="primary" variant="contained" onClick={() => handleNewGame(kaverit)}>Ok</Button></Grid>
-                        <Grid item><Button color="secondary" variant="contained" onClick={() => setModal(false)}>Cancel</Button></Grid>
+                        <Grid item><Button color="primary" variant="contained" onClick={() => handleNewGame(kaverit)}>Aloita peli</Button></Grid>
+                        <Grid item><Button color="secondary" variant="contained" onClick={() => setModal(false)}>Peruuta</Button></Grid>
                     </Grid>
             </Container>
         </Dialog>

@@ -7,14 +7,15 @@ import { laskePisteet, tulokset2ChartData } from '../../utils/stuff'
 import BarChart from '../../components/BarChart'
 import { Animation } from '@devexpress/dx-react-chart'
 import DropDown from '../../components/DropDown'
+import useGetMe from '../../hooks/useGetMe'
 
 
 const Statsit = () => {
 
     const statsRawData = useQuery(GET_GAMES)
     const user = useSelector(state => state.user)
-
-    if (statsRawData.loading) {
+    const { me } = useGetMe()
+    if (statsRawData.loading || me === null) {
         return (
             <Backdrop open={true}>
                 <CircularProgress />
@@ -35,12 +36,15 @@ const Statsit = () => {
         if (pisteet > maxPisteet) maxPisteet = pisteet
         kaikkiPisteet.push({ game: i, score: pisteet })
     }
-
+    const kaveritMap = new Map()
+    kaveritMap.set("Minä", me.id)
+    for(const kaveri of me.friends )
+        kaveritMap.set(kaveri.name, kaveri.id)
     return (
         <Container>
                 <Typography variant="h5">
                     Pelaaja: <DropDown 
-                                options={new Map().set('Eka', 1).set('Toka', 2) } 
+                                options={kaveritMap} 
                                 mappedOptions={true} 
                                 onChange={(v) => console.log(v)}
                             />
@@ -53,7 +57,7 @@ const Statsit = () => {
                         Paras tulos: {maxPisteet}
                     </Grid>
                 </Grid>
-            <BarChart data={kaikkiPuttiProssat} otsikko="Puttiprossat" />
+            <BarChart data={kaikkiPuttiProssat} otsikko="Puttiprossat" paperStyle />
 
             <Chart data={kaikkiPisteet} height='200'>
                 <Title text="Pisteet" />

@@ -14,9 +14,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.MuiContainer-root .MuiDivider-root {
-  margin: 15px 0px;
-}
+
 .test {
   border: 1px solid red;
 }
@@ -32,24 +30,9 @@ code {
   margin: auto;
   padding: 0px;
 }
-.MuiContainer-root {
-  margin: 15px 0px;
-}
+
 .tulos-kortti {
   margin-bottom: 10px;
-}
-.newGameModal {
-  width: 80%;
-  margin: auto;
-  margin-top: 10%;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 5px solid #3f51b5;
-  border-radius:10px;
-  padding: 10px;
-  outline: none;
-}
-.buttMar {
-  margin-top: 5px;
 }
 
 #iso-naytto {

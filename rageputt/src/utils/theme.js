@@ -38,22 +38,25 @@ const theme = createMuiTheme({
         MuiAppBar: {
             root: {
                 borderRadius: 0
-            }
+            },
         },
         MuiOutlinedInput: {
             root: {
-                borderRadius: 15
-            }
+                borderRadius: 15,
+            },
         },
         MuiPaper: {
             root: {
-                borderRadius: 15
-            }
+                borderRadius: 15,
+                padding: 10,
+            },
         },
         MuiContainer: {
             root: {
-                paddingBottom: 10
-            }
+                paddingBottom: 10,
+                paddingTop: 10,
+                maxWidth: 700,
+            },
         },
     }
 });

@@ -1,10 +1,12 @@
 import { Paper } from '@material-ui/core'
 import { ValueAxis, Chart, Title, BarSeries, ArgumentAxis } from '@devexpress/dx-react-chart-material-ui'
 import { Animation } from '@devexpress/dx-react-chart'
+import useStyles from '../hooks/useStyles'
 
-const BarChart = ({ data, otsikko='', paperProps=null } ) => {
+const BarChart = ({ data, otsikko='', paperStyle=false, paperProps=null } ) => {
+    const tyyli = useStyles()
     return (
-        <Paper {...paperProps}>
+        <Paper className={(paperStyle === true) ? tyyli.paper : null}>
             <Chart data={data} height='250'>
                 <Title text={otsikko} />
                 <ArgumentAxis />
