@@ -23,12 +23,17 @@ const theme = createMuiTheme({
             main: '#aed581',
         },
         secondary: red,
+        action: {
+            disabled: '#2F2F2F'
+        }
     },
     overrides: {
         MuiButton: {
             root: {
-                borderRadius: 10
-            }
+                borderRadius: 10,
+                fontFamily: 'Quicksand',
+                height: 40
+            },
         },
         MuiAppBar: {
             root: {
@@ -49,7 +54,7 @@ const theme = createMuiTheme({
             root: {
                 paddingBottom: 10
             }
-        }
+        },
     }
 });
 export default theme;
