@@ -1,70 +1,51 @@
-import { useQuery } from "@apollo/client"
-import { Button, Checkbox, Divider, FormControlLabel, InputLabel, List, ListItem, Modal, Select } from "@material-ui/core"
-import { useState } from "react"
+import useGetMe from '../../hooks/useGetMe'
+import { Dialog, Typography, Container, Backdrop, CircularProgress, FormControlLabel, Checkbox, Button, Grid, FormGroup } from '@material-ui/core'
+import DropDown from '../../components/DropDown';
+import { useState } from 'react';
 
-import { GET_ME } from "../../graphql/queries"
+import { Person, PersonOutline } from '@material-ui/icons'
 
 const NewGameModal = ({ open, setModal, handleNewGame }) => {
 
-    const mina = useQuery( GET_ME )
-    const [ pelaajat, setPelaajat ] = useState([])
+    const { me } = useGetMe();
+    const [kaverit, setKaverit] = useState([])
 
-    if (mina.loading) {
-        return (
-            <h2>Loading stuff...</h2>
-        )
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        handleNewGame( pelaajat )
-    }
-    const handleClick = (pelaaja) => {
-        if (pelaajat.includes(pelaaja.id)) {
-            setPelaajat( pelaajat.filter( p => p !== pelaaja.id ))
-        } else {
-            setPelaajat( [...pelaajat, pelaaja.id] )
-        }
-
-    }
+    if (me === null) return (
+        <Backdrop open={true}>
+            <CircularProgress />
+        </Backdrop>
+    )
+    console.log(kaverit)
     return (
-        <div>
-            <Modal
-                open={open}
-                onClose={() => setModal(false)}
-            >
-                <div className="newGameModal">
-                    <form onSubmit={handleSubmit}>
-                        <h2>Uusi peli</h2>
-                        <div>
-                            <InputLabel htmlFor="age-native-simple">Pelimoodi</InputLabel>
-                            <Select native>
-                                <option value={0}>Normaali</option>
-                            </Select>
-                        </div>
-                        <Divider />
-                        <div>
-                            <h3>Pelaajat</h3>
-                            <List>
-                            <ListItem>
-                                <FormControlLabel control={<Checkbox checked />} label="Minä" />
-                            </ListItem>
-                            <Kaverivalinta kaverit={mina.data.getMe.friends} handleClick={handleClick} />
-                            </List>
-                            <Button fullWidth variant="contained" color="primary" type="submit">Aloita</Button>
-                            <Button fullWidth onClick={() => setModal(false)} variant="contained" color="secondary" style={{ marginTop: '5px' }}>Kansel</Button>
-                        </div>
-                    </form>
-                </div>
-
-            </Modal>
-        </div>
+        <Dialog open={open}>
+            <Container>
+                    <Typography variant="h4">Uusi peli</Typography>
+                    <Typography variant="h5">Pelimoodi: <DropDown options={['Normaali']}></DropDown></Typography>
+                    <Typography variant="h5">Pelaajat</Typography>
+                    <FormGroup>
+                        <FormControlLabel control={<Checkbox checkedIcon={<Person fontSize="large" />} checked={true} />} label="Minä" />
+                        {me.friends.map(f => <KaveriCheckBox kaverit={kaverit} setKaverit={setKaverit} key={f.user} kaveri={f} />)}
+                    </FormGroup>
+                    <Grid container justify="space-around" style={{ marginTop: 20 }}>
+                        <Grid item><Button color="primary" variant="contained" onClick={() => handleNewGame(kaverit)}>Ok</Button></Grid>
+                        <Grid item><Button color="secondary" variant="contained" onClick={() => setModal(false)}>Cancel</Button></Grid>
+                    </Grid>
+            </Container>
+        </Dialog>
     )
 }
-
-const Kaverivalinta = ({ kaverit, handleClick }) => {
+const KaveriCheckBox = ({ kaveri, kaverit, setKaverit }) => {
+    const handleChange = () => {
+        if (!kaverit.includes(kaveri.id)) setKaverit(kaverit.concat(kaveri.id))
+        else setKaverit(kaverit.filter(k => k !== kaveri.id))
+    }
     return (
-        kaverit.map(k => <ListItem key={k.id}><FormControlLabel control={<Checkbox onChange={() => handleClick(k)} />} label={k.user} /></ListItem>)
+        <FormControlLabel control={
+            <Checkbox
+                onChange={handleChange}
+                icon={<PersonOutline fontSize="large" />}
+                checkedIcon={<Person fontSize="large" color="primary" />}
+            />} label={kaveri.name} />
     )
 }
-
 export default NewGameModal
