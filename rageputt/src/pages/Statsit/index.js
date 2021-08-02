@@ -1,11 +1,12 @@
 import { useQuery } from '@apollo/client'
 import { ArgumentAxis, ValueAxis, LineSeries, Chart, Title } from '@devexpress/dx-react-chart-material-ui'
-import { Backdrop, CircularProgress, Paper, Grid, Container } from '@material-ui/core'
+import { Backdrop, CircularProgress, Paper, Grid, Container, Typography } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { GET_GAMES } from '../../graphql/queries'
 import { laskePisteet, tulokset2ChartData } from '../../utils/stuff'
 import BarChart from '../../components/BarChart'
 import { Animation } from '@devexpress/dx-react-chart'
+import DropDown from '../../components/DropDown'
 
 
 const Statsit = () => {
@@ -37,16 +38,17 @@ const Statsit = () => {
 
     return (
         <Container>
-            <Paper>
-                <Grid>
-                    <Grid>
+                <Typography variant="h5">
+                    Pelaaja: <DropDown options={new Map().set('Eka', 1).set('Toka', 2) } mappedOptions={true} />
+                </Typography>
+                <Grid container direction="column">
+                    <Grid item component={Typography}>
                         Pelejä: {statsData.length}
                     </Grid>
-                    <Grid>
+                    <Grid item component={Typography}>
                         Paras tulos: {maxPisteet}
                     </Grid>
                 </Grid>
-            </Paper>
             <BarChart data={kaikkiPuttiProssat} otsikko="Puttiprossat" />
 
             <Chart data={kaikkiPisteet} height='200'>

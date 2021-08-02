@@ -24,6 +24,7 @@ const Asetukset = () => {
             name: '',
             email: '',
             password: '',
+            shareStats: null,
         }
         changeSettings({ variables: { ...oldSettings, ...newSettings } }).then(res => {
             dispatch(setNotification('Tietoja vaihdettu', 'success'))
@@ -44,16 +45,17 @@ const Asetukset = () => {
             </Backdrop>
         )
     }
+    console.log(me)
     return (
         <Container>
             <OmatTiedot me={me} />
             <Divider />
-            <Grid container justifycontent="space-between" direction="row" alignItems="center">
-                <Grid item xs={8} component={Typography}>
+            <Grid container justify="space-between" direction="row" alignItems="center">
+                <Grid item xs={8} component={Typography} >
                     Salli kavereiden nähdä tilastoni
                 </Grid>
-                <Grid item>
-                    <Switch color="primary" checked={(me?.shareStatics)} />
+                <Grid item style={{ paddingRight: 10 }}>
+                    <Switch color="primary" checked={(me?.shareStats)} onChange={() => handleChangeSettings({ shareStats: !me.shareStats })} />
                 </Grid>
             </Grid>
             

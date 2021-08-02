@@ -5,6 +5,7 @@ const typeDefs = gql`
         user: String!
         name: String
         email: String
+        shareStats: Boolean
         friendRequests: [User]
         friends: [User]
         id: ID
@@ -40,7 +41,7 @@ const typeDefs = gql`
         createGame( pelaajat: [String]): String
         sendFriendRequest( fName: String!): String
         handleFriendRequest( friendId: String!, action: Boolean!): String
-        changeSettings( name: String, password: String, email: String ): User
+        changeSettings( name: String, password: String, email: String, shareStats: Boolean ): User
         deleteGame( roundId: String! ): String
     }
     type Subscription {

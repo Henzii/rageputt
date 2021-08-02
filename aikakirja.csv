@@ -35,3 +35,4 @@
 26.7.2021   3   Material-Ui:n teemoihin ja tyyleihin tutustumista & laittelua, animaatioita (aos) etusivulle... ulkoasun parantamista.
 28.7.2021   2   Uusi query joka katsoo onko käyttäjätunnus vapaa, sen toteuttaminen fronttiin Kaverit ja Tunnuksen luonti -sivuilla niin
                 ettei palvelin tukkeudu + pikku pilkun viilausta
+31.7.2021   2   Ominaisuus että pelit voi hakea käyttäjän ID:llä, testit sille ja ominaisuus toimivaksi backendissä.

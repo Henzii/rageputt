@@ -11,8 +11,10 @@ const Query = {
             name: user.name,
             id: user.id,
             email: user.email,
+            shareStats: user.shareStats || false,
             friendRequests: user.friendRequests,
-            friends: user.friends
+            friends: user.friends,
+
         }
     },
     getGames: async (root, args, context) => {

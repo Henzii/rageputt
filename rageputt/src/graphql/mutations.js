@@ -19,11 +19,12 @@ export const LOGIN = gql`
 
 `
 export const CHANGE_SETTINGS = gql`
-    mutation changeSettings($name: String, $password: String, $email: String) {
+    mutation changeSettings($name: String, $password: String, $email: String, $shareStats: Boolean) {
         changeSettings(
             name: $name,
             password: $password,
-            email: $email
+            email: $email,
+            shareStats: $shareStats
         ) {
             name
             email

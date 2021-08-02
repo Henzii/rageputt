@@ -43,10 +43,10 @@ const Mutation = {
     changeSettings: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
         const user = await UserModel.findById(context.loggedUser.id)
-        if (!emailValidator.validate(args.email) && args.name === '' && args.password === '') {
+        if (!emailValidator.validate(args.email) && args.name === '' && args.password === '' && args.shareStats === '') {
             throw new UserInputError('Ei tarpeeksi parametrejä!')
         }
-
+        console.log(args.shareStats)
         if (args.email && args.email != '' && emailValidator.validate(args.email)) {
             user.email = args.email;
         }
@@ -55,6 +55,9 @@ const Mutation = {
         }
         if (args.password && args.password != '') {
             user.passwordHash = await bcrypt.hash(args.password, 10)
+        }
+        if (args.shareStats !== null ) {
+            user.shareStats = args.shareStats
         }
         try {
             await user.save();
@@ -163,6 +166,7 @@ const Mutation = {
             user: args.user.toLowerCase(),
             name: args.name,
             email: args.email,
+            shareStats: true,
             passwordHash: await bcrypt.hash(args.password, 10)
         })
 

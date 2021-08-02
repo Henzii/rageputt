@@ -6,6 +6,7 @@ export const GET_ME = gql`
            name
            user
            email
+           shareStats
            friends { user name id }
            friendRequests { user name id }
         }
