@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { ArgumentAxis, ValueAxis, LineSeries, Chart, Title } from '@devexpress/dx-react-chart-material-ui'
-import { Backdrop, CircularProgress, Grid, Container, Typography } from '@material-ui/core'
+import { Backdrop, CircularProgress, Grid, Container, Typography, Paper } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { GET_GAMES } from '../../graphql/queries'
 import { laskePisteet, tulokset2ChartData } from '../../utils/stuff'
@@ -27,7 +27,7 @@ const Statsit = () => {
     let kaikkiPisteet = []
     let maxPisteet = 0
     for (let i = 0; i < statsData.length; i++) {
-        
+
         if (!statsData[i].finished) continue    // Ei lasketa keskeneräisiä pelejä mukaan
 
         const player = statsData[i].players.find(p => p.user.user === user.user)
@@ -38,38 +38,38 @@ const Statsit = () => {
     }
     const kaveritMap = new Map()
     kaveritMap.set("Minä", me.id)
-    for(const kaveri of me.friends )
+    for (const kaveri of me.friends)
         kaveritMap.set(kaveri.name, kaveri.id)
     return (
         <Container>
-                <Typography variant="h5">
-                    Pelaaja: <DropDown 
-                                options={kaveritMap} 
-                                mappedOptions={true} 
-                                onChange={(v) => console.log(v)}
-                            />
-                </Typography>
-                <Grid container direction="column">
-                    <Grid item component={Typography}>
-                        Pelejä: {statsData.length}
-                    </Grid>
-                    <Grid item component={Typography}>
-                        Paras tulos: {maxPisteet}
-                    </Grid>
-                </Grid>
-            <BarChart data={kaikkiPuttiProssat} otsikko="Puttiprossat" paperStyle />
-
-            <Chart data={kaikkiPisteet} height='200'>
-                <Title text="Pisteet" />
-                <ArgumentAxis />
-                <ValueAxis />
-                <LineSeries
-                    argumentField="game"
-                    valueField="score"
+            <Typography variant="h5">
+                Pelaaja: <DropDown
+                    options={kaveritMap}
+                    mappedOptions={true}
+                    onChange={(v) => console.log(v)}
                 />
-                <Animation />
-            </Chart>
-
+            </Typography>
+            <Grid container direction="column">
+                <Grid item component={Typography}>
+                    Pelejä: {statsData.length}
+                </Grid>
+                <Grid item component={Typography}>
+                    Paras tulos: {maxPisteet}
+                </Grid>
+            </Grid>
+            <BarChart data={kaikkiPuttiProssat} otsikko="Puttiprossat" paperStyle />
+            <Paper style={{ borderRadius: 15}}>
+                <Chart data={kaikkiPisteet} height='200'>
+                    <Title text="Pisteet" />
+                    <ArgumentAxis />
+                    <ValueAxis />
+                    <LineSeries
+                        argumentField="game"
+                        valueField="score"
+                    />
+                    <Animation />
+                </Chart>
+            </Paper>
         </Container>
     )
 }

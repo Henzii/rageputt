@@ -33,7 +33,6 @@ const Kaverit = () => {
     const handleFriendRequest = async (friendId, answer) => {
         try {
             const res = await answerFriendRequest({ variables: { friendId, answer } })
-            console.log('Päivitys: ', res.data.handleFriendRequest)
             updateCache(res.data.handleFriendRequest)
             dispatch(setNotification('Kaveripyyntö käsitelty', 'success'))
 

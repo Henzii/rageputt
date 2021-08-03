@@ -24,10 +24,15 @@ const theme = createMuiTheme({
         },
         secondary: red,
         action: {
-            disabled: '#2F2F2F'
+            disabled: '#8F8F8F'
         }
     },
     overrides: {
+        MuiCard: {
+            root: {
+                borderRadius: 15,
+            }
+        },
         MuiListItem: {
             root: {
                 fontFamily: 'Quicksand',

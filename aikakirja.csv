@@ -38,4 +38,5 @@
 31.7.2021   2   Ominaisuus että pelit voi hakea käyttäjän ID:llä, testit sille ja ominaisuus toimivaksi backendissä.
 02.8.2021   4   Asetukset sivun 'salli kavereiden katsoa tuloksiani' -nappi toimivaksi. Teeman säätöä, pixelien viilausta.
                 NewGameModalin teko uusiksi <Dialog>illa. Lisää teeman/ulkoasun viilausta
-03.8.2021   2   Kaverit-sivun ulkoasu valmiiksi. Teeman säätämistä. Konsoliin tulostuvien virheiden/varoitusten eliminointia.
+03.8.2021   4   Kaverit-sivun ulkoasu valmiiksi. Teeman säätämistä. Konsoliin tulostuvien virheiden/varoitusten eliminointia.
+                Välimuitin päivitysfunktio ja sen käyttöönotto parissa komponentissa aiheutti tuskaa (joka lopulta ratkesi ;)

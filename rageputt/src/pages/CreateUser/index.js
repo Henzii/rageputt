@@ -70,7 +70,7 @@ const CreateUserForm = () => {
 
                 <Divider />
                 <Typography variant="h5" gutterBottom>Lisätiedot</Typography>
-                <Typography paragraph>Ei pakollisia. Sähköpostiosoitteen antaminen mahdollistaa tunnusten palauttamisen.</Typography>
+                <Typography paragraph>Ei pakollisia. Sähköpostiosoitteen antaminen mahdollistaa tunnuksen palauttamisen.</Typography>
 
                 <Grid container direction="column" spacing={1}>
                     <Grid item>
