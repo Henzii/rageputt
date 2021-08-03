@@ -1,4 +1,4 @@
-import { useLazyQuery, useQuery } from "@apollo/client"
+import { useLazyQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
 import { IS_USERNAME_AVAILABLE } from "../graphql/queries"
 

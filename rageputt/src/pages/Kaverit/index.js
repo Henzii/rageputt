@@ -1,13 +1,15 @@
-import { useMutation, useQuery } from "@apollo/client"
+import { useMutation } from "@apollo/client"
 import FriendRequestForm from "./FriendRequestForm"
 import FriendRequests from "./FriendRequests"
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../../reducers/notificationReducer'
 
-import { CircularProgress, Container, Divider, Typography } from '@material-ui/core'
+import { CircularProgress, Container, Divider, Typography, Button } from '@material-ui/core'
 
 import { ANSWER_FRIEND_REQUEST, SEND_FRIEND_REQUEST } from "../../graphql/mutations"
 import { GET_ME } from '../../graphql/queries';
+
+import KaveriLista from "./KaveriLista"
 
 import useGetMe from "../../hooks/useGetMe"
 
@@ -48,19 +50,14 @@ const Kaverit = () => {
             <Typography variant="h4">Kaverit</Typography>
             <KaveriLista kaverit={me.friends} />
             <Divider />
-            <FriendRequests pyynnot={me.friendRequests} handleFriendRequest={handleFriendRequest} refetchMe={refetchMe} />
-            <Divider />
             <FriendRequestForm handleSendFriendRequest={handleSendFriendRequest} />
+            <Divider />
+            {(me.friendRequests.legth > 0 && <FriendRequests pyynnot={me.friendRequests} handleFriendRequest={handleFriendRequest} refetchMe={refetchMe} />)}
+            <Button fullWidth variant="outlined" onClick={refetchMe}>Päivitä kaveripyynnöt</Button>
+
         </Container>
     )
 
 }
-const KaveriLista = ({ kaverit }) => {
-    if (kaverit.length < 1) {
-        return (<div>Ei kavereita :(</div>)
-    }
-    return (
-        <div> {kaverit.map(k => <li key={k.id}>{k.user} ({k.name})</li>)}</div>
-    )
-}
+
 export default Kaverit

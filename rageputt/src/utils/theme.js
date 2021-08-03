@@ -1,5 +1,5 @@
 import { createMuiTheme } from "@material-ui/core"
-import { red, green, grey } from "@material-ui/core/colors";
+import { red } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
     typography: {
@@ -16,7 +16,7 @@ const theme = createMuiTheme({
         },
         h5: {
             marginBottom: 15
-        }
+        },
     },
     palette: {
         primary: {
@@ -28,6 +28,11 @@ const theme = createMuiTheme({
         }
     },
     overrides: {
+        MuiListItem: {
+            root: {
+                fontFamily: 'Quicksand',
+            },
+        },
         MuiButton: {
             root: {
                 borderRadius: 10,
@@ -35,14 +40,27 @@ const theme = createMuiTheme({
                 height: 40
             },
         },
+        MuiDivider: {
+            root: {
+                marginTop: 15,
+                marginBottom: 15,
+            }
+        },
         MuiAppBar: {
             root: {
                 borderRadius: 0
             },
         },
+        MuiTextField: {
+            root: {
+                backgroundColor: '#ffffff',
+            }
+        },
         MuiOutlinedInput: {
             root: {
                 borderRadius: 15,
+                backgroundColor: '#ffffff',
+
             },
         },
         MuiPaper: {

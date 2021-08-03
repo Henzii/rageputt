@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { ArgumentAxis, ValueAxis, LineSeries, Chart, Title } from '@devexpress/dx-react-chart-material-ui'
-import { Backdrop, CircularProgress, Paper, Grid, Container, Typography } from '@material-ui/core'
+import { Backdrop, CircularProgress, Grid, Container, Typography } from '@material-ui/core'
 import { useSelector } from 'react-redux'
 import { GET_GAMES } from '../../graphql/queries'
 import { laskePisteet, tulokset2ChartData } from '../../utils/stuff'

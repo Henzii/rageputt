@@ -1,4 +1,4 @@
-import { Grid, IconButton, Typography } from '@material-ui/core'
+import { Grid, IconButton } from '@material-ui/core'
 import { ChevronLeft, ChevronRight } from '@material-ui/icons'
 import { useDispatch } from 'react-redux'
 import Player from './Player'
@@ -42,6 +42,7 @@ const Tulosruutu = ({ kierrosData, tulokset }) => {
             }
 
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pushed])
 
     return (

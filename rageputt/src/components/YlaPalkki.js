@@ -8,7 +8,7 @@ const YlaPalkki = ({ openMenu }) => {
           <IconButton edge="start" onClick={openMenu}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
+          <Typography variant="h5" style={{ flexGrow: 1, marginBottom: 0 }}>
             RagePutt
           </Typography>
         </Toolbar>

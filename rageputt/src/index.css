@@ -8,6 +8,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(252,252,252);
 }
 
 code {
@@ -38,6 +39,15 @@ code {
 #iso-naytto {
   display: none;
   
+}
+#AppBar {
+  margin: 0px;
+  margin-bottom: 4px;
+}
+#AppContent {
+  max-width: 700px;
+  padding-top: 10px;
+  margin: auto;
 }
 @media screen and (min-width: 800px) {
   #iso-naytto {

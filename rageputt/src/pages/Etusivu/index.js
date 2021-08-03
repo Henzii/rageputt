@@ -17,17 +17,18 @@ const Etusivu = () => {
         <Container>
             <Paper className={tyylit.paper} id="iso-naytto">
                 <Typography variant="h4">
-                    Onpas iso näyttö
+                    Iso näyttö
                 </Typography>
                 <Typography paragraph>
-                    Tämä sovellus on suunniteltu käytettäväksi kännykän pikkuruiselta näytöltä.
+                    Onpas Teillä todella suuri ja mahtava näyttö. Tiedoksenne että
+                    tämä sovellus on suunniteltu käytettäväksi kännykän pikkuruiselta näytöltä.
                 </Typography>
             </Paper>
-            <Paper className={tyylit.paper}>
+            <Paper className={tyylit.paper} data-aos="fade-up">
                 <Typography variant="h4">
                     Mitä tämä on?
                 </Typography>
-                <Typography paragraph data-aos="fade-up">
+                <Typography paragraph>
                     Rageputt on Fullstackopen 2021 -kurssin harjoitustyön tulos. Fullstackopen on Helsingin yliopiston
                     järjestämä kurssi jossa tutustutaan JavaScriptilla tapahtuvaan moderniin websovelluskehitykseen. Pääpaino on
                     React-kirjaston avulla toteutettavissa single page -sovelluksissa, ja niitä tukevissa Node.js:llä toteutetuissa

@@ -1,7 +1,8 @@
 import { ChevronLeft } from '@material-ui/icons';
-import { Drawer, Divider, List, ListItem, IconButton, Typography } from '@material-ui/core'
+import { Drawer, Divider, List, ListItem, IconButton } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import useStyles from '../hooks/useStyles';
 
 
 
@@ -9,30 +10,30 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) => {
 
     const user = useSelector(state => state.user)
     const notLogged = (!user.user)
+    const tyylit = useStyles()
     return (
-        <Typography>
             <Drawer
                 open={menuOpen}
                 variant="persistent"
                 anchor="left"
-            >
+            >   
                 <IconButton onClick={() => setMenuOpen(false)}>
                     <ChevronLeft />
                 </IconButton>
-                <Divider />
+                <Divider className={tyylit.divider}/>
                 <List>
                     <ListItem button component={Link} to="/" onClick={() => setMenuOpen(false)}>
                         Etusivu
                     </ListItem>
                 </List>
-                <Divider />
+                <Divider className={tyylit.divider} />
 
                 <List>
                     <ListItem disabled={notLogged} button component={Link} to="/peli" onClick={() => setMenuOpen(false)}>
                         Uusi peli
                     </ListItem>
                 </List>
-                <Divider />
+                <Divider className={tyylit.divider} />
                 <List>
                     <ListItem disabled={notLogged} button component={Link} to="/vanhat" onClick={() => setMenuOpen(false)}>
                         Vanhat pelit
@@ -41,13 +42,13 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) => {
                         Statistiikka
                     </ListItem>
                 </List>
-                <Divider />
+                <Divider className={tyylit.divider} />
                 <List>
                     <ListItem disabled={notLogged} button component={Link} to="/kaverit" onClick={() => setMenuOpen(false)}>
                         Kaverit
                     </ListItem>
                 </List>
-                <Divider />
+                <Divider className={tyylit.divider} />
                 <List>
                     <ListItem component={Link} to="/asetukset" disabled={notLogged} button onClick={() => setMenuOpen(false)}>
                         Asetukset
@@ -60,7 +61,7 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) => {
                     </ListItem>
 
                 </List>
-            </Drawer></Typography>
+            </Drawer>
     )
 }
 export default Vetomenu;

@@ -4,7 +4,6 @@ import useIsUsernameAvailable from '../../hooks/useIsUsernameAvailable'
 const FriendRequestForm = ({ handleSendFriendRequest }) => {
 
     const { username, setName, available } = useIsUsernameAvailable()
-    console.log(username, available)
     return (
         <>
             <Typography variant="h5">Lähetä kaveripyyntö</Typography>

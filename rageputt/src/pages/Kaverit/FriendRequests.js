@@ -1,38 +1,35 @@
-import { IconButton, Paper, Typography, Button } from '@material-ui/core'
+import { IconButton, Paper, Typography, Grid, List, ListItem } from '@material-ui/core'
 import { Cancel, Check } from '@material-ui/icons/'
+import useStyles from '../../hooks/useStyles'
 
 const FriendRequests = ({ pyynnot, handleFriendRequest, refetchMe }) => {
-    if (pyynnot.length < 1) {
-        return (
-            <div>
-                <Typography variant="h5">Ei kaveripyyntöjä</Typography>
-                <Button variant="outlined" fullWidth onClick={refetchMe}>Päivitä kaveripyynnöt</Button>
-            </div>
-        )
-    }
     return (
         <>
-            <h2>Kaveripyynnöt</h2>
-            {pyynnot.map(k => <KaveriKortti handleFriendRequest={handleFriendRequest} kaveri={k} key={k.id} />)}
+            <Typography variant="h5">Kaveripyynnöt</Typography>
+            <List dense={true}>
+                {pyynnot.map(k => <KaveriKortti handleFriendRequest={handleFriendRequest} kaveri={k} key={k.id} />)}
+            </List>
         </>
     )
 }
 const KaveriKortti = ({ kaveri, handleFriendRequest }) => {
+    const tyylit = useStyles()
     return (
-        <Paper elevation={2} style={{ paddingLeft: '5px', display: 'inline-block', width: '100%' }}>
-            <div style={{ float: 'left', paddingTop: '10px', fontWeight: 'bold' }}>
-                {kaveri.user} ({kaveri.name})
-            </div>
-            <div style={{ float: 'right' }}>
-                <IconButton onClick={() => handleFriendRequest(kaveri.id, true)}>
-                    <Check style={{ color: 'green' }} />
-                </IconButton>
-                <IconButton onClick={() => handleFriendRequest(kaveri.id, false)}>
-                    <Cancel style={{ color: 'red' }} />
-                </IconButton>
-            </div>
-
-        </Paper>
+        <ListItem>
+            <Grid container component={Paper} elevation={3}  className={tyylit.listPaper} justify="space-between" alignItems="center">
+                <Grid xs={8}>
+                    {kaveri.user} ({kaveri.name})
+                </Grid>
+                <Grid item>
+                    <IconButton onClick={() => handleFriendRequest(kaveri.id, true)}>
+                        <Check style={{ color: 'green' }} />
+                    </IconButton>
+                    <IconButton onClick={() => handleFriendRequest(kaveri.id, false)}>
+                        <Cancel style={{ color: '#ff4040' }} />
+                    </IconButton>
+                </Grid>
+            </Grid>
+        </ListItem>
     )
 }
 export default FriendRequests

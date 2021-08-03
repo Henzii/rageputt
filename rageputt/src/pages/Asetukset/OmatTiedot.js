@@ -1,4 +1,4 @@
-import { Typography, Grid, Paper } from "@material-ui/core"
+import { Typography } from "@material-ui/core"
 
 const OmatTiedot = ({ me }) => {
     return (

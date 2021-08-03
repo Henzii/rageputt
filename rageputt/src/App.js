@@ -33,19 +33,21 @@ function App() {
     setMenuOpen(true)
   }
   useEffect(() => {
-      if (!loading && me != null && !user.user) {
-        dispatch( setUser( me.name, me.user ))
-      }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [me] )
+    if (!loading && me != null && !user.user) {
+      dispatch(setUser(me.name, me.user))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [me])
 
   return (
-    <div>
+    <>
+      <div id="AppBar">
+        <YlaPalkki openMenu={openMenu} />
+        <Vetomenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-      <YlaPalkki openMenu={openMenu} />
-      <Vetomenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-
-      <Notification />
+        <Notification />
+      </div>
+      <div id="AppContent">
         <Switch>
           <Route path="/kaverit">
             <Kaverit />
@@ -72,10 +74,11 @@ function App() {
             <RestoreAccount />
           </Route>
           <Route path="/">
-           <Etusivu />
+            <Etusivu />
           </Route>
         </Switch>
-    </div>
+      </div>
+    </>
   );
 }
 
