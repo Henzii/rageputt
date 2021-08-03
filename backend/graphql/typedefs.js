@@ -40,7 +40,7 @@ const typeDefs = gql`
         finishGame( roundId: String! ): String
         createGame( pelaajat: [String]): String
         sendFriendRequest( fName: String!): String
-        handleFriendRequest( friendId: String!, action: Boolean!): String
+        handleFriendRequest( friendId: String!, action: Boolean!): User
         changeSettings( name: String, password: String, email: String, shareStats: Boolean ): User
         deleteGame( roundId: String! ): String
     }

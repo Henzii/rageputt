@@ -1,16 +1,12 @@
 import { gql } from '@apollo/client';
+import { USER_FULL_INFO } from './fragments';
 
 export const GET_ME = gql`
     query getMe {
         getMe{
-           name
-           user
-           email
-           shareStats
-           friends { user name id }
-           friendRequests { user name id }
+           ...UserFullInfo
         }
-    }
+    } ${USER_FULL_INFO}
 `
 export const GET_GAMES = gql`
     query getGames {

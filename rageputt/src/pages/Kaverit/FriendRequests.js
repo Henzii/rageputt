@@ -2,7 +2,7 @@ import { IconButton, Paper, Typography, Grid, List, ListItem } from '@material-u
 import { Cancel, Check } from '@material-ui/icons/'
 import useStyles from '../../hooks/useStyles'
 
-const FriendRequests = ({ pyynnot, handleFriendRequest, refetchMe }) => {
+const FriendRequests = ({ pyynnot, handleFriendRequest }) => {
     return (
         <>
             <Typography variant="h5">Kaveripyynnöt</Typography>
@@ -17,7 +17,7 @@ const KaveriKortti = ({ kaveri, handleFriendRequest }) => {
     return (
         <ListItem>
             <Grid container component={Paper} elevation={3}  className={tyylit.listPaper} justify="space-between" alignItems="center">
-                <Grid xs={8}>
+                <Grid item xs={8}>
                     {kaveri.user} ({kaveri.name})
                 </Grid>
                 <Grid item>

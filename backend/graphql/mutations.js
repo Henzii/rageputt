@@ -42,11 +42,10 @@ const Mutation = {
     },
     changeSettings: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
-        const user = await UserModel.findById(context.loggedUser.id)
+        const user = await UserModel.findById(context.loggedUser.id).populate('friends', { user: 1, name: 1, id: 1, email: 1 }).populate('friendRequests', { user: 1, name: 1, id: 1 })
         if (!emailValidator.validate(args.email) && args.name === '' && args.password === '' && args.shareStats === '') {
             throw new UserInputError('Ei tarpeeksi parametrejä!')
         }
-        console.log(args.shareStats)
         if (args.email && args.email != '' && emailValidator.validate(args.email)) {
             user.email = args.email;
         }
@@ -232,30 +231,37 @@ const Mutation = {
         }
         const myId = context.loggedUser.id
         const friendId = args.friendId
-        const user = await UserModel.findById(myId)
-
-        if (!user.friendRequests.includes(friendId)) {
+        const user = await UserModel.findById(context.loggedUser.id).populate('friends', { user: 1, name: 1, id: 1, email: 1 }).populate('friendRequests', { user: 1, name: 1, id: 1 })
+        if (user.friendRequests.find(f => f.id === friendId) === null) {
             throw new UserInputError('Kaveri ei ole lähettänyt pynntöä!?')
         }
-
-        user.friendRequests = user.friendRequests.filter(u => u != friendId)
+        
+        user.friendRequests = user.friendRequests.filter(u => u.id != friendId)
         if (args.action) {
             const frendi = await UserModel.findById(friendId)
             if (!frendi) {
                 throw new UserInputError('Kaveria ei ole olemassa')
             }
-            if (!user.friends.includes(friendId))
-                user.friends.push(friendId)
-            if (!frendi.friends.includes(myId))
-                frendi.friends.push(myId)
-            try {
-                await frendi.save()
-            } catch (e) {
-                throw new SyntaxError('Jokin meni vikaan: ' + e.message)
+            if (user.friends.find( f=> f.id === friendId)) {
+                throw new UserInputError('Olette jo kavereita!?!?')
             }
+            console.log('Lisätään kaveri', user)
+            user.friends.push(frendi)
+            console.log('Lisätty!', user)
+
+            if (!frendi.friends.includes(myId)) {
+                frendi.friends.push(myId)
+            }
+            await frendi.save()
         }
-        await user.save()
-        return "OK"
+        try {
+            const vastaus = await user.save()
+            console.log('Palautetaan', vastaus)
+            return vastaus
+        } catch (e) {
+            throw UserInputError('Jotain meni pieleen', e)
+        }
+
     }
 }
 const Subscription = {

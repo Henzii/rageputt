@@ -14,29 +14,32 @@ import { setNotification } from "../../reducers/notificationReducer";
 
 const Asetukset = () => {
 
-    const { me, refetch } = useGetMe();
+    const { me, updateCache } = useGetMe();
     const dispatch = useDispatch()
     const [changeSettings] = useMutation(CHANGE_SETTINGS)
     const client = useApolloClient()
 
-    const handleChangeSettings = (newSettings) => {
+    const handleChangeSettings = async (newSettings) => {
         const oldSettings = {
             name: '',
             email: '',
             password: '',
             shareStats: null,
         }
-        changeSettings({ variables: { ...oldSettings, ...newSettings } }).then(res => {
+        try {
+            const me = await changeSettings({ variables: { ...oldSettings, ...newSettings } })
+            updateCache(me.data.changeSettings)
             dispatch(setNotification('Tietoja vaihdettu', 'success'))
-            refetch()
-        }).catch(e => {
+        } catch (e) {
             console.log(e)
             dispatch(setNotification(`Virhe! ${e.message}`, 'error'))
-        })
+
+        }
     }
+
     const handleCelarCache = async () => {
         await client.clearStore()
-        dispatch( setNotification('Välimuisti tyhjennetty', 'info'))
+        dispatch(setNotification('Välimuisti tyhjennetty', 'info'))
     }
     if (me === null) {
         return (
@@ -58,7 +61,7 @@ const Asetukset = () => {
                     <Switch color="primary" checked={(me?.shareStats)} onChange={() => handleChangeSettings({ shareStats: !me.shareStats })} />
                 </Grid>
             </Grid>
-            
+
             <Divider />
             <SalasananVaihto vaihdaSalasana={handleChangeSettings} />
             <Divider />

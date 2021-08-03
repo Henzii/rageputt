@@ -24,7 +24,7 @@
 4.7.2021    1   Asetukset-sivua, ulkoasun parannusta
 11.7.2021   2   Refaktorointia, custom hookki.
 12.7.2021   2,5 Backendin testejä
-13.7.2021   3   Testausta, Käyttäjätietojen mukkauksen testit.
+13.7.2021   3   Testausta, Käyttäjätietojen muokkauksen testit.
 14.7.2021   2   Backendiin pelin poiston testit, sähköpostin lähetys, fronttiin alustava sivu tunnusten palautuksesta.
 15.7.2021   2   Backendin refaktorointia, asetukset-sivun toiminnallisuus, testit tunnuksen palauttamiseen
 19.7.2021   3   Bugikorjausta (subscriptioni), frontin asetukset-sivu toimivaksi.
@@ -38,3 +38,4 @@
 31.7.2021   2   Ominaisuus että pelit voi hakea käyttäjän ID:llä, testit sille ja ominaisuus toimivaksi backendissä.
 02.8.2021   4   Asetukset sivun 'salli kavereiden katsoa tuloksiani' -nappi toimivaksi. Teeman säätöä, pixelien viilausta.
                 NewGameModalin teko uusiksi <Dialog>illa. Lisää teeman/ulkoasun viilausta
+03.8.2021   2   Kaverit-sivun ulkoasu valmiiksi. Teeman säätämistä. Konsoliin tulostuvien virheiden/varoitusten eliminointia.

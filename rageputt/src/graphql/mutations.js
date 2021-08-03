@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { USER_FULL_INFO } from './fragments';
 
 export const RESTORE_ACCOUNT = gql`
     mutation restoreAccount( $email: String!) {
@@ -27,7 +28,11 @@ export const CHANGE_SETTINGS = gql`
             shareStats: $shareStats
         ) {
             name
+            user
             email
+            shareStats
+            friends { user name id }
+            friendRequests { user name id }
         }
     }
 `
@@ -86,8 +91,10 @@ export const ANSWER_FRIEND_REQUEST = gql`
         handleFriendRequest(
             friendId: $friendId
             action: $answer
-        )
-    }
+        ) {
+            ...UserFullInfo
+        }
+    }${USER_FULL_INFO}
 `
 export const SEND_FRIEND_REQUEST = gql`
     mutation sendFriendRequest($name: String!) {
