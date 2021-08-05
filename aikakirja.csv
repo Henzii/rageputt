@@ -39,4 +39,4 @@
 02.8.2021   4   Asetukset sivun 'salli kavereiden katsoa tuloksiani' -nappi toimivaksi. Teeman säätöä, pixelien viilausta.
                 NewGameModalin teko uusiksi <Dialog>illa. Lisää teeman/ulkoasun viilausta
 03.8.2021   4   Kaverit-sivun ulkoasu valmiiksi. Teeman säätämistä. Konsoliin tulostuvien virheiden/varoitusten eliminointia.
-                Välimuitin päivitysfunktio ja sen käyttöönotto parissa komponentissa aiheutti tuskaa (joka lopulta ratkesi ;)
+                Välimuitin päivitysfunktio, ja sen käyttöönotto parissa komponentissa aiheutti tuskaa (joka lopulta ratkesi ;)

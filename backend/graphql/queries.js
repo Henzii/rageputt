@@ -22,6 +22,7 @@ const Query = {
             throw new AuthenticationError('Kirjaudu sisään.')
         }
         let userId = context.loggedUser.id
+        console.log('ARGS:', args)
         console.log('UID:', args.userId)
         if (args.userId !== null && args.userId) {
            userId = args.userId
@@ -35,7 +36,7 @@ const Query = {
                 }
             })
         if (userId !== context.loggedUser.id && (user.shareStats !== true || !user.friends.includes(context.loggedUser.id)) ) {
-            throw new ForbiddenError('Tilastojen katseleminen ei sallittu')
+            throw new ForbiddenError('Tilastojen näyttäminen estetty')
         }
         return user.games;
     },

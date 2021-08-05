@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { USER_FULL_INFO } from './fragments';
+import { USER_FULL_INFO, GAME_DETAILS } from './fragments';
 
 export const GET_ME = gql`
     query getMe {
@@ -11,12 +11,16 @@ export const GET_ME = gql`
 export const GET_GAMES = gql`
     query getGames {
         getGames {
-            finished
-            timestamp
-            id
-            players{ tulokset user{user name}}
+           ...GameDetails
         }
-    }
+    } ${GAME_DETAILS}
+`
+export const GET_USER_GAMES = gql`
+    query getGames( $userId: ID ) {
+        getGames( userId: $userId ) {
+            ...GameDetails
+        }
+    } ${GAME_DETAILS}
 `
 export const GET_ROUND = gql`
     query getRound($roundId: String!) {
