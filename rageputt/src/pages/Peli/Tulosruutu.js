@@ -48,7 +48,7 @@ const Tulosruutu = ({ kierrosData, tulokset }) => {
     return (
         <div>
             <Grid container className="rundiValitsin">
-                <Grid item><IconButton size="large" onClick={() => dispatch({ type: 'DEC_ROUND' })}><ChevronLeft /></IconButton></Grid>
+                <Grid item><IconButton onClick={() => dispatch({ type: 'DEC_ROUND' })}><ChevronLeft /></IconButton></Grid>
                 <Grid item component={'h2'}> {kierros + 1}/20</Grid>
                 <Grid item><IconButton onClick={() => dispatch({ type: 'INC_ROUND' })}><ChevronRight /></IconButton></Grid>
             </Grid>
