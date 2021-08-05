@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useGetMe from './hooks/useGetMe';
 import RestoreAccount from './components/RestoreAccount';
+import DevPage from './components/DevPage';
 
 
 function App() {
@@ -63,6 +64,9 @@ function App() {
           </Route>
           <Route path="/stats">
             <Statsit />
+          </Route>
+          <Route path="/dev">
+            <DevPage />
           </Route>
           <Route path="/createUser">
             <CreateUserForm />

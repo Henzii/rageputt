@@ -20,7 +20,7 @@ const VanhatPelit = () => {
 
     const aktivoi = (g) => {
         dispatch({ type: 'SET_ID', data: { roundId: g } })
-        dispatch(setNotification('Peli akitoivu, valitse \'Uusi peli\'', 'info'))
+        dispatch(setNotification('Siirry peliin valitsemalla \'Uusi peli\'', 'info', 'Peli aktivoitu'))
     }
     const handlePoistaPeli = async () => {
         console.log('Poistetaan', poistaPeliId)

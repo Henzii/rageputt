@@ -3,6 +3,7 @@ const reducer = (state = { alive: false}, action) => {
         case 'SET_NOTIFICATION':
             return {
                 message: action.data.message,
+                title: action.data.title,
                 type: action.data.type,
                 alive: true
             }
@@ -12,12 +13,13 @@ const reducer = (state = { alive: false}, action) => {
             return state
     }
 }
-export const setNotification = (message, type) => {
+export const setNotification = (message, type, title='') => {
     return {
         type: 'SET_NOTIFICATION',
         data: {
             type,
             message,
+            title,
         }
     }
 }

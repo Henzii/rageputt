@@ -1,5 +1,5 @@
-import { createMuiTheme } from "@material-ui/core"
-import { red } from "@material-ui/core/colors";
+import { createMuiTheme, rgbToHex } from "@material-ui/core"
+import { lightGreen, red } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
     typography: {
@@ -25,9 +25,21 @@ const theme = createMuiTheme({
         secondary: red,
         action: {
             disabled: '#8F8F8F'
+        },
+        success: {
+            main: 'rgba(76, 175, 80, 0.85)',
+            
+        },
+        info: {
+            main: 'rgba(33, 150, 243, 0.85)'
         }
     },
     overrides: {
+        MuiAlert: {
+            root: {
+                borderRadius: 15,
+            },
+        },
         MuiCard: {
             root: {
                 borderRadius: 15,

@@ -40,3 +40,4 @@
                 NewGameModalin teko uusiksi <Dialog>illa. Lisää teeman/ulkoasun viilausta
 03.8.2021   4   Kaverit-sivun ulkoasu valmiiksi. Teeman säätämistä. Konsoliin tulostuvien virheiden/varoitusten eliminointia.
                 Välimuitin päivitysfunktio, ja sen käyttöönotto parissa komponentissa aiheutti tuskaa (joka lopulta ratkesi ;)
+05.8.2021       Oma hookki tilastojen hakemiselle, tilastojen jako frontissa toimivaksi.

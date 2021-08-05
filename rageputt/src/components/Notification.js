@@ -1,7 +1,8 @@
 import { killNotification } from '../reducers/notificationReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import Snackbar from '@material-ui/core/Snackbar'
-import Alert from '@material-ui/lab/Alert'
+import { Alert, AlertTitle } from '@material-ui/lab/'
+import { Slide, Zoom } from '@material-ui/core'
 
 const Notification = () => {
 
@@ -13,13 +14,18 @@ const Notification = () => {
         dispatch(killNotification())
     }
     return (
-        <div>
-            <Snackbar open={notification.alive} autoHideDuration={5000} onClose={handleClose}>
-                <Alert severity={notification.type} variant="filled">
-                    {notification.message}
-                </Alert>
-            </Snackbar>
-        </div>
+        <Snackbar
+            open={notification.alive}
+            autoHideDuration={5000}
+            onClose={handleClose}
+            transitionDuration={{ enter: 1000, exit: 2000 }}
+            TransitionProps={{ direction: 'left' }}
+        >
+            <Alert severity={notification.type} variant="filled" elevation={3} >
+                {(notification.title !== '' && <AlertTitle>{notification.title}</AlertTitle>)}
+                {notification.message}
+            </Alert>
+        </Snackbar>
     )
 }
 export default Notification
