@@ -15,6 +15,7 @@ import { CREATE_GAME, DELETE_GAME, END_GAME } from '../../graphql/mutations'
 
 import { Container } from '@material-ui/core'
 import { setNotification } from '../../reducers/notificationReducer'
+import useGetRound from '../../hooks/useGetRound'
 
 const Peli = () => {
 
@@ -25,22 +26,12 @@ const Peli = () => {
     const tulokset = useSelector(state => state.tulokset)
     const user = useSelector(state => state.user)
 
-    const [haeRundi, kierrosData] = useLazyQuery(GET_ROUND)
-
     const [uusiPeli] = useMutation(CREATE_GAME)
     const [paataPeli] = useMutation(END_GAME)
     const [poistaPeli] = useMutation(DELETE_GAME)
     
-    useEffect( () => {
-        if (tulokset.roundId && kierrosData.roundId !== tulokset.roundId) {
-            try {
-                haeRundi({ variables: { roundId: tulokset.roundId } });
-            } catch (e) {
-                console.log('Virhe peliä hakiessa', e.message)
-            }
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tulokset.roundId])
+    const kierrosData = useGetRound( tulokset.roundId )
+
     const handleNewGame = async (pelaajat) => {
         try {
             const res = await uusiPeli({ variables: { pelaajat: pelaajat }, refetchQueries: [{ query: GET_GAMES } ] })
@@ -80,15 +71,8 @@ const Peli = () => {
             <Redirect to="/login" />
         )
     }
-    if (kierrosData.loading) {
-        return (
-            <Backdrop open={true}>
-                <CircularProgress />
-            </Backdrop>
-
-        )
-    } 
-    if (tulokset.roundId === null || !kierrosData.data) {
+    
+    if (tulokset.roundId === null || kierrosData === null) {
         return (
             <Container>
                 <Typography variant="h4" gutterBottom>Pakko päästä puttaa</Typography>

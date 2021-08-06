@@ -136,7 +136,7 @@ const Mutation = {
 
         await peli.save()
 
-        pubsub.publish("SCORE_SET", { changedCard: { data: pelaaja, roundId: peli.id } })
+        pubsub.publish("SCORE_SET", { changedCard: { peli } })
 
         return peli
 
@@ -269,9 +269,7 @@ const Subscription = {
         subscribe: withFilter(
             () => pubsub.asyncIterator(['SCORE_SET']),
             (payload, variables) => {
-                console.log('SUB! Payload: ', payload, 'Variables: ', variables)
-
-                return (payload.changedCard.roundId === variables.roundId)
+                return (payload.changedCard.peli._id === variables.roundId)
             }
         )
     }

@@ -32,7 +32,7 @@ const Player = ({ player, round }) => {
             dispatch(setNotification(e.message, 'error'))
         }).finally(() => {
             setLoading(null)
-            if (round > 0 && !player.tulokset[round - 1])
+            if (round > 0 && isNaN(player.tulokset[round - 1]))
                 dispatch(setNotification('Kierroksen ' + round + ' tulos puuttuu', 'warning'))
         })
     }
