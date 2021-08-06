@@ -122,25 +122,7 @@ const Mutation = {
         await peli.save()
         return "OK"
     },
-    setScore: async (root, args) => {
-
-        const peli = await GameModel.findById(args.roundId).populate('players.user')
-
-        if (!peli) throw new SyntaxError('Epäkelpo ID')
-        if (peli.finished) throw new ForbiddenError('Päättynyttä peliä ei voi enää muokata')
-
-        const pelaaja = peli.players.find(p => p.user.user === args.player)
-        if (!pelaaja) throw new SyntaxError('Pelaajaa ei löydy')
-
-        pelaaja.tulokset.set(args.round, args.score)
-
-        await peli.save()
-
-        pubsub.publish("SCORE_SET", { changedCard: { peli } })
-
-        return peli
-
-    },
+    
     login: async (root, args) => {
         const user = await UserModel.findOne({ user: args.user.toLowerCase() })
         if (user && (await bcrypt.compare(args.password, user.passwordHash) || await bcrypt.compare(args.password, user.tempPasswordHash))) {
@@ -262,14 +244,33 @@ const Mutation = {
             throw UserInputError('Jotain meni pieleen', e)
         }
 
-    }
+    },
+    setScore: async (root, args) => {
+
+        const peli = await GameModel.findById(args.roundId).populate('players.user')
+
+        if (!peli) throw new SyntaxError('Epäkelpo ID')
+        if (peli.finished) throw new ForbiddenError('Päättynyttä peliä ei voi enää muokata')
+
+        const pelaaja = peli.players.find(p => p.user.user === args.player)
+        if (!pelaaja) throw new SyntaxError('Pelaajaa ei löydy')
+
+        pelaaja.tulokset.set(args.round, args.score)
+
+        await peli.save()
+
+        pubsub.publish("SCORE_SET", { changedCard: peli } )
+
+        return peli
+
+    },
 }
 const Subscription = {
     changedCard: {
         subscribe: withFilter(
             () => pubsub.asyncIterator(['SCORE_SET']),
             (payload, variables) => {
-                return (payload.changedCard.peli._id === variables.roundId)
+                return (variables.roundId === payload.changedCard.id)
             }
         )
     }

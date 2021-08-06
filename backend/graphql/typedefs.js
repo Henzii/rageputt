@@ -45,12 +45,7 @@ const typeDefs = gql`
         deleteGame( roundId: String! ): String
     }
     type Subscription {
-        changedCard( roundId: String!): SubPushData
-    }
-    type SubPushData {
-        roundId: String!
-        data: GameCard!
-        user: String
+        changedCard( roundId: String): Game
     }
 `
 module.exports = typeDefs
