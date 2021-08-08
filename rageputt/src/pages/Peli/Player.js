@@ -46,10 +46,12 @@ const Player = ({ player, round }) => {
                 title={player.user.name}
                 action={distance + 'm'}
                 subheader={pisteet + ' points'}
+                titleTypographyProps={{ style: { margin: 0}} }
+                //subheaderTypographyProps={{ style: { margin: 0 }}}
             />
             <CardContent style={{padding: '15px 0px'}}>
-                <RadioGroup row style={{ whiteSpace: 'nowrap' }} value={putteja} onChange={handleChange}>
-                    <Grid container>
+                <RadioGroup row value={putteja} onChange={handleChange}>
+                    <Grid container alignContent='space-between'>
                         <RadioButtons loading={loading} />
                     </Grid>
                 </RadioGroup>
@@ -68,7 +70,7 @@ const RadioButtons = ({ loading }) => {
         }
         else {
             palautus.push(
-                <Grid item xs
+                <Grid item xs={2}
                     key={i}
                 >
                     <FormControlLabel
