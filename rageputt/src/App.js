@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useGetMe from './hooks/useGetMe';
 import RestoreAccount from './components/RestoreAccount';
 import DevPage from './components/DevPage';
+import Ohje from './pages/Ohje';
 
 
 function App() {
@@ -76,6 +77,9 @@ function App() {
           </Route>
           <Route path="/palautus">
             <RestoreAccount />
+          </Route>
+          <Route path="/ohje">
+            <Ohje />
           </Route>
           <Route path="/">
             <Etusivu />

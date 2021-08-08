@@ -41,3 +41,4 @@
 03.8.2021   4   Kaverit-sivun ulkoasu valmiiksi. Teeman säätämistä. Konsoliin tulostuvien virheiden/varoitusten eliminointia.
                 Välimuitin päivitysfunktio, ja sen käyttöönotto parissa komponentissa aiheutti tuskaa (joka lopulta ratkesi ;)
 05.8.2021   2   Oma hookki tilastojen hakemiselle, tilastojen jako frontissa toimivaksi, notifikaation kaunistelua
+06.8.2021   2   Oma hookki tietyn pelin hakemiselle ja subscriptionin hallinta sille -> koko paska sekoaa, bugien metsästystä.
