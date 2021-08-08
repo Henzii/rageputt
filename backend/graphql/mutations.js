@@ -25,20 +25,33 @@ const Mutation = {
                 console.log('ERROR', e)
             }
             const mailia = sendEmail(user.email, 'Kertakäyttöinen salasana', `
-            Hei ${user.name},
+Hei ${user.name},
 
-            Kertakäyttöinen salasanasi Rageputtiin on ${randomPassword}
+Kertakäyttöinen salasanasi Rageputtiin on ${randomPassword}
 
-            Salasana toimii sisäänkirjautumisessa vain yhden kerran,
-            joten muista vaihtaa salasanasi!
+Salasana toimii sisäänkirjautumisessa vain yhden kerran,
+joten muista vaihtaa salasanasi!
 
-            Terveisin,
-            Rage Putt
-            http://rageputt.herokuapp.com
-            rageputt@gmail.com
-            `)
+Terveisin,
+Rage Putt
+http://rageputt.herokuapp.com
+rageputt@gmail.com
+`)
         }
         return "Done";
+    },
+    sendFeedback: async (root, args, context) => {
+        sendEmail('henry.karlenius@gmail.com', 'Rageputt palaute',`
+Lähettäjä: ${args.name}
+Sähköposti: ${args.email}
+Arvosana: ${args.rating}
+Kirjautunut: ${context.loggedUser?.user} / (${context.loggedUser?.id})
+
+Veisti:
+===============================
+${args.message}
+`)
+        return "OK"
     },
     changeSettings: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')

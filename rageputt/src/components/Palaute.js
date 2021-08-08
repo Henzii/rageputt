@@ -1,3 +1,4 @@
+import { gql, useMutation } from "@apollo/client";
 import { Button, Container, Divider, Grid, TextField, Typography } from "@material-ui/core"
 import { Rating } from "@material-ui/lab";
 import { useEffect, useState } from "react";
@@ -12,11 +13,22 @@ const Palaute = () => {
     const [viesti, setViesti] = useState('')
     const [rating, setRating] = useState(4)
 
+    const [ lahetaPalaute ] = useMutation( gql`
+        mutation sendFeedback($name: String, $email: String, $rating: Int, $message: String) {
+            sendFeedback(name: $name, email: $email, rating: $rating message: $message)
+        }
+    `)
+
     const [msgSent, setMsgSent] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Submit!')
+        lahetaPalaute( { variables: {
+            name: nimi,
+            email,
+            rating,
+            message: viesti
+        }})
         setMsgSent(true)
     }
 
