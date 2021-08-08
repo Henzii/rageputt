@@ -48,6 +48,10 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) => {
                     <ListItem component={Link} to="/ohje" button onClick={() => setMenuOpen(false)}>
                         Ohje
                     </ListItem>
+                    <ListItem component={Link} to="/palaute" button onClick={() => setMenuOpen(false)}>
+                        Palaute
+                    </ListItem>
+
                     <Divider className={tyylit.divider} />
 
                     <ListItem button component={Link} to="/createUser" onClick={() => setMenuOpen(false)}>

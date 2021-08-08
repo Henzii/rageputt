@@ -21,6 +21,8 @@ import useGetMe from './hooks/useGetMe';
 import RestoreAccount from './components/RestoreAccount';
 import DevPage from './components/DevPage';
 import Ohje from './pages/Ohje';
+import { Paper, Snackbar } from '@material-ui/core';
+import Palaute from './components/Palaute';
 
 
 function App() {
@@ -53,6 +55,9 @@ function App() {
         <Switch>
           <Route path="/kaverit">
             <Kaverit />
+          </Route>
+          <Route path="/palaute">
+            <Palaute />
           </Route>
           <Route path="/login" >
             <LoginForm />
