@@ -12,6 +12,7 @@ const Query = {
             id: user.id,
             email: user.email,
             shareStats: user.shareStats || false,
+            ignoreFriendRequests: user.ignoreFriendRequests || false,
             friendRequests: user.friendRequests,
             friends: user.friends,
 

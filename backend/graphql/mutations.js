@@ -71,6 +71,9 @@ ${args.message}
         if (args.shareStats !== null) {
             user.shareStats = args.shareStats
         }
+        if (args.ignoreFriendRequests !== null) {
+            user.ignoreFriendRequests = args.ignoreFriendRequests
+        }
         try {
             await user.save();
         } catch (e) {
@@ -165,6 +168,7 @@ ${args.message}
             name: args.name,
             email: args.email,
             shareStats: true,
+            ignoreFriendRequests: false,
             passwordHash: await bcrypt.hash(args.password, 10)
         })
 

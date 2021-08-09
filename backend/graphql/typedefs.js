@@ -6,6 +6,7 @@ const typeDefs = gql`
         name: String
         email: String
         shareStats: Boolean
+        ignoreFriendRequests: Boolean
         friendRequests: [User]
         friends: [User]
         id: ID
@@ -42,7 +43,7 @@ const typeDefs = gql`
         sendFriendRequest( fName: String!): String
         handleFriendRequest( friendId: String!, action: Boolean!): User
         deleteFriend( userId: ID! ): String
-        changeSettings( name: String, password: String, email: String, shareStats: Boolean ): User
+        changeSettings( name: String, password: String, email: String, shareStats: Boolean, ignoreFriendRequests: Boolean): User
         deleteGame( roundId: String! ): String
         sendFeedback( name: String, email: String, rating: Int, message: String): String
     }

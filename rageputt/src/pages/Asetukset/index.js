@@ -26,6 +26,7 @@ const Asetukset = () => {
             email: '',
             password: '',
             shareStats: null,
+            ignoreFriendRequests: null,
         }
         try {
             const me = await changeSettings({ variables: { ...oldSettings, ...newSettings } })

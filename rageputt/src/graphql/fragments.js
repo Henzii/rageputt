@@ -6,6 +6,7 @@ export const USER_FULL_INFO = gql`
         user
         email
         shareStats
+        ignoreFriendRequests
         friends { user name id }
         friendRequests { user name id }
         id

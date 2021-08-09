@@ -20,17 +20,19 @@ export const LOGIN = gql`
 
 `
 export const CHANGE_SETTINGS = gql`
-    mutation changeSettings($name: String, $password: String, $email: String, $shareStats: Boolean) {
+    mutation changeSettings($name: String, $password: String, $email: String, $shareStats: Boolean, $ignoreFriendRequests: Boolean) {
         changeSettings(
             name: $name,
             password: $password,
             email: $email,
-            shareStats: $shareStats
+            shareStats: $shareStats,
+            ignoreFriendRequests: $ignoreFriendRequests
         ) {
             name
             user
             email
             shareStats
+            ignoreFriendRequests
             friends { user name id }
             friendRequests { user name id }
         }
