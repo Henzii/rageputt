@@ -1,4 +1,5 @@
-import { Typography, Paper, List, ListItem } from "@material-ui/core"
+import { Typography, Paper, List, ListItem, Fade } from "@material-ui/core"
+import { useState } from "react"
 
 const KaveriLista = ({ kaverit }) => {
     return (
@@ -13,7 +14,7 @@ const KaveriLista = ({ kaverit }) => {
 const Kaveri = ({ kaveri }) => {
     return (
         <ListItem>
-            <Paper elevation={3} >
+            <Paper elevation={3}>
                 <strong>{kaveri.name}</strong> ({kaveri.user})
             </Paper>
         </ListItem>

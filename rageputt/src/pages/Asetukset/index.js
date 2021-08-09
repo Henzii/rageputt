@@ -12,6 +12,7 @@ import { useApolloClient, useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../../reducers/notificationReducer";
 import Kytkimet from "./Kytkimet";
+import PoistaTunnukset from "./PoistaTunnukset";
 
 const Asetukset = () => {
 
@@ -65,6 +66,8 @@ const Asetukset = () => {
             <Typography variant="h5">Tyhjennä välimuisti</Typography>
             <Typography paragraph>Jos tuntuu että asiat eivät näy oikein, voit yrittää tyhjentää välimuistin.</Typography>
             <Button variant="outlined" color="secondary" fullWidth onClick={handleCelarCache}>Tyhjennä välimuisti</Button>
+            <Divider />
+            <PoistaTunnukset me={me} />
         </Container>
     )
 
