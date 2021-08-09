@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress, TextField, Button, Container, Typography, Divider, Switch, Grid } from "@material-ui/core"
+import { Backdrop, CircularProgress, TextField, Button, Container, Typography, Divider } from "@material-ui/core"
 import { useState } from "react";
 
 import useGetMe from "../../hooks/useGetMe";
@@ -11,6 +11,7 @@ import { CHANGE_SETTINGS } from "../../graphql/mutations";
 import { useApolloClient, useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../../reducers/notificationReducer";
+import Kytkimet from "./Kytkimet";
 
 const Asetukset = () => {
 
@@ -48,20 +49,11 @@ const Asetukset = () => {
             </Backdrop>
         )
     }
-    console.log(me)
     return (
         <Container>
             <OmatTiedot me={me} />
             <Divider />
-            <Grid container justify="space-between" direction="row" alignItems="center">
-                <Grid item xs={8} component={Typography} >
-                    Salli kavereiden nähdä tilastoni
-                </Grid>
-                <Grid item style={{ paddingRight: 10 }}>
-                    <Switch color="primary" checked={(me?.shareStats)} onChange={() => handleChangeSettings({ shareStats: !me.shareStats })} />
-                </Grid>
-            </Grid>
-
+            <Kytkimet me={me} handleChangeSettings={handleChangeSettings} />
             <Divider />
             <SalasananVaihto vaihdaSalasana={handleChangeSettings} />
             <Divider />

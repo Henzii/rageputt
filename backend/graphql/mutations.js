@@ -41,7 +41,7 @@ rageputt@gmail.com
         return "Done";
     },
     sendFeedback: async (root, args, context) => {
-        sendEmail('henry.karlenius@gmail.com', 'Rageputt palaute',`
+        sendEmail('henry.karlenius@gmail.com', 'Rageputt palaute', `
 Lähettäjä: ${args.name}
 Sähköposti: ${args.email}
 Arvosana: ${args.rating}
@@ -68,7 +68,7 @@ ${args.message}
         if (args.password && args.password != '') {
             user.passwordHash = await bcrypt.hash(args.password, 10)
         }
-        if (args.shareStats !== null ) {
+        if (args.shareStats !== null) {
             user.shareStats = args.shareStats
         }
         try {
@@ -79,19 +79,23 @@ ${args.message}
         // Palauta uusi, päivitetty käyttäjä
         return user;
     },
+    deleteFriend: async (root, args, context) => {
+        if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
+        return "TODO"
+    },
     deleteGame: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
-        
-        const game = await GameModel.findById( args.roundId )
-        const user = await UserModel.findById( context.loggedUser.id )
 
-        user.games = user.games.filter( g => g.toString() !== args.roundId )
+        const game = await GameModel.findById(args.roundId)
+        const user = await UserModel.findById(context.loggedUser.id)
+
+        user.games = user.games.filter(g => g.toString() !== args.roundId)
         await user.save()
 
-        if ( game.players.length <= 1) {
-            await GameModel.findByIdAndDelete( args.roundId )
+        if (game.players.length <= 1) {
+            await GameModel.findByIdAndDelete(args.roundId)
         } else {
-            game.players = game.players.filter( p => p.user.toString() !== context.loggedUser.id )
+            game.players = game.players.filter(p => p.user.toString() !== context.loggedUser.id)
             await game.save()
         }
 
@@ -135,7 +139,7 @@ ${args.message}
         await peli.save()
         return "OK"
     },
-    
+
     login: async (root, args) => {
         const user = await UserModel.findOne({ user: args.user.toLowerCase() })
         if (user && (await bcrypt.compare(args.password, user.passwordHash) || await bcrypt.compare(args.password, user.tempPasswordHash))) {
@@ -207,14 +211,16 @@ ${args.message}
         if (!kaveri) {
             throw new UserInputError(`Henkilöä ${args.fName} ei löydy`)
         }
-        if (kaveri.friends.includes(myId)) {
+        else if (kaveri.friends.includes(myId)) {
             throw new UserInputError('Olette jo kavereita')
         }
-        if (kaveri.id == myId) {
+        else if (kaveri.id == myId) {
             throw new UserInputError("Oikeesti?")
         }
-        if (kaveri.friendRequests.includes(myId)) {
+        else if (kaveri.friendRequests.includes(myId)) {
             throw new UserInputError('Kaveripyyntö on jo lisätty')
+        } else if (kaveri.ignoreFriendRequests === true) {
+            throw new ForbiddenError('Henkilö on estänyt kaveripyynnöt')
         }
         kaveri.friendRequests.push(myId)
         kaveri.save()
@@ -230,14 +236,14 @@ ${args.message}
         if (user.friendRequests.find(f => f.id === friendId) === null) {
             throw new UserInputError('Kaveri ei ole lähettänyt pynntöä!?')
         }
-        
+
         user.friendRequests = user.friendRequests.filter(u => u.id != friendId)
         if (args.action) {
             const frendi = await UserModel.findById(friendId)
             if (!frendi) {
                 throw new UserInputError('Kaveria ei ole olemassa')
             }
-            if (user.friends.find( f=> f.id === friendId)) {
+            if (user.friends.find(f => f.id === friendId)) {
                 throw new UserInputError('Olette jo kavereita!?!?')
             }
             console.log('Lisätään kaveri', user)
@@ -272,7 +278,7 @@ ${args.message}
 
         await peli.save()
 
-        pubsub.publish("SCORE_SET", { changedCard: peli } )
+        pubsub.publish("SCORE_SET", { changedCard: peli })
 
         return peli
 
