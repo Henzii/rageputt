@@ -82,6 +82,18 @@ ${args.message}
         // Palauta uusi, päivitetty käyttäjä
         return user;
     },
+    deleteAccount: async (root, args, context) => {
+        if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
+        const id = context.loggedUser.id
+        const user = await UserModel.findById(id)
+        try {
+            await UserModel.findByIdAndDelete(id)
+            await GameModel.updateMany({ $pull: { players: { user: id } } })
+        } catch (e) {
+            throw new UserInputError('Virhe: ', e.message)
+        }
+        return "OK";
+    },
     deleteFriend: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
         return "TODO"

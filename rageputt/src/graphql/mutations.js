@@ -6,6 +6,11 @@ export const RESTORE_ACCOUNT = gql`
         restoreAccount( email: $email )
     }
 `
+export const DELETE_ACCOUNT = gql`
+    mutation deleteAccount {
+        deleteAccount
+    }
+`
 export const LOGIN = gql`
     mutation login($user: String!, $password: String!) {
         login(

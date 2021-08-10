@@ -35,6 +35,7 @@ const typeDefs = gql`
     }
     type Mutation {
         restoreAccount( email: String! ): String
+        deleteAccount: String
         login( user: String!, password: String!):Token
         createUser( user: String!, password: String!, name: String, email: String):User
         setScore( roundId: String!, round: ID!, player: String!, score: Int!): Game
