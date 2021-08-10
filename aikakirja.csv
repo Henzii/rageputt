@@ -43,4 +43,5 @@
 05.8.2021   2   Oma hookki tilastojen hakemiselle, tilastojen jako frontissa toimivaksi, notifikaation kaunistelua
 06.8.2021   2   Oma hookki tietyn pelin hakemiselle ja subscriptionin hallinta sille -> koko paska sekoaa, bugien metsästystä.
 08.8.2021   3   Ohjesivujen tekoa, palautesivu + backendiin että palautteet tulee sähköpostilla.
-09.8.2021   2   Kaverin poistoon testit backendiin, mahdollisuus hylätä kaikki kaveripyynnöt, mahdollisuus tunnuksen poistamiseen.
+09.8.2021   2   Kaverin poistoon testit backendiin, mahdollisuus hylätä kaikki kaveripyynnöt, mahdollisuus tunnuksen poistamiseen.¨
+10.8.2021   2   Tunnuksen poisto toimivaksi (ja että poistaa myös peleistä), kaverin poisto valmiiksi.
