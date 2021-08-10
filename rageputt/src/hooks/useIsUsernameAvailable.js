@@ -4,7 +4,7 @@ import { IS_USERNAME_AVAILABLE } from "../graphql/queries"
 
 const useIsUsernameAvailable = () => {
     
-    const [ getName, { loading, data } ] = useLazyQuery(IS_USERNAME_AVAILABLE)
+    const [ getName, { loading, data } ] = useLazyQuery(IS_USERNAME_AVAILABLE, { fetchPolicy: 'cache-and-network' })
     const [ username, setUsername ] = useState('')
     const [ available, setAvailable] = useState(null)
     const [ timerId, setTimerId ] = useState(null)

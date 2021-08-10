@@ -110,3 +110,8 @@ export const SEND_FRIEND_REQUEST = gql`
         )
     }
 `
+export const DELETE_FRIEND = gql`
+    mutation deleteFriend( $userId: ID! ) {
+        deleteFriend( userId: $userId )
+    }
+`
