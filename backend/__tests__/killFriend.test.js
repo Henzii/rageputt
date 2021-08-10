@@ -24,7 +24,7 @@ describe('Kaverin poistotestit', () => {
         const result = await App.server.executeOperation({
             query: `
                 mutation deleteFriend($userId: ID!) {
-                    deleteFriend(userId: $userId)
+                    deleteFriend(userId: $userId) { id }
                 }
             `,
             variables: { userId: testUser2.id }
@@ -39,14 +39,11 @@ describe('Kaverin poistotestit', () => {
     })
     test('Jos kaveripyynnöt estetty, pyyntö palauttaa errorin', async () => {
         testUser2['ignoreFriendRequests'] = true
-        testUser2.friends = []
-        testUser1.friends= []
         await testUser2.save();
-        await testUser1.save();
         const result = await App.server.executeOperation({
             query: `
                 mutation sendFriendRequest($fName: String!) {
-                    sendFriendRequest(fName: $fName)
+                    sendFriendRequest(fName: $fName) 
                 }
             `,
             variables: { fName: testUser2.user }
@@ -54,7 +51,6 @@ describe('Kaverin poistotestit', () => {
         expect(result.errors).toBeDefined()
 
         const getUser = await User.findById( testUser2.id )
-        console.log(getUser)
         expect(getUser.friendRequests.map(f=>f+'')).not.toContain(testUser1.id)
     })
     afterAll( () => {

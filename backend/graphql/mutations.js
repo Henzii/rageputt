@@ -85,7 +85,6 @@ ${args.message}
     deleteAccount: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
         const id = context.loggedUser.id
-        const user = await UserModel.findById(id)
         try {
             await UserModel.findByIdAndDelete(id)
             await GameModel.updateMany({ $pull: { players: { user: id } } })
@@ -96,7 +95,20 @@ ${args.message}
     },
     deleteFriend: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
-        return "TODO"
+        
+        const id = context.loggedUser.id
+
+        const friend = await UserModel.findById ( args.userId )
+        if (!friend || friend === null) {
+            throw new UserInputError('Epäkelpo kaverin ID')
+        }
+        friend.friends = friend.friends.filter(f => f+'' !== id)
+        await friend.save()
+
+        const user = await UserModel.findById( id )
+        user.friends = user.friends.filter(f => f+'' !== args.userId)
+        return await user.save()
+        
     },
     deleteGame: async (root, args, context) => {
         if (!context.loggedUser) throw new AuthenticationError('Kirjaudu sisään')
