@@ -1,9 +1,10 @@
 import { ChevronLeft } from '@material-ui/icons';
-import { Drawer, Divider, List, ListItem, IconButton } from '@material-ui/core'
+import { Drawer, Divider, List, IconButton } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import useStyles from '../hooks/useStyles';
 
+import { VetomenuListItem as ListItem } from './VetomenuListItem';
 
 
 const Vetomenu = ({ menuOpen, setMenuOpen }) => {
@@ -21,39 +22,32 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) => {
                     <ChevronLeft />
                 </IconButton>
                 <Divider className={tyylit.divider}/>
-                <List>
-                    <ListItem button component={Link} to="/" onClick={() => setMenuOpen(false)}>
+                <List style={{ paddinTop: 10 }}>
+                    <ListItem button component={Link} to="/" onClick={() => setMenuOpen(false)} divider={true}>
                         Etusivu
                     </ListItem>
-                <Divider className={tyylit.divider} />
 
-                    <ListItem disabled={notLogged} button component={Link} to="/peli" onClick={() => setMenuOpen(false)}>
+                    <ListItem divider={true} disabled={notLogged} button component={Link} to="/peli" onClick={() => setMenuOpen(false)}>
                         Uusi peli
                     </ListItem>
-                <Divider className={tyylit.divider} />
                     <ListItem disabled={notLogged} button component={Link} to="/vanhat" onClick={() => setMenuOpen(false)}>
                         Vanhat pelit
                     </ListItem>
-                    <ListItem disabled={notLogged} button component={Link} to="/stats" onClick={() => setMenuOpen(false)}>
+                    <ListItem disabled={notLogged} button component={Link} to="/stats"  divider={true} onClick={() => setMenuOpen(false)}>
                         Statistiikka
                     </ListItem>
-                <Divider className={tyylit.divider} />
-                    <ListItem disabled={notLogged} button component={Link} to="/kaverit" onClick={() => setMenuOpen(false)}>
+                    <ListItem disabled={notLogged} button component={Link} to="/kaverit"  divider={true} onClick={() => setMenuOpen(false)}>
                         Kaverit
                     </ListItem>
-                <Divider className={tyylit.divider} />
                     <ListItem component={Link} to="/asetukset" disabled={notLogged} button onClick={() => setMenuOpen(false)}>
                         Asetukset
                     </ListItem>
                     <ListItem component={Link} to="/ohje" button onClick={() => setMenuOpen(false)}>
                         Ohje
                     </ListItem>
-                    <ListItem component={Link} to="/palaute" button onClick={() => setMenuOpen(false)}>
+                    <ListItem component={Link} to="/palaute" button  divider={true} onClick={() => setMenuOpen(false)}>
                         Palaute
                     </ListItem>
-
-                    <Divider className={tyylit.divider} />
-
                     <ListItem button component={Link} to="/createUser" onClick={() => setMenuOpen(false)}>
                         Luo tunnus
                     </ListItem>

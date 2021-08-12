@@ -1,27 +1,28 @@
 {
   "files": {
     "main.css": "/static/css/main.1a72f552.chunk.css",
-    "main.js": "/static/js/main.e6d97d4d.chunk.js",
-    "main.js.map": "/static/js/main.e6d97d4d.chunk.js.map",
+    "main.js": "/static/js/main.7b001d76.chunk.js",
+    "main.js.map": "/static/js/main.7b001d76.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f373c1b4.js",
     "runtime-main.js.map": "/static/js/runtime-main.f373c1b4.js.map",
     "static/css/2.7fc9bc2b.chunk.css": "/static/css/2.7fc9bc2b.chunk.css",
-    "static/js/2.085c3f08.chunk.js": "/static/js/2.085c3f08.chunk.js",
-    "static/js/2.085c3f08.chunk.js.map": "/static/js/2.085c3f08.chunk.js.map",
+    "static/js/2.4aa8412b.chunk.js": "/static/js/2.4aa8412b.chunk.js",
+    "static/js/2.4aa8412b.chunk.js.map": "/static/js/2.4aa8412b.chunk.js.map",
     "index.html": "/index.html",
     "service-worker.js": "/service-worker.js",
     "service-worker.js.map": "/service-worker.js.map",
     "static/css/2.7fc9bc2b.chunk.css.map": "/static/css/2.7fc9bc2b.chunk.css.map",
     "static/css/main.1a72f552.chunk.css.map": "/static/css/main.1a72f552.chunk.css.map",
-    "static/js/2.085c3f08.chunk.js.LICENSE.txt": "/static/js/2.085c3f08.chunk.js.LICENSE.txt",
+    "static/js/2.4aa8412b.chunk.js.LICENSE.txt": "/static/js/2.4aa8412b.chunk.js.LICENSE.txt",
     "static/media/korti.2fd39798.png": "/static/media/korti.2fd39798.png",
-    "static/media/tkortti.dc5b766e.jpg": "/static/media/tkortti.dc5b766e.jpg"
+    "static/media/tkortti.dc5b766e.jpg": "/static/media/tkortti.dc5b766e.jpg",
+    "static/media/vanha_peli.71efa63e.png": "/static/media/vanha_peli.71efa63e.png"
   },
   "entrypoints": [
     "static/js/runtime-main.f373c1b4.js",
     "static/css/2.7fc9bc2b.chunk.css",
-    "static/js/2.085c3f08.chunk.js",
+    "static/js/2.4aa8412b.chunk.js",
     "static/css/main.1a72f552.chunk.css",
-    "static/js/main.e6d97d4d.chunk.js"
+    "static/js/main.7b001d76.chunk.js"
   ]
 }

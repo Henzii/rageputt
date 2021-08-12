@@ -22,9 +22,7 @@ describe('Pelin poistamisen testit', () => {
     test('Pelin poisto pelaajalta (2 pelaajaa)', async () => {
         const result = await App.server.executeOperation({
             query: `mutation deleteGame($roundId: String!) {
-                deleteGame( roundId: $roundId) {
-                    id
-                }
+                deleteGame( roundId: $roundId) 
             }`, variables: { roundId: testGame.id }
         }, { req: { headers: { authorization: `bearer ${token}`}}})
         

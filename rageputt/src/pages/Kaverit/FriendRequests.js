@@ -17,7 +17,7 @@ const KaveriKortti = ({ kaveri, handleFriendRequest }) => {
     return (
         <ListItem>
             <Grid container component={Paper} elevation={3}  className={tyylit.listPaper} justify="space-between" alignItems="center">
-                <Grid item xs={8}>
+                <Grid item xs={6}>
                     {kaveri.user} ({kaveri.name})
                 </Grid>
                 <Grid item>

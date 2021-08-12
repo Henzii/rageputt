@@ -3,7 +3,7 @@ import Page from "../../components/Page";
 import PageContainer from "../../components/PageContainer";
 import tuloskortti from '../../assets/tkortti.jpg';
 import etaisyys from '../../assets/korti.png';
-import { typography } from "@material-ui/system";
+import vanhapeli from '../../assets/vanha_peli.png';
 
 const Ohje = () => {
 
@@ -45,6 +45,14 @@ const Ohje = () => {
                         Kun 20 kierrosta on täynnä, valitse pelin asetukset -välilehdestä 'Päätä peli'. Peliä ei voi
                         enää muokata ja tulokset otetaan mukaan tilastoihin.
                     </Typography>
+                </Page>
+                <Page>
+                    <Typography variant="h4">Vanhat pelit</Typography>
+                    <Typography paragraph>
+                        Vanhat pelit -osiossa voit tarkastella, aktivoida tai poistaa vanhoja pelejäsi. Keskeneräisen pelin
+                        tunnistaa oranssista kolmiosta.
+                    </Typography>
+                    <img src={vanhapeli} alt="Vanha peli" style={{ width: '50%'}} />
                 </Page>
             </PageContainer>
         </Container>

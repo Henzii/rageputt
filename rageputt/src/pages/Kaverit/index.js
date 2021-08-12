@@ -26,10 +26,10 @@ const Kaverit = () => {
         e.preventDefault()
         sendFriendRequest({ variables: { name: e.target.kaveri.value } }).then(res => {
             dispatch(setNotification('Kaveripyyntö lähetetty!', 'success'))
+            e.target.kaveri.value = ''
         }).catch(e => {
             dispatch(setNotification('Pyyntö epäonnistui: ' + e.message, 'error'))
         })
-        e.target.kaveri.value = ''
     }
     const handleFriendRequest = async (friendId, answer) => {
         try {
@@ -49,7 +49,6 @@ const Kaverit = () => {
     if (loading || !me) {
         return (<CircularProgress />)
     }
-    console.log(me)
     return (
         <Container>
             <Typography variant="h4">Kaverit</Typography>

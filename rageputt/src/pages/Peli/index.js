@@ -10,7 +10,7 @@ import { Redirect } from 'react-router'
 
 import TabPanel from '../../components/TabPanel'
 
-import { GET_ROUND, GET_GAMES } from '../../graphql/queries'
+import { GET_GAMES } from '../../graphql/queries'
 import { CREATE_GAME, DELETE_GAME, END_GAME } from '../../graphql/mutations'
 
 import { Container } from '@material-ui/core'
@@ -34,7 +34,7 @@ const Peli = () => {
 
     const handleNewGame = async (pelaajat) => {
         try {
-            const res = await uusiPeli({ variables: { pelaajat: pelaajat }, refetchQueries: [{ query: GET_GAMES } ] })
+            const res = await uusiPeli({ variables: { pelaajat: pelaajat }, refetchQueries: [{ query: GET_GAMES }] })
             dispatch({ type: 'SET_ID', data: { roundId: res.data.createGame } })
             dispatch(setNotification('Uusi peli luotu', 'info'))
         } catch (e) {

@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client"
-import { TextField, Divider, Container, Typography, Grid } from "@material-ui/core"
+import { TextField, Divider, Container, Typography, Grid, Backdrop, CircularProgress } from "@material-ui/core"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { Redirect } from "react-router"
@@ -42,7 +42,7 @@ const CreateUserForm = () => {
         }
     }
     if (cuData.loading) {
-        return (<h2>Creating user...</h2>)
+        return (<Backdrop><CircularProgress /></Backdrop>)
     }
     if (cuData.called && !cuData.error) {
         return (<Redirect to="/login" />)

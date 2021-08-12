@@ -15,6 +15,10 @@ const useStyles = makeStyles( {
     },
     divider: {
         margin: 0,
+    },
+    vetoMenuListItem: {
+        paddingTop: 13,
+        paddingBottom: 13,
     }
 });
 export default useStyles;

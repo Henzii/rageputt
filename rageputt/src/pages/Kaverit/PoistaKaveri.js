@@ -31,12 +31,14 @@ const PoistaKaveri = ({me, refetch}) => {
         setVahvistus(false)
         setKaveri('')
     }
-
     return (
         <>
         <Typography variant="h5">Poista kaveri</Typography>
-        <TextField variant="outlined" value={kaveri} onChange={(e) => setKaveri(e.target.value)} size="small" placeholder="Kaverin tunnus..."/>&nbsp;
-        <Button variant="contained" color="primary" onClick={() => setVahvistus(true)}>Poista</Button>
+        <TextField variant="outlined" value={kaveri} onChange={(e) => setKaveri(e.target.value.toLowerCase())} size="small" placeholder="Kaverin tunnus..."/>&nbsp;
+        <Button variant="contained" color="primary" 
+            onClick={() => setVahvistus(true)}
+            disabled={!me.friends.find(k=>k.user === kaveri)}
+        >Poista</Button>
         <YesNoModal open={vahvistus} 
             title="Vahvista poisto"
             text={`Haluatko varmasti poistaa kverin ${kaveri}`}

@@ -68,6 +68,10 @@ const LoginForm = () => {
             <Typography paragraph>
                 <Link to="/palautus">Voi ei, unohdin salasanani</Link>
             </Typography>
+            <Typography variant="h6">Luo tunnus</Typography>
+            <Typography paragraph>
+                <Link to="/createUser">Luo tunnus</Link>
+            </Typography>
         </Container>
     )
 }
