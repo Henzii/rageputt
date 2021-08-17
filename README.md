@@ -9,8 +9,8 @@ https://github.com/Henzii/rageputt
 Työaikakirjanpito
 https://docs.google.com/spreadsheets/d/e/2PACX-1vSl3JXYGhwwIkhF6DZZD7e3NuJrpGy9zkUn7axzwgiSdcCAAQvbnnsi7ElqTUIb-9GfQvWRlK_WgFYA/pubhtml
 
-CSV-versio työaikakirjanpidost löytyy GitHubista
-https://github.com/Henzii/rageputt/blob/main/aikakirja.csv
+TSV-versio työaikakirjanpidost löytyy GitHubista
+https://github.com/Henzii/rageputt/blob/main/aikakirja.tsv
 
 Sovelluksen käyttöohjeita
 https://github.com/Henzii/rageputt/blob/main/PIKAOHJE.md
@@ -20,3 +20,4 @@ RagePutt
 ========
 
 Sovelluksen idea on pitää kirjaa frisbeegolf puttipelien (JYLY) tuloksista.
+
