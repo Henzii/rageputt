@@ -1,5 +1,7 @@
-Voit luoda itsellesi tunnukset sovellukseen 'Luo tunnus' -sivulta. Voi myös käyttää seuraavia testitunnuksia.
-Testitunnuksia on kolme (tester1, tester2 ja tester3). Jokaisen salasana on "password".
+Uuden tunnuksen luominen onnistuu sovellukseen 'Luo tunnus' -sivulta. 
+
+Testitunnuksia on kolme: tester1, tester2 ja tester3. Jokaisen salasana on "password".
+Testerit ovat kavereita keskenään, tester3 on estänyt kaikki kaveripyynnöt ja tilastojen jakamisen.
 
 Uuden pelin aloittaminen onnistuu 'Uusi peli' -osiosta. Peliä luodessa voit valita ketkä kaverit ovat mukana.
 Tulokset syötetään vastaavaan radionappiin. Seuraavaan kierrokseen siirtyminen onnistuu klikkaamalla > -nappia.
