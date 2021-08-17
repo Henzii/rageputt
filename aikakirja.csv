@@ -1,9 +1,9 @@
-25.5.2021	1,5	Frontendiin Material-UI:lla jonkinlainen menu ja pari formia. 
-27.5.2021	3	ApolloServer, Mongoose skeemoja | Peli-sivun teko fronttiin ja reduxin kanssa tappelemista.
-29.5.2021	1	GraphQL:ää bäkkäriin, login ja usercreate toimivaksi backendissä. 
-1.6.2021    2,5 Apolloa fronttiin, login ja user create toimivaksi frontissa. Notifikaation teko
-2.6.2021    1   GraphQL:n tekemistä.
-3.6.2021    2,5 GraphQL:n kanssa tappelua, Material-UI Modali ja sen tyylittelyä.
+25.5.2021   1,5	Frontendiin Material-UI:lla jonkinlainen menu ja pari formia. 
+27.5.2021   3	ApolloServer, Mongoose skeemoja | Peli-sivun teko fronttiin ja reduxin kanssa tappelemista.
+29.5.2021   1	GraphQL:ää bäkkäriin, login ja usercreate toimivaksi backendissä. 
+1.06.2021   2,5 Apolloa fronttiin, login ja user create toimivaksi frontissa. Notifikaation teko
+2.06.2021    1   GraphQL:n tekemistä.
+3.06.2021    2,5 GraphQL:n kanssa tappelua, Material-UI Modali ja sen tyylittelyä.
 4.6.2021    1   Pelin luonti frontissa "toimivaksi", backendissä käyttäjän luominen ja login siirretty mongoon.
 6.6.2021    3   Token toimivaksi frontissa ja bäkissä. Datan siirtäminen mongoon. 
 7.6.2021    1   Frontin siistimistä 
@@ -45,3 +45,4 @@
 08.8.2021   3   Ohjesivujen tekoa, palautesivu + backendiin että palautteet tulee sähköpostilla.
 09.8.2021   2   Kaverin poistoon testit backendiin, mahdollisuus hylätä kaikki kaveripyynnöt, mahdollisuus tunnuksen poistamiseen.¨
 10.8.2021   2   Tunnuksen poisto toimivaksi (ja että poistaa myös peleistä), kaverin poisto valmiiksi.
+12.8.2021

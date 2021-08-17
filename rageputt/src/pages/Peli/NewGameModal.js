@@ -24,7 +24,7 @@ const NewGameModal = ({ open, setModal, handleNewGame }) => {
                     <Typography variant="h5">Valitse pelaajat</Typography>
                     <FormGroup>
                         <FormControlLabel control={<Checkbox checkedIcon={<Person fontSize="large" />} checked={true} />} label="Minä" />
-                        {me.friends.map(f => <KaveriCheckBox kaverit={kaverit} setKaverit={setKaverit} key={f.user} kaveri={f} />)}
+                        {me.friends.map(f => <KaveriCheckBox kaverit={kaverit} setKaverit={setKaverit} key={f.id} kaveri={f} />)}
                     </FormGroup>
                     <Grid container justify="space-around" style={{ marginTop: 20 }}>
                         <Grid item><Button color="primary" variant="contained" onClick={() => handleNewGame(kaverit)}>Aloita peli</Button></Grid>

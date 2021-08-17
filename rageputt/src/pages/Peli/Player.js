@@ -18,7 +18,7 @@ const Player = ({ player, round }) => {
     const [loading, setLoading] = useState(null)
 
     const [setScore] = useMutation(SET_SCORE, { variables: { roundId: roundData.roundId } })
-
+    console.log(player)
     const handleChange = (e) => {
         setLoading(e.target.value)
         setScore({
@@ -52,26 +52,26 @@ const Player = ({ player, round }) => {
             <CardContent style={{padding: '15px 0px'}}>
                 <RadioGroup row value={putteja} onChange={handleChange}>
                     <Grid container alignContent='space-between'>
-                        <RadioButtons loading={loading} />
+                        <RadioButtons loading={loading} user={player.user.user} />
                     </Grid>
                 </RadioGroup>
             </CardContent>
         </Card>
     )
 }
-const RadioButtons = ({ loading }) => {
+const RadioButtons = ({ loading, user }) => {
     const palautus = []
     var i
     for (i = 0; i < 6; i++) {
         if (loading && i === Number(loading)) {
             palautus.push(
-                <CircularProgress />
+                <CircularProgress key={user+i+'loading'}/>
             )
         }
         else {
             palautus.push(
                 <Grid item xs={2}
-                    key={i}
+                    key={user+i}
                 >
                     <FormControlLabel
                         labelPlacement="top"

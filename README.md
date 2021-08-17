@@ -12,5 +12,11 @@ https://docs.google.com/spreadsheets/d/e/2PACX-1vSl3JXYGhwwIkhF6DZZD7e3NuJrpGy9z
 CSV-versio työaikakirjanpidost löytyy GitHubista
 https://github.com/Henzii/rageputt/blob/main/aikakirja.csv
 
+Sovelluksen käyttöohjeita
+https://github.com/Henzii/rageputt/blob/main/PIKAOHJE.md
+Sovelluksessa on myös Ohje-sivu.
 
+RagePutt
+========
 
+Sovelluksen idea on pitää kirjaa frisbeegolf puttipelien (JYLY) tuloksista.

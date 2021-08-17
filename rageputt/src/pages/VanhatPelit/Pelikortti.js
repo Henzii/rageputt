@@ -30,8 +30,8 @@ const Pelikortti = ({ peli, aktivoi, poista, user }) => {
                     </IconButton>
                 }
 
-                title={ (showStats) ? pisteet : null}
-                subheader={ ((showStats) ? timestamp2String(peli.timestamp) : pisteet) }
+                title={ (showStats) ? pisteet+' pistettä' : null}
+                subheader={ ((showStats) ? timestamp2String(peli.timestamp) : pisteet+' pistettä') }
             />
             <Collapse in={showStats} unmountOnExit timeout="auto">
                 <CardContent style={{paddingTop: '0px'}}>
@@ -40,6 +40,7 @@ const Pelikortti = ({ peli, aktivoi, poista, user }) => {
                     <Typography>
                         Puttiprossa: { (tulokset.reduce((total, cur) => total+cur) / (tulokset.length*5) * 100).toFixed()}
                     </Typography>
+                    <Typography>Pelaajia: {peli.players.length}</Typography>
                     <BarChart data={tulokset2ChartData(tulokset)} />
                 </CardContent>
             </Collapse>
