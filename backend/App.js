@@ -33,7 +33,7 @@ const kaynnista = async () => {
     
     await server.start()
     
-    app.use('/', express.static('../rageputt/build'))
+    app.use(express.static('../rageputt/build'))
     app.use(cors())
     server.applyMiddleware({ app })
 

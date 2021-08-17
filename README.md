@@ -3,7 +3,7 @@ Fullstackopen 2021 harjoitustyö
 Sovellus löytyy osoitteesta
 https://rageputt.herokuapp.com/
 
-GitHub repositorio
+GitHub
 https://github.com/Henzii/rageputt
 
 Työaikakirjanpito
@@ -15,6 +15,7 @@ https://github.com/Henzii/rageputt/blob/main/aikakirja.tsv
 Sovelluksen käyttöohjeita
 https://github.com/Henzii/rageputt/blob/main/PIKAOHJE.md
 Sovelluksessa on myös Ohje-sivu.
+
 
 RagePutt
 ========
