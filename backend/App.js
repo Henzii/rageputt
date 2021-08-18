@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-
+const path = require('path');
 const mongoose = require('mongoose')
 
 require('dotenv').config();
@@ -35,6 +35,11 @@ const kaynnista = async () => {
     
     app.use(express.static('../rageputt/build'))
     app.use(cors())
+
+    app.get('*', function (req, res) {
+        res.sendFile(path.resolve(__dirname, '../rageputt/build/index.html'));
+    });
+
     server.applyMiddleware({ app })
 
     const httpServer = http.createServer(app)
