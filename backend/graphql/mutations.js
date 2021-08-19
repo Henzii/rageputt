@@ -226,7 +226,12 @@ ${args.message}
             `)
             console.log(maili)
         }
-        return newUser;
+        const forToken = {
+            user: newUser.user,
+            id: newUser.id
+        }
+        const token = jwt.sign(forToken, process.env.TOKEN_KEY)
+        return { value: token, user: { user: newUser.user, name: newUser.name } };
     },
     sendFriendRequest: async (root, args, context) => {
         if (!context.loggedUser?.user) {

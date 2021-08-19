@@ -75,7 +75,7 @@ export const SET_SCORE = gql`
             finished
             timestamp
             players {
-                user { user }
+                user { user name }
                 tulokset
             }
         }
@@ -89,7 +89,8 @@ export const CREATE_USER = gql`
             name: $name
             email: $email
         ) {
-            user
+            value
+            user { user name }
         }
     }
 `

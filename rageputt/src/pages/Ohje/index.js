@@ -4,9 +4,12 @@ import PageContainer from "../../components/PageContainer";
 import tuloskortti from '../../assets/tkortti.jpg';
 import etaisyys from '../../assets/korti.png';
 import vanhapeli from '../../assets/vanha_peli.png';
+import { useSelector } from "react-redux";
 
 const Ohje = () => {
 
+    const user = useSelector(state => state.user);
+    console.log(user);
 
     return (
         <Container>

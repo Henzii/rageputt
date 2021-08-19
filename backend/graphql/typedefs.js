@@ -37,7 +37,7 @@ const typeDefs = gql`
         restoreAccount( email: String! ): String
         deleteAccount: String
         login( user: String!, password: String!):Token
-        createUser( user: String!, password: String!, name: String, email: String):User
+        createUser( user: String!, password: String!, name: String, email: String):Token
         setScore( roundId: String!, round: ID!, player: String!, score: Int!): Game
         finishGame( roundId: String! ): String
         createGame( pelaajat: [String]): String

@@ -48,11 +48,9 @@ const Vetomenu = ({ menuOpen, setMenuOpen }) => {
                     <ListItem component={Link} to="/palaute" button  divider={true} onClick={() => setMenuOpen(false)}>
                         Palaute
                     </ListItem>
-                    <ListItem button component={Link} to="/createUser" onClick={() => setMenuOpen(false)}>
-                        Luo tunnus
-                    </ListItem>
+                    {(notLogged && <ListItem button component={Link} to="/createUser" onClick={() => setMenuOpen(false)}>Luo tunnus</ListItem>)}
                     <ListItem button component={Link} to="/login" onClick={() => setMenuOpen(false)}>
-                        Kirjaudu sisään
+                        Kirjaudu {(!notLogged) ? 'ulos' : 'sisään'}
                     </ListItem>
 
                 </List>
