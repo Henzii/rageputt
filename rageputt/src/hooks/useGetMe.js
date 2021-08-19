@@ -12,7 +12,7 @@ const useGetMe = () => {
     const updateCache = (updateData) => {
         apolloCacheUpdate(client, GET_ME, updateData, 'getMe')
     }
-    return { me: data.getMe ?? null, loading, refetch, updateCache };
+    return { me: data?.getMe ?? null, loading, refetch, updateCache };
 }
 
 export default useGetMe;
