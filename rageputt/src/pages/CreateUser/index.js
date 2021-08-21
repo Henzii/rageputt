@@ -11,8 +11,6 @@ import Button from '../../components/Button'
 import useIsUsernameAvailable from "../../hooks/useIsUsernameAvailable"
 import { setUser } from "../../reducers/userReducer"
 
-import { GET_ME } from "../../graphql/queries"
-
 const CreateUserForm = () => {
 
     const [createUser, cuData] = useMutation(CREATE_USER)

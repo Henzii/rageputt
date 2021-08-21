@@ -16,11 +16,12 @@ const useGetGames = (id = null) => {
             if (query.error) {
                 dispatch( setNotification('Käyttäjä on estänyt jakamisen', 'error'))
             }
-            else { 
+            else {
                 setGames(query.data.getGames)
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query])
-    return { games, setUserId, userId };
+    return { games: (query.loading ? null: games), setUserId, userId };
 }
 export default useGetGames;

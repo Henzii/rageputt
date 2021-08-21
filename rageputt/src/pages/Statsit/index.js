@@ -1,6 +1,6 @@
 import { ArgumentAxis, ValueAxis, LineSeries, Chart, Title } from '@devexpress/dx-react-chart-material-ui'
 import { Backdrop, CircularProgress, Grid, Container, Typography, Paper } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+
 import { laskePisteet, tulokset2ChartData } from '../../utils/stuff'
 import BarChart from '../../components/BarChart'
 import { Animation } from '@devexpress/dx-react-chart'
@@ -11,8 +11,8 @@ import useGetGames from '../../hooks/useGetGames'
 const Statsit = () => {
 
     const { games, setUserId, userId } = useGetGames();
-    const user = useSelector(state => state.user)
     const { me } = useGetMe()
+
     if (games === null || me === null) {
         return (
             <Backdrop open={true}>
@@ -27,7 +27,6 @@ const Statsit = () => {
     for (let i = 0; i < games.length; i++) {
 
         if (!games[i].finished) continue    // Ei lasketa keskeneräisiä pelejä mukaan
-        console.log({ userId, user: user.id })
         const player = games[i].players.find(p => p.user.id === (userId) ? userId : me.id )
         kaikkiPuttiProssat = tulokset2ChartData(player.tulokset, kaikkiPuttiProssat)
         const pisteet = laskePisteet(player.tulokset)
@@ -38,6 +37,7 @@ const Statsit = () => {
     kaveritMap.set('Minä', me.id)
     for (const kaveri of me.friends)
         kaveritMap.set(kaveri.name, kaveri.id)
+    console.log('Data from ' + userId);
     return (
         <Container>
             <Typography variant="h5">
@@ -65,7 +65,7 @@ const Statsit = () => {
                         argumentField="game"
                         valueField="score"
                     />
-                    <Animation />
+                    
                 </Chart>
             </Paper>
         </Container>
