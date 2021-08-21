@@ -27,6 +27,7 @@ const Statsit = () => {
     for (let i = 0; i < games.length; i++) {
 
         if (!games[i].finished) continue    // Ei lasketa keskeneräisiä pelejä mukaan
+        console.log(userId);
         const player = games[i].players.find(p => p.user.id === (userId) ? userId : me.id )
         kaikkiPuttiProssat = tulokset2ChartData(player.tulokset, kaikkiPuttiProssat)
         const pisteet = laskePisteet(player.tulokset)
@@ -37,7 +38,6 @@ const Statsit = () => {
     kaveritMap.set('Minä', me.id)
     for (const kaveri of me.friends)
         kaveritMap.set(kaveri.name, kaveri.id)
-    console.log(userId, games);
     return (
         <Container>
             <Typography variant="h5">
