@@ -37,7 +37,8 @@ const kaynnista = async () => {
     app.use(cors())
 
     app.get('*', function (req, res) {
-        res.sendFile(path.resolve(__dirname, '../rageputt/build/index.html'));
+        if (!req.path.startsWith('/graphql'))
+            res.sendFile(path.resolve(__dirname, '../rageputt/build/index.html'));
     });
 
     server.applyMiddleware({ app })
