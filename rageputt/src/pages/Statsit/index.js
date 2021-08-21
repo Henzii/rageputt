@@ -37,7 +37,7 @@ const Statsit = () => {
     kaveritMap.set('Minä', me.id)
     for (const kaveri of me.friends)
         kaveritMap.set(kaveri.name, kaveri.id)
-    console.log('Data from ' + userId);
+    console.log(userId, games);
     return (
         <Container>
             <Typography variant="h5">
