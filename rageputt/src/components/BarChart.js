@@ -14,6 +14,7 @@ const BarChart = ({ data, otsikko='', paperStyle=false, paperProps=null } ) => {
                 <BarSeries
                     argumentField="dist"
                     valueField="prossa"
+                    
                 />
                 <Animation />
             </Chart>
