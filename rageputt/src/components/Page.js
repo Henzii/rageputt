@@ -1,4 +1,4 @@
-import { Fade, Paper } from '@material-ui/core'
+import { Paper } from '@material-ui/core'
 import useStyles from '../hooks/useStyles'
 
 const Page = (props) => {
