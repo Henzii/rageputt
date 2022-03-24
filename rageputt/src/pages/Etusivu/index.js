@@ -1,5 +1,6 @@
 import { Container, Typography, Paper, Link } from '@material-ui/core'
 import useStyles from '../../hooks/useStyles'
+import { useLocation } from 'react-router-dom'
 
 import Aos from 'aos';
 import 'aos/dist/aos.css';
@@ -8,6 +9,10 @@ import { useEffect } from 'react';
 const Etusivu = () => {
 
     const tyylit = useStyles()
+    
+    // Jos osoite päättyy '/test' -> näytetään myöhempänä testitunnukset
+    const location = useLocation();
+    const testMode = location.pathname === "/test"
 
     useEffect(() => {
         Aos.init({ duration: 3000 })
@@ -15,6 +20,15 @@ const Etusivu = () => {
 
     return (
         <Container>
+            {testMode && 
+                <Paper className={tyylit.paper} id="testitunnarit">
+                    <Typography variant="h3">Testaa!</Typography>
+                    <Typography>
+                        Jos et halua luoda omia tunnuksia, mutta silti testata sovelluksen toimintaa,
+                        voit antaa tunnukseksi <b>tester1</b> ja salasanaksi <b>password</b>.
+                    </Typography>
+                </Paper>
+            }
             <Paper className={tyylit.paper} id="iso-naytto">
                 <Typography variant="h4">
                     Iso näyttö
